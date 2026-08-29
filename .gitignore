@@ -1,0 +1,16 @@
+# Secrets — garde-fou #2 du skill cod-store-build
+.env
+.env.*
+!.env.example
+credentials.json
+*.pem
+*.key
+
+# Exports de commandes : contiennent noms, téléphones et adresses clients
+exports/
+*.orders.csv
+*.orders.xlsx
+
+# Divers
+node_modules/
+.DS_Store
