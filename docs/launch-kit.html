@@ -1,0 +1,670 @@
+<title>Kit de lancement — Accessoires auto</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+
+<style>
+  :root{
+    --ground:#EFF2F1; --surface:#FFFFFF; --surface-2:#E6EAE9;
+    --ink:#161B1B; --ink-2:#3E4847; --muted:#6B7877; --line:#D2D9D8; --line-2:#BFC8C7;
+    --accent:#0E6E6E; --accent-soft:#DCEAE9;
+    --go:#2F6B4F; --go-soft:#DEEBE4;
+    --kill:#A32E22; --kill-soft:#F5DFDC;
+    --warn:#96600C; --warn-soft:#F3E7D2;
+    --shadow:0 1px 2px rgba(20,32,32,.06), 0 8px 24px -16px rgba(20,32,32,.28);
+    color-scheme:light;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --ground:#0F1413; --surface:#161C1B; --surface-2:#1F2726;
+      --ink:#E7ECEB; --ink-2:#BAC4C3; --muted:#889695; --line:#2A3433; --line-2:#3A4645;
+      --accent:#4FB3AE; --accent-soft:#16302F;
+      --go:#6FBE93; --go-soft:#152A21;
+      --kill:#E2796B; --kill-soft:#2E1917;
+      --warn:#D9A857; --warn-soft:#2B2214;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.7);
+      color-scheme:dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#0F1413; --surface:#161C1B; --surface-2:#1F2726;
+    --ink:#E7ECEB; --ink-2:#BAC4C3; --muted:#889695; --line:#2A3433; --line-2:#3A4645;
+    --accent:#4FB3AE; --accent-soft:#16302F;
+    --go:#6FBE93; --go-soft:#152A21;
+    --kill:#E2796B; --kill-soft:#2E1917;
+    --warn:#D9A857; --warn-soft:#2B2214;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 8px 24px -16px rgba(0,0,0,.7);
+    color-scheme:dark;
+  }
+
+  *,*::before,*::after{box-sizing:border-box}
+  body{
+    background:var(--ground); color:var(--ink);
+    font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+    font-size:15px; line-height:1.62; margin:0;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:920px; margin:0 auto; padding:0 24px 96px}
+
+  /* ---------- masthead ---------- */
+  .mast{padding:56px 0 28px; border-bottom:2px solid var(--ink)}
+  .mast .kicker{
+    font-family:"IBM Plex Mono",monospace; font-size:11px; font-weight:500;
+    letter-spacing:.14em; text-transform:uppercase; color:var(--accent); margin:0 0 14px;
+  }
+  .mast h1{
+    font-family:"Barlow Condensed",Impact,sans-serif; font-weight:700;
+    font-size:clamp(40px,7.5vw,68px); line-height:.94; letter-spacing:.005em;
+    text-transform:uppercase; margin:0 0 16px; text-wrap:balance;
+  }
+  .mast .standfirst{font-size:17px; color:var(--ink-2); max-width:60ch; margin:0 0 22px}
+  .specs{
+    display:grid; grid-template-columns:repeat(auto-fit,minmax(132px,1fr));
+    gap:1px; background:var(--line); border:1px solid var(--line); margin-top:26px;
+  }
+  .spec{background:var(--surface); padding:11px 13px}
+  .spec dt{
+    font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--muted); margin:0 0 3px;
+  }
+  .spec dd{margin:0; font-weight:600; font-size:14px; font-variant-numeric:tabular-nums}
+
+  /* ---------- sections ---------- */
+  section{padding-top:52px}
+  .shead{display:flex; align-items:baseline; gap:14px; border-bottom:1px solid var(--line-2); padding-bottom:9px; margin-bottom:26px}
+  .code{
+    font-family:"IBM Plex Mono",monospace; font-weight:600; font-size:12px;
+    color:var(--accent); letter-spacing:.06em; flex:none;
+  }
+  .shead h2{
+    font-family:"Barlow Condensed",Impact,sans-serif; font-weight:600;
+    font-size:clamp(25px,4vw,34px); line-height:1.05; letter-spacing:.02em;
+    text-transform:uppercase; margin:0;
+  }
+  h3{
+    font-family:"Barlow Condensed",Impact,sans-serif; font-weight:600; font-size:22px;
+    letter-spacing:.035em; text-transform:uppercase; margin:34px 0 10px; line-height:1.15;
+  }
+  h4{font-size:14px; font-weight:600; margin:22px 0 7px; letter-spacing:.01em}
+  p{margin:0 0 14px; max-width:68ch}
+  ul,ol{margin:0 0 14px; padding-left:19px; max-width:68ch}
+  li{margin-bottom:5px}
+  a{color:var(--accent)}
+  strong{font-weight:600}
+  em{font-style:normal; background:var(--accent-soft); padding:0 3px; border-radius:2px}
+
+  .lede{font-size:16px; color:var(--ink-2); max-width:64ch}
+
+  /* ---------- tables ---------- */
+  .scroll{overflow-x:auto; margin:0 0 18px; border:1px solid var(--line); background:var(--surface)}
+  table{border-collapse:collapse; width:100%; font-size:13.5px; min-width:460px}
+  th,td{text-align:left; padding:9px 13px; border-bottom:1px solid var(--line); vertical-align:top}
+  thead th{
+    font-family:"IBM Plex Mono",monospace; font-size:10px; font-weight:600;
+    letter-spacing:.1em; text-transform:uppercase; color:var(--muted);
+    background:var(--surface-2); border-bottom:1px solid var(--line-2); white-space:nowrap;
+  }
+  tbody tr:last-child td{border-bottom:none}
+  .num{font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums; white-space:nowrap}
+
+  /* ---------- chips ---------- */
+  .chip{
+    display:inline-block; font-family:"IBM Plex Mono",monospace; font-size:10px;
+    font-weight:600; letter-spacing:.08em; text-transform:uppercase;
+    padding:2px 7px; border-radius:2px; white-space:nowrap;
+  }
+  .chip-go{background:var(--go-soft); color:var(--go)}
+  .chip-kill{background:var(--kill-soft); color:var(--kill)}
+  .chip-warn{background:var(--warn-soft); color:var(--warn)}
+  .chip-acc{background:var(--accent-soft); color:var(--accent)}
+
+  /* ---------- callout ---------- */
+  .note{
+    background:var(--surface); border:1px solid var(--line);
+    border-left:3px solid var(--accent); padding:15px 17px; margin:20px 0; box-shadow:var(--shadow);
+  }
+  .note.alert{border-left-color:var(--kill)}
+  .note.flag{border-left-color:var(--warn)}
+  .note > :last-child{margin-bottom:0}
+  .note .ntitle{
+    font-family:"IBM Plex Mono",monospace; font-size:10px; font-weight:600;
+    letter-spacing:.11em; text-transform:uppercase; color:var(--muted); margin:0 0 7px;
+  }
+
+  /* ---------- name cards ---------- */
+  .names{display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:14px; margin-bottom:20px}
+  .ncard{background:var(--surface); border:1px solid var(--line); padding:14px 15px; box-shadow:var(--shadow)}
+  .ncard .terr{
+    font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--accent); margin:0 0 9px;
+  }
+  .ncard ul{list-style:none; padding:0; margin:0}
+  .ncard li{display:flex; gap:9px; align-items:baseline; padding:5px 0; border-top:1px solid var(--line)}
+  .ncard li:first-child{border-top:none}
+  .nm{font-family:"Barlow Condensed",sans-serif; font-weight:600; font-size:19px; letter-spacing:.03em; text-transform:uppercase; flex:none; min-width:82px}
+  .gloss{font-size:12.5px; color:var(--muted); line-height:1.4}
+
+  /* ---------- calculator ---------- */
+  .calc{background:var(--surface); border:1px solid var(--line-2); box-shadow:var(--shadow); margin:22px 0}
+  .calc-head{
+    display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap;
+    padding:12px 17px; background:var(--surface-2); border-bottom:1px solid var(--line-2);
+  }
+  .calc-head h3{margin:0; font-size:19px}
+  .calc-body{display:grid; grid-template-columns:repeat(auto-fit,minmax(168px,1fr)); gap:14px; padding:17px}
+  .field label{
+    display:block; font-family:"IBM Plex Mono",monospace; font-size:10px; font-weight:500;
+    letter-spacing:.08em; text-transform:uppercase; color:var(--muted); margin-bottom:5px;
+  }
+  .field input{
+    width:100%; padding:8px 10px; font-family:"IBM Plex Mono",monospace; font-size:14px;
+    font-variant-numeric:tabular-nums; background:var(--ground); color:var(--ink);
+    border:1px solid var(--line-2); border-radius:2px;
+  }
+  .field input:focus-visible{outline:2px solid var(--accent); outline-offset:1px}
+  .readout{border-top:1px solid var(--line-2); padding:17px}
+  .rline{
+    display:flex; justify-content:space-between; gap:16px; padding:6px 0;
+    font-size:13.5px; border-bottom:1px dotted var(--line);
+  }
+  .rline span:last-child{font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums; font-weight:500}
+  .rline.neg span:last-child{color:var(--kill)}
+  .verdict{
+    display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap;
+    margin-top:14px; padding:13px 15px; border:1px solid var(--line-2); background:var(--ground);
+  }
+  .verdict .vlabel{font-family:"IBM Plex Mono",monospace; font-size:10px; letter-spacing:.11em; text-transform:uppercase; color:var(--muted)}
+  .verdict .vnum{font-family:"Barlow Condensed",sans-serif; font-weight:700; font-size:34px; line-height:1; font-variant-numeric:tabular-nums}
+
+  /* ---------- scripts ---------- */
+  .beat{display:grid; grid-template-columns:64px 1fr; gap:0; border:1px solid var(--line); background:var(--surface); margin-bottom:-1px}
+  .beat .t{
+    font-family:"IBM Plex Mono",monospace; font-size:11px; font-weight:600; color:var(--accent);
+    padding:11px 0 11px 13px; border-right:1px solid var(--line); white-space:nowrap;
+  }
+  .beat .b{padding:11px 14px; font-size:13.5px}
+  .beat .b .dir{color:var(--muted); font-size:12.5px; display:block; margin-top:3px}
+  .ar{font-size:17px; line-height:1.7; direction:rtl; unicode-bidi:isolate; display:inline-block}
+  .translit{font-style:italic; color:var(--ink-2)}
+
+  footer{margin-top:64px; padding-top:22px; border-top:2px solid var(--ink); font-size:12.5px; color:var(--muted)}
+
+  @media (max-width:560px){
+    .wrap{padding:0 16px 64px}
+    .beat{grid-template-columns:52px 1fr}
+    .nm{min-width:70px; font-size:17px}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+</style>
+
+<div class="wrap">
+
+<header class="mast">
+  <p class="kicker">Accessoires auto · Maroc · COD · Budget 10 000 DH</p>
+  <h1>Kit de lancement</h1>
+  <p class="standfirst">Nom, offre, prix, créas et calendrier de contenu pour une gamme de trois produits.
+  Tout ce qui ne dépend pas encore du statut légal ni des prix Derb Omar est ici, prêt à exécuter.</p>
+  <dl class="specs">
+    <div class="spec"><dt>Héros</dt><dd>Organisateur entre-sièges</dd></div>
+    <div class="spec"><dt>Upsell 1</dt><dd>Support tél. magnétique</dd></div>
+    <div class="spec"><dt>Upsell 2</dt><dd>Aspirateur sans fil</dd></div>
+    <div class="spec"><dt>Meta</dt><dd>Compte 2016 · pixel neuf</dd></div>
+    <div class="spec"><dt>TikTok</dt><dd>Compte neuf</dd></div>
+    <div class="spec"><dt>Statut légal</dt><dd>En cours</dd></div>
+  </dl>
+</header>
+
+<!-- ============ A ============ -->
+<section id="verdict">
+  <div class="shead"><span class="code">§A</span><h2>Ce que disent les chiffres avant de dépenser un dirham</h2></div>
+
+  <p class="lede">J'ai passé ta gamme dans la formule de marge du skill avant d'écrire une seule ligne de créa.
+  Un résultat change la stratégie de prix, et il vaut la peine d'être lu en premier.</p>
+
+  <div class="note alert">
+    <p class="ntitle">Résultat structurant</p>
+    <p><strong>Le produit héros vendu seul ne peut pas être rentable.</strong> À 199 DH, avec un CPA confirmé
+    de 80 DH et un taux de livraison de 65 %, la marge nette par commande livrée est <em>négative</em>.
+    Il faut environ <strong>320 DH de panier</strong> pour atteindre le seuil de 100 DH de marge nette du skill.</p>
+    <p>Conséquence directe : <strong>tes deux upsells ne sont pas un bonus, ils sont la condition de survie
+    du modèle.</strong> La cible de 300-500 DH de panier n'était pas un souhait, c'est le point mort.</p>
+  </div>
+
+  <p>Le raisonnement, avec des coûts d'achat <strong>hypothétiques</strong> à remplacer par tes vrais
+  chiffres de Derb Omar :</p>
+
+  <div class="scroll">
+    <table>
+      <thead><tr><th>Scénario</th><th class="num">Prix</th><th class="num">Achat</th><th class="num">Pub / livrée</th><th class="num">Marge nette</th><th>Verdict</th></tr></thead>
+      <tbody>
+        <tr><td>Héros seul</td><td class="num">199</td><td class="num">45</td><td class="num">123</td><td class="num">−21</td><td><span class="chip chip-kill">Perte</span></td></tr>
+        <tr><td>Héros seul</td><td class="num">249</td><td class="num">45</td><td class="num">123</td><td class="num">29</td><td><span class="chip chip-kill">Sous le kill</span></td></tr>
+        <tr><td>Héros seul</td><td class="num">299</td><td class="num">45</td><td class="num">123</td><td class="num">79</td><td><span class="chip chip-warn">Zone grise</span></td></tr>
+        <tr><td>Pack Héros + Support</td><td class="num">349</td><td class="num">70</td><td class="num">123</td><td class="num">104</td><td><span class="chip chip-go">Viable</span></td></tr>
+        <tr><td>Pack complet + Aspirateur</td><td class="num">449</td><td class="num">220</td><td class="num">123</td><td class="num">46</td><td><span class="chip chip-kill">Sous le kill</span></td></tr>
+        <tr><td>Pack complet + Aspirateur</td><td class="num">549</td><td class="num">220</td><td class="num">123</td><td class="num">146</td><td><span class="chip chip-go">Viable</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p><strong>Hypothèses :</strong> livraison 32 DH (40 DH avec aspirateur), call center 10 DH,
+  retour 18 DH, taux de livraison 65 %, CPA confirmé 80 DH. Change-les dans le calculateur ci-dessous
+  dès que tu as les vrais tarifs.</p>
+
+  <h3>Deux lectures qui comptent plus que le prix d'achat</h3>
+
+  <div class="note flag">
+    <p class="ntitle">Levier n°1 — le taux de livraison écrase tout</p>
+    <p>Passer de 65 % à 55 % de taux de livraison coûte <strong>27 DH de marge</strong> par commande.
+    Négocier 10 DH de moins sur le prix d'achat n'en rapporte que 10. <strong>Le taux de livraison
+    est 2,7 fois plus déterminant que le sourcing</strong> — et il se joue au téléphone de confirmation,
+    pas à Derb Omar.</p>
+  </div>
+
+  <div class="note flag">
+    <p class="ntitle">Levier n°2 — l'upsell est de la marge pure, mais il n'est pas gratuit</p>
+    <p>Quand un client ajoute un produit, la pub et la livraison sont <em>déjà payées</em> par le héros :
+    presque tout l'incrément part en marge. Mais en COD, <strong>un panier plus lourd se fait refuser
+    plus souvent</strong> — et un refus fait perdre la commande entière, pas seulement l'upsell.</p>
+    <p>D'où la règle : proposer les upsells, ne jamais les <em>imposer</em> dans un pack unique.
+    Le héros doit rester commandable seul, même s'il n'est pas rentable seul — c'est lui qui fait
+    entrer le client.</p>
+  </div>
+
+  <div class="note alert">
+    <p class="ntitle">Réserve sur l'aspirateur sans fil</p>
+    <p>C'est le maillon faible de la gamme, pour trois raisons cumulatives : coût d'achat élevé
+    (il mange la marge), <strong>gabarit hors colis standard</strong> — le skill impose de recalculer
+    la marge si le surcoût courrier dépasse 15 DH — et c'est un <strong>produit électrique</strong>,
+    donc le taux de refus le plus élevé de la gamme (« ça n'aspire pas comme dans la vidéo »).</p>
+    <p>Ma recommandation : <strong>ne commande pas de stock d'aspirateurs avant les 20 premières
+    commandes livrées.</strong> Garde-le en upsell testé sur une poignée d'unités. Si son taux de
+    refus dépasse celui du héros de plus de 10 points, sors-le de la gamme.</p>
+  </div>
+</section>
+
+<!-- ============ B ============ -->
+<section id="calc">
+  <div class="shead"><span class="code">§B</span><h2>Calculateur de marge</h2></div>
+  <p class="lede">La formule du skill, codée telle quelle. Remplace les valeurs par tes vrais chiffres :
+  le verdict se recalcule et se compare aux seuils de décision.</p>
+
+  <div class="calc">
+    <div class="calc-head">
+      <h3>Marge nette par commande livrée</h3>
+      <span class="chip chip-acc" id="preset-label">Pack Héros + Support</span>
+    </div>
+    <div class="calc-body">
+      <div class="field"><label for="f-prix">Prix de vente (DH)</label><input type="number" id="f-prix" value="349" min="0" step="1"></div>
+      <div class="field"><label for="f-achat">Coût d'achat (DH)</label><input type="number" id="f-achat" value="70" min="0" step="1"></div>
+      <div class="field"><label for="f-liv">Frais livraison (DH)</label><input type="number" id="f-liv" value="32" min="0" step="1"></div>
+      <div class="field"><label for="f-cc">Frais call center (DH)</label><input type="number" id="f-cc" value="10" min="0" step="1"></div>
+      <div class="field"><label for="f-ret">Frais retour (DH)</label><input type="number" id="f-ret" value="18" min="0" step="1"></div>
+      <div class="field"><label for="f-tl">Taux de livraison (%)</label><input type="number" id="f-tl" value="65" min="1" max="100" step="1"></div>
+      <div class="field"><label for="f-cpa">CPA confirmé (DH)</label><input type="number" id="f-cpa" value="80" min="0" step="1"></div>
+    </div>
+    <div class="readout">
+      <div class="rline"><span>Marge brute (prix − achat − livraison − call center)</span><span id="o-brute">—</span></div>
+      <div class="rline"><span>Coût des retours, réparti sur les livrées</span><span id="o-ret">—</span></div>
+      <div class="rline"><span>Coût pub par livrée (CPA confirmé ÷ taux de livraison)</span><span id="o-pub">—</span></div>
+      <div class="verdict">
+        <div>
+          <div class="vlabel">Marge nette / commande livrée</div>
+          <div class="vnum" id="o-net">—</div>
+        </div>
+        <span class="chip" id="o-verdict">—</span>
+      </div>
+      <p style="margin:13px 0 0; font-size:12.5px; color:var(--muted)">
+        Seuils du skill : viable au-dessus de 100 DH · kill en dessous de 50 DH.
+        Le coût des retours suit la formule <span class="num">(refusées ÷ livrées) × frais de retour</span>.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ C ============ -->
+<section id="nom">
+  <div class="shead"><span class="code">§C</span><h2>Nom de marque</h2></div>
+
+  <p class="lede">Cinq critères, dans cet ordre : ça se <strong>dit</strong> en darija comme en français
+  dans une vidéo ; ça se <strong>tape</strong> sans faute sur un clavier de téléphone ;
+  ça ne t'enferme pas dans un seul produit ; c'est court ; c'est défendable juridiquement.</p>
+
+  <div class="names">
+    <div class="ncard">
+      <p class="terr">Territoire A · Darija de tous les jours</p>
+      <ul>
+        <li><span class="nm">Blassa</span><span class="gloss">بلاصة — « la place, l'endroit ». Le héros règle littéralement le problème de <em>la place où tout se perd</em>.</span></li>
+        <li><span class="nm">Kayen</span><span class="gloss">كاين — « il y a, c'est dispo ». Chaleureux, ultra-courant, arbitraire donc protégeable.</span></li>
+        <li><span class="nm">Tomobil</span><span class="gloss">طوموبيل — « la voiture ». Reconnaissance maximale, mais nom commun : difficile à défendre.</span></li>
+        <li><span class="nm">Zwin</span><span class="gloss">زوين — « beau ». Positif et court, mais ne dit rien de l'auto.</span></li>
+      </ul>
+    </div>
+    <div class="ncard">
+      <p class="terr">Territoire B · Français technique</p>
+      <ul>
+        <li><span class="nm">Cabine</span><span class="gloss">Zéro ambiguïté d'orthographe, deux syllabes, désigne l'espace et non le produit : extensible.</span></li>
+        <li><span class="nm">Habitacle</span><span class="gloss">Précis et premium, mais quatre syllabes et une orthographe qui se rate au clavier.</span></li>
+        <li><span class="nm">Cockpit</span><span class="gloss">Court et international. Le « ck » fait perdre du trafic direct au clavier.</span></li>
+        <li><span class="nm">Volan</span><span class="gloss">« Volant » sans le t. Se prononce pareil en français et en darija.</span></li>
+      </ul>
+    </div>
+    <div class="ncard">
+      <p class="terr">Territoire C · Route &amp; mouvement</p>
+      <ul>
+        <li><span class="nm">Trik</span><span class="gloss">طريق — « la route ». Très court, ouvre à tout l'univers auto au-delà de l'habitacle.</span></li>
+        <li><span class="nm">Sahb Trik</span><span class="gloss">« L'ami de la route ». Chaleureux et mémorable, mais long pour un domaine.</span></li>
+        <li><span class="nm">Kilomètre</span><span class="gloss">Neutre et sérieux ; long à taper, faible en darija.</span></li>
+        <li><span class="nm">Trajet</span><span class="gloss">Simple et français ; assez générique pour être déjà pris.</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="note">
+    <p class="ntitle">Ma recommandation</p>
+    <p><strong>1. Blassa</strong> — c'est le seul nom de la liste dont le sens <em>raconte le produit héros</em>
+    sans l'y enfermer. Deux syllabes, se dit en darija comme en français, s'écrit sans piège, et comme il
+    est arbitraire pour des accessoires auto, il se dépose bien. Décliné : <span class="num">blassa.ma</span> ·
+    <span class="num">@blassa.ma</span>.</p>
+    <p><strong>2. Cabine</strong> — le choix sûr si tu veux un registre plus premium et français.
+    Plus faible en dépôt de marque : le mot décrit l'intérieur d'un véhicule, donc un examinateur
+    peut le juger descriptif.</p>
+  </div>
+
+  <div class="note alert">
+    <p class="ntitle">Ce que je ne peux pas faire à ta place</p>
+    <p><strong>Je n'ai pas vérifié la disponibilité de ces noms</strong> — ni les domaines, ni les
+    pseudos, ni les marques déposées. Je n'ai pas d'accès fiable à ces registres depuis cette session,
+    et affirmer qu'un nom est libre sans l'avoir vu serait une invention. À vérifier toi-même, dans cet ordre,
+    avant de t'attacher à un nom :</p>
+    <ol>
+      <li><strong>Marque déposée</strong> — recherche d'antériorité sur le registre de l'OMPIC. C'est le seul blocage irréversible : un domaine se rachète, une marque déposée par un tiers ne se contourne pas.</li>
+      <li><strong>Domaines</strong> — <span class="num">.ma</span> chez un registrar accrédité, <span class="num">.com</span> partout.</li>
+      <li><strong>Pseudos</strong> — ouvre <span class="num">instagram.com/lenom</span> et <span class="num">tiktok.com/@lenom</span> : une page d'erreur = libre.</li>
+    </ol>
+    <p>Réserve les quatre au même moment. Un nom libre sur trois canaux sur quatre n'est pas un nom libre.</p>
+  </div>
+</section>
+
+<!-- ============ D ============ -->
+<section id="offre">
+  <div class="shead"><span class="code">§D</span><h2>Architecture de l'offre</h2></div>
+
+  <p class="lede">Trois produits, une seule page. Le skill plafonne à trois produits publiés jusqu'aux
+  20 premières livraisons : tu es exactement à la limite, donc pas d'ajout avant ce cap.</p>
+
+  <div class="scroll">
+    <table>
+      <thead><tr><th>Palier</th><th>Contenu</th><th class="num">Prix indicatif</th><th>Rôle dans le modèle</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Solo</strong></td><td>Organisateur entre-sièges (paire)</td><td class="num">199 DH</td><td>Porte d'entrée. Non rentable seul — assumé, jamais mis en avant.</td></tr>
+        <tr><td><strong>Duo</strong> <span class="chip chip-go">Défaut</span></td><td>Organisateur + support magnétique</td><td class="num">349 DH</td><td>Le pack à pousser. Premier palier réellement viable.</td></tr>
+        <tr><td><strong>Full</strong></td><td>Duo + aspirateur sans fil</td><td class="num">549 DH</td><td>Panier haut. À tester sur stock minimal avant d'y engager du cash.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Mécanique sur la page</h3>
+  <ul>
+    <li>Le <strong>Duo est présélectionné</strong> à l'ouverture, avec le prix barré du solo à côté. Le client choisit de descendre, pas de monter.</li>
+    <li>Les trois paliers sont des <strong>boutons radio au-dessus du formulaire</strong>, jamais un panier à étapes. Un clic change le prix affiché, rien d'autre ne bouge.</li>
+    <li>Le prix affiché est <strong>TTC, livraison comprise</strong>. En COD marocain, un frais de livraison découvert à la fin est une cause de refus au téléphone — donc une perte sèche, pas juste une vente ratée.</li>
+    <li><strong>Aucun compte client, aucune étape supplémentaire.</strong> Nom, téléphone, ville, adresse. Rien d'autre.</li>
+  </ul>
+
+  <div class="note flag">
+    <p class="ntitle">Décision toujours en attente — elle bloque la Phase 1</p>
+    <p>Tu n'as pas encore tranché <strong>app COD vs formulaire custom</strong>. C'est la décision la
+    plus structurante du projet et elle conditionne toute la structure du template. Rappel du calcul :
+    l'app se rentabilise dès <strong>1,5 commande livrée de plus par mois</strong>, et une commande
+    perdue en silence par un formulaire maison coûte ~180 DH <em>sans laisser de trace dans le Sheet</em>.</p>
+    <p>Tant que ce n'est pas tranché, je ne peux livrer que le squelette du template, pas le store.</p>
+  </div>
+</section>
+
+<!-- ============ E ============ -->
+<section id="creas">
+  <div class="shead"><span class="code">§E</span><h2>Angles publicitaires</h2></div>
+
+  <p class="lede">L'organisateur entre-sièges est un excellent produit d'accroche : le problème qu'il
+  règle est <strong>visible en deux secondes et sans un mot</strong>. C'est rare, et c'est l'atout à exploiter.</p>
+
+  <div class="scroll">
+    <table>
+      <thead><tr><th>Angle</th><th>Ce qu'on montre</th><th>Pour qui</th></tr></thead>
+      <tbody>
+        <tr><td><strong>La chute</strong></td><td>Le téléphone glisse dans l'interstice. La main qui force, qui n'atteint pas. Puis le produit.</td><td>Tout le monde. L'angle à tester en premier.</td></tr>
+        <tr><td><strong>Le feu rouge</strong></td><td>Les pièces, les clés, la carte qui roulent au sol à chaque virage et freinage.</td><td>Conducteurs urbains, Casablanca.</td></tr>
+        <tr><td><strong>Le chauffeur</strong></td><td>Un taxi / VTC qui range son poste de travail. Voiture propre = meilleure note.</td><td>Taxis, VTC, livreurs. Niche à fort bouche-à-oreille.</td></tr>
+        <tr><td><strong>La honte sociale</strong></td><td>Quelqu'un monte dans la voiture, doit dégager le siège encombré avant de s'asseoir.</td><td>Familial, très partageable.</td></tr>
+        <tr><td><strong>Avant / après</strong></td><td>Écran partagé, cinq secondes, aucun commentaire. Le format le plus rapide à produire.</td><td>Retargeting, TikTok.</td></tr>
+        <tr><td><strong>Témoignage</strong></td><td>Un vrai client, en darija, dans sa vraie voiture, en plan fixe.</td><td>À produire après les premières livraisons, pas avant.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Accroches darija — les deux premières secondes</h3>
+  <p>À incruster en gros à l'écran <em>et</em> à dire. C'est la seule partie de la vidéo qui décide
+  si le reste est vu.</p>
+
+  <div class="scroll">
+    <table>
+      <thead><tr><th>Darija</th><th>Translittération</th><th>Français</th></tr></thead>
+      <tbody>
+        <tr><td><span class="ar">شحال من مرة طاح ليك التيليفون فهاد البلاصة؟</span></td><td class="translit">Ch7al men merra ta7 lik tilifon f had leblassa ?</td><td>Combien de fois ton téléphone est tombé là-dedans ?</td></tr>
+        <tr><td><span class="ar">هاد البلاصة كتكول كلشي</span></td><td class="translit">Had leblassa katakol kolchi</td><td>Cet endroit avale tout.</td></tr>
+        <tr><td><span class="ar">إلا عندك طوموبيل، هادي خاصك</span></td><td class="translit">Ila 3endek tomobil, hadi khassek</td><td>Si tu as une voiture, il te faut ça.</td></tr>
+        <tr><td><span class="ar">بلا ما تحبس، بلا ما تنحي الشيز</span></td><td class="translit">Bla ma t7bes, bla ma tne77i chiz</td><td>Sans t'arrêter, sans démonter le siège.</td></tr>
+        <tr><td><span class="ar">30 درهم ديال الصرف طاحو ليا تحت الشيز</span></td><td class="translit">30 derham dyal serf ta7ou liya t7et chiz</td><td>J'ai perdu 30 dirhams de monnaie sous le siège.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note flag">
+    <p class="ntitle">Compte Meta 2016 : ancien ≠ warm</p>
+    <p>L'ancienneté d'un Business Manager ne crée aucun signal publicitaire. Ce qui rend un compte
+    « warm », c'est l'historique de dépense et les conversions accumulées par le pixel — et ton pixel
+    est neuf. Concrètement : <strong>pas de retargeting, pas de lookalike, prospection froide uniquement
+    au départ.</strong></p>
+    <p>Un compte dormant depuis des années qui se réveille avec un gros budget est par ailleurs un motif
+    classique de restriction. Vérifie le domaine dans le Business Manager <strong>avant</strong> la première
+    diffusion — ça ne se rattrape pas proprement après — et monte le budget par paliers. Un compte
+    restreint en plein test, c'est le budget bloqué et le projet à l'arrêt.</p>
+  </div>
+</section>
+
+<!-- ============ F ============ -->
+<section id="video">
+  <div class="shead"><span class="code">§F</span><h2>Vidéos publicitaires</h2></div>
+
+  <div class="note alert">
+    <p class="ntitle">À lire avant de produire quoi que ce soit</p>
+    <p><strong>Filme le vrai produit, dans ta vraie voiture.</strong> Pas d'image de synthèse, pas de
+    visuel de fournisseur, pas de rendu généré. En COD, l'écart entre la vidéo et le colis reçu se paie
+    directement en <em>refus à la livraison</em> — la métrique qui décide de la vie du projet, et celle
+    qui coûte le plus cher quand elle se dégrade. Un plan filmé au téléphone qui montre l'objet réel
+    convertit mieux et se fait moins refuser qu'un rendu parfait qui ment.</p>
+  </div>
+
+  <p><strong>Format :</strong> 9:16, 15 à 25 secondes, sous-titres incrustés en dur, action dans les
+  deux premières secondes. Matériel : ton téléphone, ta voiture, la lumière du jour. Coût : 0 DH.</p>
+
+  <h3>Script 1 — « La chute » · 18 s</h3>
+  <div>
+    <div class="beat"><span class="t">0-2 s</span><span class="b"><strong>Gros plan sur l'interstice.</strong> Le téléphone glisse et disparaît.<span class="dir">Aucune parole. Texte plein écran : <span class="ar">شحال من مرة؟</span> — son : le bruit sec de la chute.</span></span></div>
+    <div class="beat"><span class="t">2-6 s</span><span class="b"><strong>La main qui force</strong> entre le siège et la console. N'y arrive pas. Le conducteur abandonne.<span class="dir">Plan serré, caméra à l'épaule. La frustration doit se lire.</span></span></div>
+    <div class="beat"><span class="t">6-10 s</span><span class="b"><strong>Insertion du produit</strong> en un geste, en temps réel.<span class="dir">Plan continu, sans coupe. La coupe ici ferait croire à un montage : elle tue la crédibilité.</span></span></div>
+    <div class="beat"><span class="t">10-15 s</span><span class="b"><strong>Démonstration</strong> : téléphone, clés, pièces, bouteille déposés dedans. Rien ne tombe.<span class="dir">Voix darija : « Kolchi f blasto. »</span></span></div>
+    <div class="beat"><span class="t">15-18 s</span><span class="b"><strong>Produit + prix + paiement à la livraison.</strong><span class="dir">Texte : 349 DH · <span class="ar">الخلاص عند التوصيل</span> · Livraison partout au Maroc.</span></span></div>
+  </div>
+
+  <h3>Script 2 — « Le feu rouge » · 15 s</h3>
+  <div>
+    <div class="beat"><span class="t">0-2 s</span><span class="b"><strong>Freinage.</strong> Tout ce qui est sur le siège passager part au sol.<span class="dir">Caméra fixe posée sur le tableau de bord. Un seul plan.</span></span></div>
+    <div class="beat"><span class="t">2-5 s</span><span class="b">Le conducteur regarde le désordre au sol, souffle.<span class="dir">Texte : <span class="ar">كل نهار نفس الشي</span> — « Tous les jours la même chose. »</span></span></div>
+    <div class="beat"><span class="t">5-11 s</span><span class="b"><strong>Même trajet, même freinage, produit installé.</strong> Rien ne bouge.<span class="dir">Rejouer exactement le même cadrage. C'est la répétition du plan qui fait la preuve.</span></span></div>
+    <div class="beat"><span class="t">11-15 s</span><span class="b"><strong>Prix, COD, appel à l'action.</strong><span class="dir">Texte : « Commande, khallas melli twsselk. »</span></span></div>
+  </div>
+
+  <h3>Script 3 — « Le chauffeur » · 22 s</h3>
+  <div>
+    <div class="beat"><span class="t">0-3 s</span><span class="b"><strong>Intérieur de taxi encombré.</strong> Le chauffeur dégage le siège pour le client.<span class="dir">Texte : <span class="ar">إلا كتخدم فطوموبيلك…</span> — « Si tu travailles dans ta voiture… »</span></span></div>
+    <div class="beat"><span class="t">3-9 s</span><span class="b">Il installe l'organisateur, y range carnet, monnaie, chargeur, téléphone.<span class="dir">Plans serrés sur chaque objet qui trouve sa place.</span></span></div>
+    <div class="beat"><span class="t">9-16 s</span><span class="b"><strong>Le client monte, s'assoit directement.</strong> Le chauffeur attrape la monnaie sans chercher.<span class="dir">C'est le bénéfice réel : le temps gagné, pas le rangement.</span></span></div>
+    <div class="beat"><span class="t">16-22 s</span><span class="b"><strong>Pack complet + prix + COD.</strong><span class="dir">Angle métier : « Pour ceux qui passent leur journée dedans. »</span></span></div>
+  </div>
+
+  <h3>Plan de tournage — une seule session</h3>
+  <p>Ces neuf plans couvrent les trois scripts. Filme-les d'affilée, en une heure, à la lumière du jour :</p>
+  <ol>
+    <li>Interstice vide, gros plan fixe</li>
+    <li>Chute du téléphone (rejouer 3 ou 4 fois, garder la meilleure)</li>
+    <li>Main qui force et échoue</li>
+    <li>Insertion du produit, plan continu sans coupe</li>
+    <li>Rangement des objets un par un</li>
+    <li>Freinage sans produit — objets au sol</li>
+    <li>Freinage avec produit — rien ne bouge (<strong>même cadrage que le 6</strong>)</li>
+    <li>Plan large de l'habitacle rangé</li>
+    <li>Produit en main, hors voiture, fond neutre — pour les fins de vidéo et la fiche produit</li>
+  </ol>
+  <p>Filme chaque plan <strong>deux fois plus long que nécessaire</strong> : au montage, tu couperas
+  toujours, tu ne rallongeras jamais.</p>
+</section>
+
+<!-- ============ G ============ -->
+<section id="organique">
+  <div class="shead"><span class="code">§G</span><h2>Contenu organique — 14 premiers jours</h2></div>
+
+  <p class="lede">Le compte TikTok est neuf. Il ne se lance pas en publiant une pub : un compte vide qui
+  diffuse immédiatement du promotionnel se fait mal distribuer. Deux semaines de contenu avant de pousser
+  le budget, à raison d'<strong>un post par jour maximum</strong> — au-delà, tu prends du temps sur ce qui
+  valide vraiment le produit.</p>
+
+  <div class="scroll">
+    <table>
+      <thead><tr><th class="num">Jour</th><th>Contenu</th><th>Objectif</th></tr></thead>
+      <tbody>
+        <tr><td class="num">1</td><td>Profil complet : photo, bio, lien. Un premier post simple sur l'univers auto.</td><td>Exister</td></tr>
+        <tr><td class="num">2-3</td><td><strong>Hacks auto sans produit</strong> — nettoyer les vitres sans traces, désodoriser, ranger les câbles.</td><td>Portée. C'est ce qui se partage.</td></tr>
+        <tr><td class="num">4</td><td><strong>Coulisses Derb Omar</strong> : le sourcing, les cartons, le tri.</td><td>Crédibilité. Format très performant au Maroc.</td></tr>
+        <tr><td class="num">5-6</td><td>Le problème de l'interstice, <strong>sans vendre</strong>. « Qui d'autre ? »</td><td>Faire remonter les commentaires</td></tr>
+        <tr><td class="num">7</td><td><strong>Premier post produit</strong> — la démonstration, sans prix.</td><td>Tester l'intérêt</td></tr>
+        <tr><td class="num">8-9</td><td><strong>Réponses en vidéo aux commentaires</strong> du jour 5.</td><td>Le format le mieux distribué de TikTok</td></tr>
+        <tr><td class="num">10</td><td>Avant / après en 5 secondes.</td><td>Reprise en Reel Instagram</td></tr>
+        <tr><td class="num">11</td><td><strong>Préparation de commande</strong> : emballage, étiquette, colis.</td><td>Prouver que la boutique est réelle</td></tr>
+        <tr><td class="num">12-13</td><td>Deux autres hacks auto. Toujours pas de vente.</td><td>Entretenir la portée</td></tr>
+        <tr><td class="num">14</td><td>Post produit complet avec prix et COD. <strong>Ouverture du budget pub.</strong></td><td>Bascule</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Règles qui ne changent pas</h3>
+  <ul>
+    <li><strong>Ratio 3 pour 1</strong> — trois contenus de valeur ou de coulisses pour une vente. Un compte qui ne fait que vendre cesse d'être distribué.</li>
+    <li><strong>Réponds à tous les commentaires</strong> les 14 premiers jours, à la main. C'est aussi ta première étude de marché gratuite : les objections qui remontent ici sont exactement celles qui feront refuser les colis.</li>
+    <li><strong>Instagram est un canal de reprise, pas un canal de création.</strong> Le Reel est le TikTok remonté sans le filigrane. Ne produis pas deux fois.</li>
+    <li><strong>Garde les meilleurs organiques</strong> — un post qui performe en organique devient une créa payante (Spark Ad) avec sa preuve sociale déjà accumulée. C'est le contenu le moins cher et le plus performant que tu produiras.</li>
+  </ul>
+</section>
+
+<!-- ============ H ============ -->
+<section id="suite">
+  <div class="shead"><span class="code">§H</span><h2>Ce qui bloque encore</h2></div>
+
+  <div class="scroll">
+    <table>
+      <thead><tr><th>Point</th><th>État</th><th>Ce que ça bloque</th></tr></thead>
+      <tbody>
+        <tr><td>Statut légal</td><td><span class="chip chip-warn">En cours</span></td><td>Contrat courrier, donc tarifs, donc toute marge réelle</td></tr>
+        <tr><td>Contrat courrier + accès API</td><td><span class="chip chip-kill">Absent</span></td><td>Le lancement réel et la Phase 3</td></tr>
+        <tr><td>Prix d'achat Derb Omar ×3</td><td><span class="chip chip-kill">Inconnus</span></td><td>Les prix de vente définitifs. Tout le §A est hypothétique sans eux.</td></tr>
+        <tr><td>Gabarit colis (surtout aspirateur)</td><td><span class="chip chip-kill">Non relevé</span></td><td>La viabilité du palier Full</td></tr>
+        <tr><td>Décision formulaire COD</td><td><span class="chip chip-kill">Non tranchée</span></td><td><strong>La Phase 1 entière</strong></td></tr>
+        <tr><td>Nom de marque</td><td><span class="chip chip-warn">À choisir</span></td><td>Domaine, pseudos, identité, mise en ligne</td></tr>
+        <tr><td>Hébergement backend</td><td><span class="chip chip-warn">À choisir</span></td><td>Phases 2 et 3 (tracking, webhooks)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note">
+    <p class="ntitle">Les trois choses à faire cette semaine</p>
+    <ol>
+      <li><strong>Relever les trois prix d'achat et les trois gabarits</strong> à Derb Omar, avec une balance et un mètre. C'est ce qui transforme tout le §A d'hypothèse en modèle.</li>
+      <li><strong>Choisir le nom et réserver les quatre canaux le même jour</strong>, après vérification OMPIC.</li>
+      <li><strong>Trancher app COD ou custom.</strong> Une phrase de ta part débloque la Phase 1.</li>
+    </ol>
+    <p>Le tournage des neuf plans du §F peut se faire dès que tu as les échantillons — il ne dépend
+    ni du statut légal, ni du nom, ni du courrier.</p>
+  </div>
+</section>
+
+<footer>
+  Kit de lancement · gamme accessoires auto · Maroc COD · budget de référence 10 000 DH.
+  Les coûts d'achat, tarifs de livraison et taux du §A sont des hypothèses de travail à remplacer
+  par les valeurs réelles. Aucune projection de chiffre d'affaires n'est faite ici : ce document
+  construit et mesure, il ne prédit pas.
+</footer>
+
+</div>
+
+<script>
+(function(){
+  var ids = ["prix","achat","liv","cc","ret","tl","cpa"];
+  var inputs = {};
+  ids.forEach(function(k){ inputs[k] = document.getElementById("f-"+k); });
+
+  var oBrute   = document.getElementById("o-brute");
+  var oRet     = document.getElementById("o-ret");
+  var oPub     = document.getElementById("o-pub");
+  var oNet     = document.getElementById("o-net");
+  var oVerdict = document.getElementById("o-verdict");
+
+  function num(el, fallback){
+    var v = parseFloat(el.value);
+    return isFinite(v) ? v : fallback;
+  }
+  function dh(v){
+    return (v < 0 ? "−" : "") + Math.abs(v).toFixed(0) + " DH";
+  }
+
+  function recompute(){
+    var prix  = num(inputs.prix, 0);
+    var achat = num(inputs.achat, 0);
+    var liv   = num(inputs.liv, 0);
+    var cc    = num(inputs.cc, 0);
+    var ret   = num(inputs.ret, 0);
+    var cpa   = num(inputs.cpa, 0);
+
+    // Taux de livraison borné : à 0 %, aucune commande livrée, le modèle n'a pas de sens.
+    var tl = num(inputs.tl, 65);
+    tl = Math.min(100, Math.max(1, tl)) / 100;
+
+    var brute    = prix - achat - liv - cc;
+    var coutRet  = ((1 - tl) / tl) * ret;
+    var pubLivree = cpa / tl;
+    var net = brute - coutRet - pubLivree;
+
+    oBrute.textContent = dh(brute);
+    oRet.textContent   = "− " + dh(coutRet);
+    oPub.textContent   = "− " + dh(pubLivree);
+    oNet.textContent   = dh(net);
+
+    oBrute.parentElement.classList.toggle("neg", brute < 0);
+
+    var cls, label;
+    if (net >= 100)      { cls = "chip-go";   label = "Viable"; }
+    else if (net >= 50)  { cls = "chip-warn"; label = "Zone grise"; }
+    else if (net >= 0)   { cls = "chip-kill"; label = "Sous le seuil de kill"; }
+    else                 { cls = "chip-kill"; label = "Perte sèche"; }
+
+    oNet.style.color = (net >= 100) ? "var(--go)" : (net >= 50 ? "var(--warn)" : "var(--kill)");
+    oVerdict.className = "chip " + cls;
+    oVerdict.textContent = label;
+  }
+
+  ids.forEach(function(k){
+    inputs[k].addEventListener("input", recompute);
+  });
+  recompute();
+})();
+</script>
