@@ -1,0 +1,15 @@
+{%- comment -%}
+  KLAXO — barre d'action mobile.
+  85 %+ du trafic est mobile : le bouton de commande ne doit jamais sortir de
+  l'écran. Masqué en desktop, et masqué quand le formulaire est déjà visible
+  (voir klaxo-offer.js) pour ne pas recouvrir les champs pendant la saisie.
+{%- endcomment -%}
+
+<div class="klaxo-sticky" data-klaxo-sticky hidden>
+  <span class="klaxo-sticky__price">
+    <span data-klaxo-sticky-price>{{ price }}</span> DH
+  </span>
+  <button type="button" class="klaxo-sticky__btn" data-klaxo-sticky-btn>
+    {{ label | default: 'Commander' | escape }}
+  </button>
+</div>

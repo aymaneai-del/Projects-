@@ -1,0 +1,34 @@
+{%- comment -%}
+  KLAXO — bloc confiance, placé AU-DESSUS du formulaire.
+
+  En COD, l'objection n'est pas le prix : c'est « est-ce que ces gens existent ».
+  Ces trois réassurances répondent aux trois freins réels — payer d'avance,
+  être coincé avec un produit qui ne va pas, ne parler à personne.
+{%- endcomment -%}
+
+<ul class="klaxo-trust" role="list">
+  <li class="klaxo-trust__item">
+    <span class="klaxo-trust__icon" aria-hidden="true">💵</span>
+    <span><strong>Paiement à la livraison.</strong> Tu payes le livreur, en espèces.</span>
+  </li>
+  <li class="klaxo-trust__item">
+    <span class="klaxo-trust__icon" aria-hidden="true">↩️</span>
+    <span><strong>Retour sous 7 jours.</strong> Si ça ne va pas, on reprend.</span>
+  </li>
+  <li class="klaxo-trust__item">
+    <span class="klaxo-trust__icon" aria-hidden="true">💬</span>
+    {%- assign wa = settings.klaxo_whatsapp | default: shop.phone -%}
+    {%- if wa != blank -%}
+      <span>
+        <strong>Une question ?</strong>
+        <a
+          class="klaxo-trust__wa"
+          href="https://wa.me/{{ wa | remove: '+' | remove: ' ' | remove: '-' }}"
+          rel="noopener"
+        >Écris-nous sur WhatsApp</a>
+      </span>
+    {%- else -%}
+      <span><strong>Une question ?</strong> On répond avant de livrer.</span>
+    {%- endif -%}
+  </li>
+</ul>

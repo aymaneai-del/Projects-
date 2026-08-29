@@ -1,0 +1,245 @@
+/*
+ * KLAXO — styles de la section offre COD.
+ *
+ * Contraintes : mobile d'abord (85 %+ du trafic), aucune police web chargée,
+ * aucune image décorative. Budget de performance : LCP < 2,5 s en 4G marocaine.
+ * Tout ce qui n'aide pas à commander est du poids en trop.
+ */
+
+.klaxo-offer {
+  --klaxo-ink: #16191c;
+  --klaxo-muted: #5d666e;
+  --klaxo-line: #d9dee2;
+  --klaxo-surface: #fff;
+  --klaxo-ground: #f4f6f7;
+  --klaxo-accent: #b3210f;      /* rouge klaxon : réservé à l'action */
+  --klaxo-go: #1c7a4a;
+  --klaxo-radius: 10px;
+
+  max-width: 560px;
+  margin-inline: auto;
+  padding: 20px 16px 32px;
+  color: var(--klaxo-ink);
+  font-size: 16px;              /* jamais moins : iOS zoome sous 16px au focus */
+  line-height: 1.5;
+}
+
+.klaxo-offer__head { margin-bottom: 12px; }
+
+.klaxo-offer__title {
+  margin: 0 0 4px;
+  font-size: 22px;
+  line-height: 1.2;
+  text-wrap: balance;
+}
+
+.klaxo-offer__sub { margin: 0; color: var(--klaxo-muted); font-size: 15px; }
+
+.klaxo-offer__shipping {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin: 0 0 16px;
+  padding: 10px 12px;
+  background: var(--klaxo-ground);
+  border-radius: var(--klaxo-radius);
+  font-size: 14.5px;
+  font-weight: 600;
+}
+
+.klaxo-offer__shipping-icon { font-size: 17px; line-height: 1; }
+
+/* ── Paliers ──────────────────────────────────────────────────────────── */
+
+.klaxo-tiers {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0 0 18px;
+  padding: 0;
+  border: 0;
+}
+
+.klaxo-tier { display: block; cursor: pointer; }
+
+/* Le vrai radio reste dans le flux pour rester focalisable au clavier,
+   mais il est visuellement remplacé par la pastille dessinée sur la boîte. */
+.klaxo-tier input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.klaxo-tier__box {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 13px 14px 13px 42px;
+  position: relative;
+  background: var(--klaxo-surface);
+  border: 2px solid var(--klaxo-line);
+  border-radius: var(--klaxo-radius);
+  transition: border-color .15s ease, background-color .15s ease;
+}
+
+/* Pastille */
+.klaxo-tier__box::before {
+  content: "";
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--klaxo-line);
+  border-radius: 50%;
+  background: var(--klaxo-surface);
+}
+
+.klaxo-tier input:checked + .klaxo-tier__box {
+  border-color: var(--klaxo-ink);
+  background: var(--klaxo-ground);
+}
+
+.klaxo-tier input:checked + .klaxo-tier__box::before {
+  border-color: var(--klaxo-ink);
+  border-width: 5px;
+}
+
+/* Focus visible au clavier — obligatoire, et jamais supprimé. */
+.klaxo-tier input:focus-visible + .klaxo-tier__box {
+  outline: 3px solid var(--klaxo-accent);
+  outline-offset: 2px;
+}
+
+.klaxo-tier__main { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+
+.klaxo-tier__label { font-weight: 600; display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
+
+.klaxo-tier__badge {
+  padding: 2px 7px;
+  background: var(--klaxo-go);
+  color: #fff;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.klaxo-tier__desc { font-size: 13.5px; color: var(--klaxo-muted); }
+
+.klaxo-tier__price { font-weight: 700; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.klaxo-tier__amount { font-size: 19px; }
+
+/* ── Confiance ────────────────────────────────────────────────────────── */
+
+.klaxo-trust {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  margin: 0 0 18px;
+  padding: 13px 14px;
+  list-style: none;
+  background: var(--klaxo-ground);
+  border-radius: var(--klaxo-radius);
+  font-size: 14.5px;
+}
+
+.klaxo-trust__item { display: flex; gap: 10px; align-items: flex-start; }
+.klaxo-trust__icon { flex: none; font-size: 16px; line-height: 1.4; }
+.klaxo-trust__wa { color: var(--klaxo-accent); font-weight: 600; }
+
+/* ── Formulaire ───────────────────────────────────────────────────────── */
+
+.klaxo-form { margin-bottom: 12px; }
+
+/* Le formulaire vient de l'app : on ne stylise que ce qui est indispensable
+   au confort de saisie mobile, sans chercher à en reprendre l'apparence. */
+.klaxo-form input,
+.klaxo-form select,
+.klaxo-form textarea {
+  font-size: 16px;   /* empêche le zoom automatique iOS au focus */
+}
+
+.klaxo-phone-hint {
+  margin: 5px 0 0;
+  font-size: 13.5px;
+  color: var(--klaxo-accent);
+}
+
+.klaxo-offer__legal {
+  margin: 0;
+  font-size: 13px;
+  color: var(--klaxo-muted);
+  text-align: center;
+}
+
+/* ── Barre mobile ─────────────────────────────────────────────────────── */
+
+.klaxo-sticky {
+  position: fixed;
+  inset-inline: 0;
+  bottom: 0;
+  z-index: 40;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  /* Retrait de la barre système iOS pour que le bouton reste atteignable. */
+  padding: 10px 14px calc(10px + env(safe-area-inset-bottom, 0px));
+  background: rgba(255, 255, 255, .97);
+  border-top: 1px solid var(--klaxo-line, #d9dee2);
+  transition: transform .2s ease;
+}
+
+.klaxo-sticky.is-hidden { transform: translateY(110%); }
+
+.klaxo-sticky__price {
+  font-weight: 700;
+  font-size: 18px;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.klaxo-sticky__btn {
+  flex: 1;
+  max-width: 260px;
+  padding: 13px 18px;
+  background: var(--klaxo-accent, #b3210f);
+  color: #fff;
+  border: 0;
+  border-radius: var(--klaxo-radius, 10px);
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  /* 44px minimum : cible tactile confortable, y compris en voiture. */
+  min-height: 46px;
+}
+
+.klaxo-sticky__btn:focus-visible { outline: 3px solid #16191c; outline-offset: 2px; }
+
+@media (min-width: 750px) {
+  .klaxo-sticky { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .klaxo-sticky,
+  .klaxo-tier__box { transition: none; }
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}

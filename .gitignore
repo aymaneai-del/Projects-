@@ -14,3 +14,7 @@ exports/
 # Divers
 node_modules/
 .DS_Store
+
+# Worker
+worker/.dev.vars
+.wrangler/

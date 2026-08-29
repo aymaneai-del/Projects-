@@ -1,0 +1,22 @@
+name = "klaxo-tracking"
+main = "src/index.js"
+compatibility_date = "2025-01-01"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# AUCUN SECRET DANS CE FICHIER — il est versionné.
+# Les secrets se posent en ligne de commande, ils vivent chez Cloudflare :
+#
+#   wrangler secret put META_PIXEL_ID
+#   wrangler secret put META_CAPI_TOKEN
+#   wrangler secret put TIKTOK_PIXEL_CODE
+#   wrangler secret put TIKTOK_ACCESS_TOKEN
+#   wrangler secret put SHOPIFY_WEBHOOK_SECRET
+#   wrangler secret put LIFECYCLE_TOKEN
+#
+# En local, ils vont dans worker/.dev.vars (ignoré par git).
+# ─────────────────────────────────────────────────────────────────────────────
+
+[vars]
+# Valeurs non sensibles uniquement.
+STORE_URL = "https://klaxo.ma"
+ALLOWED_ORIGINS = "https://klaxo.ma,https://www.klaxo.ma"

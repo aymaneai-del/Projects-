@@ -1,0 +1,12 @@
+# Copier en worker/.dev.vars et remplir. NE JAMAIS COMMITER le fichier rempli.
+META_PIXEL_ID=
+META_CAPI_TOKEN=
+TIKTOK_PIXEL_CODE=
+TIKTOK_ACCESS_TOKEN=
+SHOPIFY_WEBHOOK_SECRET=
+LIFECYCLE_TOKEN=
+
+# Codes de recette : à renseigner pour tester, à VIDER avant la mise en production.
+# Un événement portant un test code n'alimente pas l'optimisation des campagnes.
+META_TEST_EVENT_CODE=
+TIKTOK_TEST_EVENT_CODE=

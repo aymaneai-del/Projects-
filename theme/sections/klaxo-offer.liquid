@@ -1,0 +1,178 @@
+{%- comment -%}
+  KLAXO — Section offre COD (Phase 1).
+
+  Rend les trois paliers, le bloc confiance et le point de montage du formulaire
+  de commande de l'app COD. Le palier "Duo" est présélectionné : le client choisit
+  de DESCENDRE, pas de monter — c'est le seul palier réellement rentable une fois
+  le coût pub par livrée pris en compte.
+
+  Aucun secret dans ce fichier : il est servi publiquement.
+  Prix et contenus se règlent dans l'éditeur de thème, jamais en dur ici.
+{%- endcomment -%}
+
+{{ 'klaxo-cod.css' | asset_url | stylesheet_tag }}
+
+<div
+  class="klaxo-offer"
+  data-klaxo-offer
+  data-product-id="{{ product.id }}"
+  data-selected-price="{{ section.settings.price_duo }}"
+>
+  <div class="klaxo-offer__head">
+    <h2 class="klaxo-offer__title">{{ section.settings.heading | escape }}</h2>
+    {%- if section.settings.subheading != blank -%}
+      <p class="klaxo-offer__sub">{{ section.settings.subheading | escape }}</p>
+    {%- endif -%}
+  </div>
+
+  {%- comment -%}
+    Livraison affichée AVANT le formulaire. Un frais découvert à la fin est une
+    cause classique de refus au téléphone — donc une perte sèche, pas seulement
+    une vente ratée.
+  {%- endcomment -%}
+  <p class="klaxo-offer__shipping">
+    <span class="klaxo-offer__shipping-icon" aria-hidden="true">🚚</span>
+    {{ section.settings.shipping_line | escape }}
+  </p>
+
+  <fieldset class="klaxo-tiers">
+    <legend class="visually-hidden">Choisis ton pack</legend>
+
+    {%- assign tiers = 'solo,duo,full' | split: ',' -%}
+    {%- for tier in tiers -%}
+      {%- case tier -%}
+        {%- when 'solo' -%}
+          {%- assign label = section.settings.label_solo -%}
+          {%- assign price = section.settings.price_solo -%}
+          {%- assign desc = section.settings.desc_solo -%}
+          {%- assign badge = '' -%}
+        {%- when 'duo' -%}
+          {%- assign label = section.settings.label_duo -%}
+          {%- assign price = section.settings.price_duo -%}
+          {%- assign desc = section.settings.desc_duo -%}
+          {%- assign badge = section.settings.badge_duo -%}
+        {%- when 'full' -%}
+          {%- assign label = section.settings.label_full -%}
+          {%- assign price = section.settings.price_full -%}
+          {%- assign desc = section.settings.desc_full -%}
+          {%- assign badge = section.settings.badge_full -%}
+      {%- endcase -%}
+
+      {%- if price > 0 -%}
+        <label class="klaxo-tier" for="klaxo-tier-{{ tier }}">
+          <input
+            type="radio"
+            id="klaxo-tier-{{ tier }}"
+            name="klaxo_tier"
+            value="{{ tier }}"
+            data-price="{{ price }}"
+            data-label="{{ label | escape }}"
+            {% if tier == 'duo' %}checked{% endif %}
+          >
+          <span class="klaxo-tier__box">
+            <span class="klaxo-tier__main">
+              <span class="klaxo-tier__label">
+                {{ label | escape }}
+                {%- if badge != blank %}<span class="klaxo-tier__badge">{{ badge | escape }}</span>{% endif -%}
+              </span>
+              {%- if desc != blank -%}
+                <span class="klaxo-tier__desc">{{ desc | escape }}</span>
+              {%- endif -%}
+            </span>
+            <span class="klaxo-tier__price">
+              <span class="klaxo-tier__amount">{{ price }}</span> DH
+            </span>
+          </span>
+        </label>
+      {%- endif -%}
+    {%- endfor -%}
+  </fieldset>
+
+  {%- render 'klaxo-trust' -%}
+
+  {%- comment -%}
+    Point de montage du formulaire de l'app COD.
+
+    Le choix d'architecture retenu est l'app, pas le formulaire maison : à ce
+    budget, l'abonnement se rentabilise dès ~1,5 commande livrée de plus par mois,
+    et une commande perdue en silence par un formulaire maison coûte davantage
+    tout en restant invisible dans le Sheet.
+
+    L'app injecte son formulaire ici. klaxo-track.js le détecte et y dépose
+    l'event_id et l'attribution en champs cachés.
+  {%- endcomment -%}
+  <div class="klaxo-form" data-klaxo-order-form>
+    {{ section.settings.form_embed }}
+  </div>
+
+  <p class="klaxo-offer__legal">{{ section.settings.legal_line | escape }}</p>
+</div>
+
+{%- render 'klaxo-sticky-cta',
+  price: section.settings.price_duo,
+  label: section.settings.sticky_label
+-%}
+
+{%- comment -%}
+  klaxo-phone.js expose un export ESM (pour les tests) et window.KlaxoPhone
+  (pour la page) : il doit donc être chargé en module, sinon le navigateur
+  échoue sur le mot-clé `export`. Un module est différé par défaut, ce qui
+  sert aussi le budget LCP.
+
+  Ordre imposé : phone avant offer, qui s'appuie sur window.KlaxoPhone.
+  `defer` préserve l'ordre entre scripts différés, et les modules s'exécutent
+  après eux — d'où la vérification défensive de KlaxoPhone dans klaxo-offer.js.
+{%- endcomment -%}
+<script type="module" src="{{ 'klaxo-phone.js' | asset_url }}"></script>
+<script src="{{ 'klaxo-track.js' | asset_url }}" defer></script>
+<script src="{{ 'klaxo-offer.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "KLAXO — Offre COD",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Choisis ton pack" },
+    { "type": "text", "id": "subheading", "label": "Sous-titre" },
+    {
+      "type": "text",
+      "id": "shipping_line",
+      "label": "Ligne livraison (affichée avant le formulaire)",
+      "default": "Livraison partout au Maroc — incluse dans le prix"
+    },
+
+    { "type": "header", "content": "Palier Solo" },
+    { "type": "text", "id": "label_solo", "label": "Nom", "default": "Solo" },
+    { "type": "number", "id": "price_solo", "label": "Prix TTC (DH)", "default": 199 },
+    { "type": "text", "id": "desc_solo", "label": "Description" },
+
+    { "type": "header", "content": "Palier Duo (présélectionné)" },
+    { "type": "text", "id": "label_duo", "label": "Nom", "default": "Duo" },
+    { "type": "number", "id": "price_duo", "label": "Prix TTC (DH)", "default": 349 },
+    { "type": "text", "id": "desc_duo", "label": "Description" },
+    { "type": "text", "id": "badge_duo", "label": "Badge", "default": "Le plus pris" },
+
+    { "type": "header", "content": "Palier Full" },
+    { "type": "text", "id": "label_full", "label": "Nom", "default": "Full" },
+    { "type": "number", "id": "price_full", "label": "Prix TTC (DH)", "default": 549 },
+    { "type": "text", "id": "desc_full", "label": "Description" },
+    { "type": "text", "id": "badge_full", "label": "Badge" },
+
+    { "type": "header", "content": "Formulaire" },
+    {
+      "type": "html",
+      "id": "form_embed",
+      "label": "Code d'intégration de l'app COD",
+      "info": "Colle ici le bloc fourni par l'app de formulaire COD. Ne colle jamais de clé ou de token dans ce champ : le thème est public."
+    },
+    { "type": "text", "id": "sticky_label", "label": "Texte du bouton mobile", "default": "Commander" },
+    {
+      "type": "text",
+      "id": "legal_line",
+      "label": "Mention sous le formulaire",
+      "default": "Tu payes en espèces à la livraison. Aucun paiement en ligne."
+    }
+  ],
+  "presets": [{ "name": "KLAXO — Offre COD" }]
+}
+{% endschema %}

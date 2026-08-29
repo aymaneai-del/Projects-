@@ -1,0 +1,9 @@
+{
+  "name": "klaxo",
+  "private": true,
+  "type": "module",
+  "description": "KLAXO.ma — store COD accessoires auto (thème Shopify + Worker tracking)",
+  "scripts": {
+    "test": "node --test \"test/**/*.test.mjs\""
+  }
+}
