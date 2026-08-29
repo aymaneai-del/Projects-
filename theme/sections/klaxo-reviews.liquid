@@ -1,0 +1,79 @@
+{%- comment -%}
+  KLAXO — avis clients.
+
+  Livré VIDE volontairement : je ne fabrique pas de témoignages ni de compteur
+  de commandes. Le bloc existe, prêt à recevoir de vrais avis dès les premières
+  livraisons. Un faux avis découvert coûte la confiance de tous les autres.
+
+  Toute la section disparaît tant qu'aucun avis n'est saisi — mieux vaut pas de
+  section qu'une section vide.
+{%- endcomment -%}
+
+{%- if section.blocks.size > 0 -%}
+  <section class="klaxo klaxo-reviews">
+    <div class="klaxo-container">
+      <div class="klaxo-reviews__head">
+        {%- if section.settings.eyebrow != blank -%}
+          <span class="klaxo-eyebrow klaxo-eyebrow--light">{{ section.settings.eyebrow }}</span>
+        {%- endif -%}
+        <h2 class="klaxo-title">{{ section.settings.title }}</h2>
+        {%- if section.settings.text != blank -%}
+          <p class="klaxo-reviews__lede">{{ section.settings.text }}</p>
+        {%- endif -%}
+      </div>
+
+      <div class="klaxo-reviews__grid">
+        {%- for block in section.blocks -%}
+          <figure class="klaxo-review" {{ block.shopify_attributes }}>
+            {%- if block.settings.stars > 0 -%}
+              <div class="klaxo-review__stars" aria-label="{{ block.settings.stars }} sur 5">
+                {%- for i in (1..block.settings.stars) -%}
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/></svg>
+                {%- endfor -%}
+              </div>
+            {%- endif -%}
+            <blockquote class="klaxo-review__text">{{ block.settings.text }}</blockquote>
+            <figcaption class="klaxo-review__who">
+              {{ block.settings.name }}{% if block.settings.city != blank %} · {{ block.settings.city }}{% endif %}
+            </figcaption>
+          </figure>
+        {%- endfor -%}
+      </div>
+    </div>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "KLAXO — Avis clients",
+  "tag": "section",
+  "max_blocks": 6,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Sur-titre", "default": "Avis clients" },
+    { "type": "text", "id": "title", "label": "Titre", "default": "Ils ont commandé chez KLAXO" },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Texte",
+      "info": "N'affiche un nombre de commandes que si tu peux le justifier."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Avis",
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "N'ajoute que de vrais avis de vrais clients. Un faux avis découvert décrédibilise tous les autres."
+        },
+        { "type": "textarea", "id": "text", "label": "Avis" },
+        { "type": "text", "id": "name", "label": "Prénom" },
+        { "type": "text", "id": "city", "label": "Ville" },
+        { "type": "range", "id": "stars", "label": "Étoiles", "min": 0, "max": 5, "step": 1, "default": 5 }
+      ]
+    }
+  ],
+  "presets": [{ "name": "KLAXO — Avis clients" }]
+}
+{% endschema %}

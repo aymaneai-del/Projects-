@@ -1,0 +1,113 @@
+{
+  "sections": {
+    "hero": {
+      "type": "klaxo-hero",
+      "blocks": {
+        "b1": {
+          "type": "reassurance",
+          "settings": {
+            "icon": "cash",
+            "title": "Paiement à la livraison",
+            "text": "Tu payes le livreur, en espèces."
+          }
+        },
+        "b2": {
+          "type": "reassurance",
+          "settings": {
+            "icon": "truck",
+            "title": "Livraison 24-72h",
+            "text": "Partout au Maroc, incluse."
+          }
+        },
+        "b3": {
+          "type": "reassurance",
+          "settings": {
+            "icon": "return",
+            "title": "Échange 7 jours",
+            "text": "Si ça ne va pas, on reprend."
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3"
+      ],
+      "settings": {}
+    },
+    "produits": {
+      "type": "klaxo-collection",
+      "settings": {
+        "eyebrow": "La sélection",
+        "title": "Les essentiels pour ta voiture",
+        "text": "Pas de catalogue infini. Les produits qu'on garde dans nos propres voitures — choisis, testés, livrés.",
+        "show_excerpt": true,
+        "cta_label": "Commander",
+        "heading_level": "h2",
+        "limit": 12
+      }
+    },
+    "pourquoi": {
+      "type": "klaxo-features",
+      "blocks": {
+        "f1": {
+          "type": "feature",
+          "settings": {
+            "icon": "truck",
+            "title": "Pensé pour le Maroc",
+            "text": "Livraison dans tout le pays, confirmation par téléphone, paiement en espèces. Le parcours que les Marocains connaissent."
+          }
+        },
+        "f2": {
+          "type": "feature",
+          "settings": {
+            "icon": "shield",
+            "title": "Peu de produits, bien choisis",
+            "text": "On ne référence que ce qu'on a testé nous-mêmes. Moins de choix, zéro mauvaise surprise."
+          }
+        },
+        "f3": {
+          "type": "feature",
+          "settings": {
+            "icon": "cash",
+            "title": "Risque zéro de ton côté",
+            "text": "Tu ne payes qu'à la réception, après avoir vu le produit. Et tu peux refuser sur place, sans frais."
+          }
+        }
+      },
+      "block_order": [
+        "f1",
+        "f2",
+        "f3"
+      ],
+      "settings": {
+        "eyebrow": "Pourquoi KLAXO",
+        "title": "Ce qu'on fait différemment"
+      }
+    },
+    "avis": {
+      "type": "klaxo-reviews",
+      "blocks": {},
+      "block_order": [],
+      "settings": {
+        "eyebrow": "Avis clients",
+        "title": "Ils ont commandé chez KLAXO"
+      }
+    },
+    "cta": {
+      "type": "klaxo-cta",
+      "settings": {
+        "title": "Prêt à équiper ta voiture ?",
+        "text": "Tu choisis, tu reçois, tu payes au livreur.",
+        "cta_label": "Voir les produits"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "produits",
+    "pourquoi",
+    "avis",
+    "cta"
+  ]
+}

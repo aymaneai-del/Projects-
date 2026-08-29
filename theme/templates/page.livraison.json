@@ -29,7 +29,7 @@
           "type": "step",
           "settings": {
             "title": "On te confirme par téléphone",
-            "text": "On t'appelle pour valider ta commande et l'adresse de livraison."
+            "text": "Notre équipe te rappelle dans les 2h pour valider ta commande et l'adresse de livraison."
           }
         },
         "s4": {
@@ -134,12 +134,70 @@
         "title": "Zéro risque de ton côté",
         "text": "<p>Au Maroc, on n'aime pas payer avant de voir. Chez KLAXO, tu ne payes jamais avant d'avoir le produit entre les mains. C'est le seul mode de paiement qu'on propose.</p><p>Si le produit ne correspond pas à ce que tu attendais, tu le rends au livreur sur place. Aucun frais, aucune démarche.</p>"
       }
+    },
+    "transporteurs": {
+      "type": "klaxo-carriers",
+      "blocks": {
+        "t1": {
+          "type": "carrier",
+          "settings": {
+            "name": "Sendit",
+            "zone": "Zone 1 prioritaire",
+            "rate": "88 %",
+            "rate_label": "de livraison",
+            "text": "Grandes villes. Remontée du cash rapide."
+          }
+        },
+        "t2": {
+          "type": "carrier",
+          "settings": {
+            "name": "Cathedis",
+            "zone": "Zones 2 & 3",
+            "rate": "85 %",
+            "rate_label": "de livraison",
+            "text": "Couverture nationale, fiable sur tout le Maroc."
+          }
+        },
+        "t3": {
+          "type": "carrier",
+          "settings": {
+            "name": "Ozonexpress",
+            "zone": "Express",
+            "rate": "",
+            "rate_label": "de livraison",
+            "text": "Express COD sur les grandes villes. Suivi par SMS en temps réel."
+          }
+        },
+        "t4": {
+          "type": "carrier",
+          "settings": {
+            "name": "Speedaf",
+            "zone": "Backup national",
+            "rate": "",
+            "rate_label": "de livraison",
+            "text": "National et zones rurales. Suivi SMS automatique."
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4"
+      ],
+      "settings": {
+        "eyebrow": "Nos partenaires logistiques",
+        "title": "Des transporteurs fiables au Maroc",
+        "text": "On répartit les livraisons selon la zone, pour que chaque colis parte avec le transporteur le plus rapide sur son secteur.",
+        "note": "Taux relevés sur nos propres livraisons. À mettre à jour depuis tes relevés dès que tu en as."
+      }
     }
   },
   "order": [
     "hero",
     "steps",
     "zones",
+    "transporteurs",
     "promesse"
   ]
 }

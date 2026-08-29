@@ -251,3 +251,29 @@
   white-space: nowrap;
   border: 0;
 }
+
+/* Produit à prix unique : pas de paliers, juste le vrai prix Shopify. */
+.klaxo-offer__single {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 0 0 18px;
+  padding: 14px 16px;
+  background: var(--klaxo-ground);
+  border-radius: var(--klaxo-radius);
+}
+
+.klaxo-offer__single .klaxo-tier__amount {
+  font-family: var(--k-font-display, system-ui, sans-serif);
+  font-weight: 800;
+  font-size: 28px;
+  font-variant-numeric: tabular-nums;
+}
+
+.klaxo-offer__single-note { font-size: 13.5px; color: var(--klaxo-muted); }
+
+/* Variante en rupture : visible mais non sélectionnable. La masquer ferait
+   croire que le pack n'existe pas ; la griser dit qu'il revient. */
+.klaxo-tier input:disabled + .klaxo-tier__box { opacity: .5; cursor: not-allowed; }
+.klaxo-tier__badge--off { background: var(--klaxo-muted); }

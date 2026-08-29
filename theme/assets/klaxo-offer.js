@@ -21,6 +21,11 @@
   var radios = Array.prototype.slice.call(root.querySelectorAll('input[name="klaxo_tier"]'));
   var stickyPrice = document.querySelector('[data-klaxo-sticky-price]');
 
+  // Déclaré ici et pas plus bas : syncPrice() s'exécute dès le chargement et a
+  // besoin de la zone du formulaire. Déclaré après, `var` le hisserait à
+  // undefined au premier appel et la variante ne serait jamais transmise.
+  var formZone = root.querySelector('[data-klaxo-order-form]');
+
   function selectedTier() {
     for (var i = 0; i < radios.length; i++) {
       if (radios[i].checked) return radios[i];
@@ -28,17 +33,51 @@
     return radios[0] || null;
   }
 
+  /**
+   * Propage la variante choisie partout où le prix facturé se décide.
+   *
+   * Trois canaux, parce que les apps COD ne lisent pas toutes la même chose :
+   *   - l'URL ?variant=  (lue au chargement et par la plupart des apps)
+   *   - un input[name="id"] dans la zone du formulaire
+   *   - un champ de note pour que le call center voie le pack commandé
+   *
+   * Sans ça, le client verrait un prix et l'app en encaisserait un autre.
+   */
   function syncPrice() {
     var tier = selectedTier();
     if (!tier) return;
+
     var price = tier.dataset.price;
+    var variantId = tier.dataset.variantId;
 
     root.dataset.selectedPrice = price;
-    if (stickyPrice) stickyPrice.textContent = price;
+    if (stickyPrice && tier.dataset.priceLabel) {
+      stickyPrice.textContent = tier.dataset.priceLabel;
+    }
 
-    // Reporter le choix dans le formulaire de l'app, s'il expose un champ pour ça.
-    var hidden = document.querySelector('[name="properties[klaxo_pack]"]');
-    if (hidden) hidden.value = tier.dataset.label || tier.value;
+    if (variantId) {
+      // L'app lit souvent la variante dans l'URL. replaceState : pas d'entrée
+      // supplémentaire dans l'historique, le bouton retour reste utilisable.
+      try {
+        var url = new URL(window.location.href);
+        url.searchParams.set('variant', variantId);
+        window.history.replaceState({}, '', url);
+      } catch (e) {
+        /* URL non manipulable : les deux autres canaux prennent le relais. */
+      }
+
+      if (formZone) {
+        var champId = formZone.querySelector('input[name="id"], select[name="id"]');
+        if (champId) {
+          champId.value = variantId;
+          // Certaines apps écoutent 'change' pour recalculer leur total.
+          champId.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      }
+    }
+
+    var note = document.querySelector('[name="properties[klaxo_pack]"]');
+    if (note) note.value = tier.dataset.label || tier.value;
   }
 
   radios.forEach(function (radio) {
@@ -49,7 +88,6 @@
   /* ── 2. Barre mobile ──────────────────────────────────────────────────── */
 
   var sticky = document.querySelector('[data-klaxo-sticky]');
-  var formZone = root.querySelector('[data-klaxo-order-form]');
 
   if (sticky && formZone) {
     sticky.hidden = false;

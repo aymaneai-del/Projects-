@@ -3,9 +3,9 @@
     "hero": {
       "type": "klaxo-page-hero",
       "settings": {
-        "eyebrow": "On te répond",
+        "eyebrow": "Réponse en moins d'1h",
         "title": "Contacte KLAXO",
-        "text": "Une question sur une commande, un produit, une livraison ? Écris-nous, en darija ou en français."
+        "text": "Une question sur une commande, un produit, une livraison ? On est là 7j/7 de 9h à 20h, en darija ou en français."
       }
     },
     "contact": {
@@ -16,8 +16,8 @@
           "settings": {
             "icon": "whatsapp",
             "title": "WhatsApp",
-            "text": "Le canal le plus rapide. En darija ou en français.",
-            "value": "Écrire sur WhatsApp"
+            "text": "Le canal le plus rapide. Réponse en moins d'1h, en darija ou en français.",
+            "value": "9h-20h · 7j/7"
           }
         },
         "c2": {
@@ -49,7 +49,7 @@
         "form_text": "Laisse ton numéro : on répond plus vite sur WhatsApp que par e-mail.",
         "subjects": "Suivi de commande, Question produit, Problème de livraison, Retour ou échange, Autre",
         "submit_label": "Envoyer",
-        "success_message": "Message reçu. On te répond au plus vite."
+        "success_message": "Message reçu. On te répond sous 2h pendant nos horaires, 9h-20h, 7j/7."
       }
     }
   },

@@ -700,3 +700,118 @@ a.klaxo-channel:hover { border-color: var(--k-black); transform: translateY(-2px
   font-size: 12.5px;
   font-weight: 700;
 }
+
+/* ---- Pourquoi ------------------------------------------------------------ */
+
+.klaxo-features { padding: 50px 0; background: var(--k-sand); }
+.klaxo-features__head { margin-bottom: 26px; max-width: 62ch; }
+
+.klaxo-features__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+}
+
+.klaxo-feature { background: var(--k-white); border-radius: var(--k-radius-lg); padding: 20px; }
+
+.klaxo-feature__media { margin: -20px -20px 16px; border-radius: var(--k-radius-lg) var(--k-radius-lg) 0 0; overflow: hidden; }
+.klaxo-feature__media img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+
+.klaxo-feature__icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--k-yellow);
+  color: var(--k-black);
+  margin-bottom: 13px;
+}
+
+.klaxo-feature__title { font-family: var(--k-font-display); font-weight: 700; font-size: 18px; margin: 0 0 6px; }
+.klaxo-feature__text { font-size: 14.5px; color: var(--k-muted); margin: 0; line-height: 1.65; }
+
+/* ---- Avis ---------------------------------------------------------------- */
+
+.klaxo-reviews { padding: 52px 0; background: var(--k-black); color: var(--k-white); }
+.klaxo-reviews__head { margin-bottom: 26px; max-width: 62ch; }
+.klaxo-reviews .klaxo-title { color: var(--k-white); }
+.klaxo-eyebrow--light { color: var(--k-yellow); }
+.klaxo-reviews__lede { color: rgba(255, 255, 255, .68); font-size: 16px; margin: 0; }
+
+.klaxo-reviews__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 15px;
+}
+
+.klaxo-review {
+  background: rgba(255, 255, 255, .06);
+  border: 1px solid rgba(255, 255, 255, .1);
+  border-radius: var(--k-radius-lg);
+  padding: 19px 20px;
+  margin: 0;
+}
+
+.klaxo-review__stars { display: flex; gap: 2px; color: var(--k-yellow); margin-bottom: 11px; }
+.klaxo-review__text { margin: 0 0 13px; font-size: 15px; line-height: 1.65; }
+.klaxo-review__who { font-size: 13px; color: rgba(255, 255, 255, .6); font-weight: 600; }
+
+/* ---- Bande CTA ----------------------------------------------------------- */
+
+.klaxo-ctaband { padding: 44px 0; }
+
+.klaxo-ctaband__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 22px;
+  flex-wrap: wrap;
+  background: var(--k-yellow);
+  border-radius: var(--k-radius-lg);
+  padding: 30px 32px;
+}
+
+.klaxo-ctaband__title { margin: 0 0 6px; font-size: clamp(24px, 3.5vw, 32px); }
+.klaxo-ctaband__text { margin: 0; font-size: 15.5px; }
+.klaxo-ctaband .klaxo-btn--primary { background: var(--k-black); color: var(--k-white); }
+.klaxo-ctaband .klaxo-btn--primary:hover { background: #23232B; }
+
+/* ---- Transporteurs ------------------------------------------------------- */
+
+.klaxo-carriers { padding: 48px 0; background: var(--k-sand); }
+.klaxo-carriers__head { margin-bottom: 24px; max-width: 62ch; }
+
+.klaxo-carriers__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(232px, 1fr));
+  gap: 14px;
+}
+
+.klaxo-carrier { background: var(--k-white); border-radius: var(--k-radius); padding: 17px 18px; }
+.klaxo-carrier__top { display: flex; align-items: center; gap: 9px; flex-wrap: wrap; margin-bottom: 9px; }
+.klaxo-carrier__name { font-family: var(--k-font-display); font-weight: 700; font-size: 17px; }
+
+.klaxo-carrier__zone {
+  background: var(--k-black);
+  color: var(--k-white);
+  border-radius: 99px;
+  padding: 2px 9px;
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+
+.klaxo-carrier__rate { display: flex; align-items: baseline; gap: 7px; margin: 0 0 8px; }
+
+.klaxo-carrier__rate-num {
+  font-family: var(--k-font-display);
+  font-weight: 800;
+  font-size: 26px;
+  font-variant-numeric: tabular-nums;
+}
+
+.klaxo-carrier__rate-label { font-size: 13px; color: var(--k-muted); }
+.klaxo-carrier__text { font-size: 13.5px; color: var(--k-muted); margin: 0; line-height: 1.6; }
+.klaxo-carriers__note { margin: 18px 0 0; font-size: 13px; color: var(--k-muted); }

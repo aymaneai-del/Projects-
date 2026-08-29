@@ -17,11 +17,20 @@ compris.
 Produits → Importer → choisir data/klaxo-produits.csv → Importer
 ```
 
-| Produit | Prix du CSV | Poids | SKU |
-|---|---|---|---|
-| Organisateur entre-sièges | 199 DH | 320 g | KLX-ORG-01 |
-| Support téléphone magnétique | 149 DH | 140 g | KLX-SUP-01 |
-| Caméra de recul sans fil | 399 DH | 480 g | KLX-CAM-01 |
+| Produit | Variante | Prix | Poids | SKU |
+|---|---|---|---|---|
+| Organisateur entre-sièges | Organisateur seul | 199 DH | 320 g | KLX-ORG-01 |
+| ↳ | + Support magnétique | 349 DH | 460 g | KLX-ORG-02 |
+| ↳ | Pack complet + Caméra | 649 DH | 940 g | KLX-ORG-03 |
+| Support téléphone magnétique | — | 149 DH | 140 g | KLX-SUP-01 |
+| Caméra de recul sans fil | — | 399 DH | 480 g | KLX-CAM-01 |
+
+**Les paliers sont de vraies variantes Shopify, pas un affichage du thème.**
+C'est structurant : l'app COD encaisse le prix de la variante sélectionnée.
+Si les paliers n'étaient que décoratifs, la page afficherait 349 DH pendant que
+l'app en facturerait 199 — un écart que le client découvre devant le livreur,
+donc un refus quasi certain. Pour changer un prix de pack, passe par
+`Produits → Organisateur → Variantes`, jamais par l'éditeur de thème.
 
 **Les prix et les poids sont des hypothèses de travail.** Remplace-les par tes
 vrais chiffres dès que tu as les prix d'achat de Derb Omar et les tarifs
@@ -45,6 +54,20 @@ Crée une collection qui contient les trois produits — c'est elle que la page
 Produits → Collections → Créer → nom « Nos produits »
 → Type : manuelle → ajouter les 3 produits
 ```
+
+---
+
+### La collection doit être choisie sur l'accueil
+
+La page d'accueil affiche une grille de produits, mais Shopify ne devine pas
+laquelle. Une fois la collection créée :
+
+```
+Éditeur de thème → Accueil → section « KLAXO — Grille produits »
+→ Collection → choisir « Nos produits »
+```
+
+Sans ça, la grille reste vide et affiche « Aucun produit pour le moment ».
 
 ---
 
@@ -106,43 +129,32 @@ les mentions légales se génèrent depuis `Paramètres → Politiques`.
 
 ---
 
-## Ce que j'ai retiré de l'inspiration, et pourquoi
+## Sur les trois points que j'avais écartés
 
-Trois éléments ne pouvaient pas partir en ligne tels quels.
+**Les délais de réponse — rétablis.** Mon objection reposait sur l'idée que tu
+étais seul ; vous êtes 2-3 sur la logistique et la confirmation. « Réponse en
+moins d'1h », « rappel sous 2h » et « 9h-20h, 7j/7 » sont de nouveau dans la FAQ,
+la page Livraison et la page Contact. Ils restent modifiables partout.
 
-### Les taux de livraison des transporteurs
+**Les transporteurs — rétablis, en réglages.** La section existe (Sendit,
+Cathedis, Ozonexpress, Speedaf) avec les taux que tu as donnés. Nom, taux, zone
+et description sont des réglages : rien n'est écrit dans le code, donc un chiffre
+se corrige en dix secondes depuis l'éditeur de thème.
 
-L'inspiration présentait quatre transporteurs comme « nos partenaires
-logistiques », avec des taux de livraison chiffrés (88 %, 85 %).
+Deux réserves qui restent les tiennes à arbitrer : ces taux sont publics, donc
+ils t'engagent — mets-y tes propres relevés dès que tu en as. Et un transporteur
+avec lequel le contrat n'est pas signé n'est pas encore un partenaire : retire
+la carte tant que ce n'est pas le cas. J'ai laissé Ozonexpress et Speedaf sans
+taux affiché plutôt que d'inventer les leurs.
 
-Deux problèmes distincts : **aucun contrat courrier n'est signé**, donc ce ne
-sont pas tes partenaires ; et ces pourcentages sont des **statistiques inventées
-attribuées à des entreprises réelles**. Publier ça t'expose, et le premier client
-qui compare le délai annoncé au délai réel ne revient pas.
-
-La page Livraison ne nomme donc aucun transporteur. Tu pourras en ajouter un
-quand tu auras signé — avec les délais de ton contrat, pas des chiffres inventés.
-
-### La garantie 12 mois
-
-« Garantie 12 mois sur tous les produits » est un engagement que tu ne peux pas
-tenir sur du sourcing Derb Omar sans garantie fournisseur. Un client qui revient
-au dixième mois avec une caméra en panne aura raison, et tu payeras.
-
-Remplacé par ce qui est vrai et déjà solide : **retour 7 jours**, et prise en
-charge complète d'un produit défectueux à l'arrivée. Si un fournisseur te donne
-une vraie garantie écrite, ajoute-la à ce moment-là.
-
-### Les délais de réponse chiffrés
-
-« Réponse en moins d'1h », « rappel dans les 2h », « 45 minutes en moyenne »,
-« 7j/7 de 9h à 20h ». Tu es seul. Une promesse de délai non tenue produit
-exactement le client qui refuse le colis.
-
-Les textes disent maintenant « on te répond au plus vite ». Tous sont modifiables :
-le jour où tu as un call center, mets les vrais chiffres.
-
----
+**La garantie 12 mois — toujours écartée.** C'est le seul des trois points que je
+n'ai pas remis, et pour une raison différente des deux autres : ce n'est pas une
+promesse de service que ton équipe peut tenir par son organisation, c'est un
+engagement sur la durée de vie de produits sourcés sans garantie fournisseur. Un
+client qui revient au dixième mois avec une caméra en panne aura raison, et tu
+payeras. La page annonce le retour 7 jours et la prise en charge d'un défaut à
+l'arrivée, qui sont vrais. Si un fournisseur te donne une garantie écrite,
+dis-le-moi et je l'ajoute.
 
 ## Deux réserves sur la gamme
 
@@ -180,6 +192,8 @@ les prix d'achat réels.
 
 - [ ] 3 produits importés, images ajoutées
 - [ ] Collection « Nos produits » créée avec les 3 produits
+- [ ] Collection choisie dans la section « Grille produits » de l'accueil
+- [ ] Un pack sélectionné sur la page produit change bien le prix DANS le formulaire de l'app
 - [ ] 4 pages créées, handles exacts, modèles assignés
 - [ ] 3 menus créés et rattachés aux sections
 - [ ] Numéro WhatsApp renseigné dans les réglages

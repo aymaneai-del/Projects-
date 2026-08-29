@@ -9,9 +9,12 @@ déjà branché ne le casse pas et ne duplique rien.
                                   bouton WhatsApp flottant
   2. sections/header-group.json   barre d'annonce + en-tête KLAXO
   3. sections/footer-group.json   pied de page KLAXO
-  4. templates/index.json         hero KLAXO
-  5. templates/product.json       section offre COD, sans bouton panier
-  6. config/settings_schema.json  WhatsApp et réseaux sociaux
+  4. templates/product.json       section offre COD, sans bouton panier
+  5. config/settings_schema.json  WhatsApp et réseaux sociaux
+
+Les autres templates (index, collection, pages) sont versionnés dans
+theme/templates/ et simplement copiés par le script de build : les générer
+ici les écraserait à chaque construction.
 
 Pourquoi retirer le bouton d'achat de la page produit : laisser cohabiter
 « Ajouter au panier » et le formulaire COD envoie une partie des clients dans
@@ -29,9 +32,63 @@ MARQUEUR = "KLAXO_CONFIG"
 
 TETE_LIQUID = """
   {%- comment -%} KLAXO — marque et tracking {%- endcomment -%}
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap">
+  {%- comment -%}
+    KLAXO — polices auto-hébergées.
+
+    Servies par le CDN Shopify plutôt que par Google Fonts. Sur de la 4G
+    marocaine, passer par fonts.googleapis.com puis fonts.gstatic.com coûte
+    deux résolutions DNS et deux poignées de main TLS avant le premier octet
+    de police — plusieurs centaines de millisecondes sur le budget LCP.
+
+    Seuls les sous-ensembles latin et latin-ext sont embarqués. Grâce à
+    unicode-range, latin-ext n'est téléchargé que si un caractère de sa plage
+    apparaît réellement : sur un site en français, il ne se charge jamais.
+    Charge réelle : latin uniquement.
+  {%- endcomment -%}
+  {%- comment -%}
+    Pas de preload volontairement. Avec font-display: swap, le texte s'affiche
+    tout de suite en police de repli : précharger ne gagne pas de LCP, ça met
+    47 Ko en concurrence avec l'image produit — qui est, elle, le vrai élément
+    LCP — sur une bande passante 4G limitée.
+  {%- endcomment -%}
+  <style>
+    @font-face {
+      font-family: 'Bricolage Grotesque';
+      font-style: normal;
+      /* Police variable : un seul fichier couvre toute la plage de graisses. */
+      font-weight: 600 800;
+      font-display: swap;
+      src: url({{ 'klaxo-bricolage-grotesque-latin.woff2' | asset_url }}) format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: 'Bricolage Grotesque';
+      font-style: normal;
+      /* Police variable : un seul fichier couvre toute la plage de graisses. */
+      font-weight: 600 800;
+      font-display: swap;
+      src: url({{ 'klaxo-bricolage-grotesque-latin-ext.woff2' | asset_url }}) format('woff2');
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+    @font-face {
+      font-family: 'Inter';
+      font-style: normal;
+      /* Police variable : un seul fichier couvre toute la plage de graisses. */
+      font-weight: 400 700;
+      font-display: swap;
+      src: url({{ 'klaxo-inter-latin.woff2' | asset_url }}) format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: 'Inter';
+      font-style: normal;
+      /* Police variable : un seul fichier couvre toute la plage de graisses. */
+      font-weight: 400 700;
+      font-display: swap;
+      src: url({{ 'klaxo-inter-latin-ext.woff2' | asset_url }}) format('woff2');
+      unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+    }
+  </style>
   {{ 'klaxo-brand.css' | asset_url | stylesheet_tag }}
 
   {%- comment -%}
@@ -110,50 +167,6 @@ def brancher_groupe(racine: Path, fichier: str, sections: dict, ordre: list) -> 
     donnees["order"] = ordre
     _ecrire_json(chemin, donnees)
     print(f"  {fichier:<21} {', '.join(ordre)}")
-
-
-def brancher_accueil(racine: Path) -> None:
-    chemin = racine / "templates" / "index.json"
-    _ecrire_json(
-        chemin,
-        {
-            "sections": {
-                "klaxo_hero": {
-                    "type": "klaxo-hero",
-                    "blocks": {
-                        "b1": {
-                            "type": "reassurance",
-                            "settings": {
-                                "icon": "cash",
-                                "title": "Paiement à la livraison",
-                                "text": "Tu payes le livreur, en espèces.",
-                            },
-                        },
-                        "b2": {
-                            "type": "reassurance",
-                            "settings": {
-                                "icon": "truck",
-                                "title": "Livraison 24-72h",
-                                "text": "Partout au Maroc, incluse.",
-                            },
-                        },
-                        "b3": {
-                            "type": "reassurance",
-                            "settings": {
-                                "icon": "return",
-                                "title": "Échange 7 jours",
-                                "text": "Si ça ne va pas, on reprend.",
-                            },
-                        },
-                    },
-                    "block_order": ["b1", "b2", "b3"],
-                    "settings": {},
-                }
-            },
-            "order": ["klaxo_hero"],
-        },
-    )
-    print("  index.json            hero KLAXO")
 
 
 def brancher_produit(racine: Path) -> None:
@@ -240,7 +253,6 @@ def main() -> None:
         },
         ["klaxo_footer"],
     )
-    brancher_accueil(racine)
     brancher_produit(racine)
     brancher_reglages(racine)
 

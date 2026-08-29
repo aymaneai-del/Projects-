@@ -16,7 +16,7 @@
           "settings": {
             "category": "💵 Commande & paiement",
             "question": "Comment je commande sur klaxo.ma ?",
-            "answer": "<p>Quatre étapes :</p><ul><li>Choisis ton produit et ton pack sur la page produit.</li><li>Remplis le formulaire : nom, téléphone, ville, adresse.</li><li>On t'appelle pour confirmer ta commande et l'adresse.</li><li>Le livreur passe et tu payes en espèces à la réception.</li></ul>"
+            "answer": "<p>Quatre étapes :</p><ul><li>Choisis ton produit et ton pack sur la page produit.</li><li>Remplis le formulaire : nom, téléphone, ville, adresse.</li><li>On te rappelle <strong>dans les 2h</strong> pour confirmer ta commande et l'adresse.</li><li>Le livreur passe sous 24-72h et tu payes en espèces à la réception.</li></ul>"
           }
         },
         "q2": {
@@ -40,7 +40,7 @@
           "settings": {
             "category": "",
             "question": "Je peux commander par WhatsApp ?",
-            "answer": "<p>Oui. Envoie-nous le nom du produit, ta ville, ton adresse et ton numéro. On s'occupe du reste.</p>"
+            "answer": "<p>Oui. Envoie-nous le nom du produit, ta ville, ton adresse et ton numéro. On répond <strong>en moins d'une heure</strong> pendant nos horaires, 9h-20h, 7j/7.</p>"
           }
         },
         "q5": {

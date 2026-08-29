@@ -1,0 +1,35 @@
+{%- comment -%}
+  KLAXO — bande d'appel à l'action, en fin de page.
+{%- endcomment -%}
+
+<section class="klaxo klaxo-ctaband">
+  <div class="klaxo-container">
+    <div class="klaxo-ctaband__inner">
+      <div>
+        <h2 class="klaxo-title klaxo-ctaband__title">{{ section.settings.title }}</h2>
+        {%- if section.settings.text != blank -%}
+          <p class="klaxo-ctaband__text">{{ section.settings.text }}</p>
+        {%- endif -%}
+      </div>
+      {%- if section.settings.cta_url != blank -%}
+        <a href="{{ section.settings.cta_url }}" class="klaxo-btn klaxo-btn--primary">
+          {{ section.settings.cta_label | default: 'Commander' }}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "KLAXO — Bande CTA",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "title", "label": "Titre", "default": "Prêt à équiper ta voiture ?" },
+    { "type": "text", "id": "text", "label": "Texte", "default": "Tu choisis, tu reçois, tu payes au livreur." },
+    { "type": "text", "id": "cta_label", "label": "Bouton", "default": "Voir les produits" },
+    { "type": "url", "id": "cta_url", "label": "Lien" }
+  ],
+  "presets": [{ "name": "KLAXO — Bande CTA" }]
+}
+{% endschema %}

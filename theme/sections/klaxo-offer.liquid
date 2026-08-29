@@ -1,13 +1,16 @@
 {%- comment -%}
   KLAXO — Section offre COD (Phase 1).
 
-  Rend les trois paliers, le bloc confiance et le point de montage du formulaire
-  de commande de l'app COD. Le palier "Duo" est présélectionné : le client choisit
-  de DESCENDRE, pas de monter — c'est le seul palier réellement rentable une fois
-  le coût pub par livrée pris en compte.
+  Rend les paliers (= les variantes du produit), le bloc confiance et le point
+  de montage du formulaire de l'app COD.
+
+  Les prix viennent de Shopify, jamais des réglages du thème : c'est le prix de
+  la variante que l'app encaisse réellement. Ordonne les variantes du moins cher
+  au plus cher dans l'admin, et place en 2e position celle que tu veux pousser —
+  c'est elle qui porte le badge, et le client choisit alors de descendre plutôt
+  que de monter.
 
   Aucun secret dans ce fichier : il est servi publiquement.
-  Prix et contenus se règlent dans l'éditeur de thème, jamais en dur ici.
 {%- endcomment -%}
 
 {%- comment -%}
@@ -22,7 +25,7 @@
   class="klaxo klaxo-offer"
   data-klaxo-offer
   data-product-id="{{ product.id }}"
-  data-selected-price="{{ section.settings.price_duo }}"
+  data-selected-price="{{ product.selected_or_first_available_variant.price | divided_by: 100 }}"
 >
   <div class="klaxo-offer__head">
     <h2 class="klaxo-offer__title">{{ section.settings.heading | escape }}</h2>
@@ -41,58 +44,70 @@
     {{ section.settings.shipping_line | escape }}
   </p>
 
-  <fieldset class="klaxo-tiers">
-    <legend class="visually-hidden">Choisis ton pack</legend>
+  {%- comment -%}
+    Les paliers viennent des VARIANTES du produit dès qu'il en a plusieurs.
 
-    {%- assign tiers = 'solo,duo,full' | split: ',' -%}
-    {%- for tier in tiers -%}
-      {%- case tier -%}
-        {%- when 'solo' -%}
-          {%- assign label = section.settings.label_solo -%}
-          {%- assign price = section.settings.price_solo -%}
-          {%- assign desc = section.settings.desc_solo -%}
-          {%- assign badge = '' -%}
-        {%- when 'duo' -%}
-          {%- assign label = section.settings.label_duo -%}
-          {%- assign price = section.settings.price_duo -%}
-          {%- assign desc = section.settings.desc_duo -%}
-          {%- assign badge = section.settings.badge_duo -%}
-        {%- when 'full' -%}
-          {%- assign label = section.settings.label_full -%}
-          {%- assign price = section.settings.price_full -%}
-          {%- assign desc = section.settings.desc_full -%}
-          {%- assign badge = section.settings.badge_full -%}
-      {%- endcase -%}
+    C'est le point structurant : l'app COD facture le prix de la variante
+    Shopify sélectionnée, pas un prix écrit dans les réglages du thème.
+    Des paliers purement décoratifs afficheraient 349 DH pendant que l'app
+    encaisserait 199 — un écart que le client découvre devant le livreur,
+    donc un refus quasi certain.
 
-      {%- if price > 0 -%}
-        <label class="klaxo-tier" for="klaxo-tier-{{ tier }}">
+    Repli sur les paliers manuels si le produit n'a qu'une variante : la
+    section reste utilisable, mais elle n'affiche alors qu'un prix, le vrai.
+  {%- endcomment -%}
+
+  {%- assign variantes = product.variants -%}
+  {%- if variantes.size > 1 -%}
+
+    <fieldset class="klaxo-tiers">
+      <legend class="visually-hidden">Choisis ton pack</legend>
+      {%- for variante in variantes -%}
+        <label class="klaxo-tier" for="klaxo-var-{{ variante.id }}">
           <input
             type="radio"
-            id="klaxo-tier-{{ tier }}"
+            id="klaxo-var-{{ variante.id }}"
             name="klaxo_tier"
-            value="{{ tier }}"
-            data-price="{{ price }}"
-            data-label="{{ label | escape }}"
-            {% if tier == 'duo' %}checked{% endif %}
+            value="{{ variante.id }}"
+            data-variant-id="{{ variante.id }}"
+            data-price="{{ variante.price | divided_by: 100 }}"
+            data-price-label="{{ variante.price | money_without_trailing_zeros }}"
+            data-label="{{ variante.title | escape }}"
+            {% if variante.id == product.selected_or_first_available_variant.id %}checked{% endif %}
+            {% unless variante.available %}disabled{% endunless %}
           >
           <span class="klaxo-tier__box">
             <span class="klaxo-tier__main">
               <span class="klaxo-tier__label">
-                {{ label | escape }}
-                {%- if badge != blank %}<span class="klaxo-tier__badge">{{ badge | escape }}</span>{% endif -%}
+                {{ variante.title }}
+                {%- if forloop.index == 2 and section.settings.badge_duo != blank -%}
+                  <span class="klaxo-tier__badge">{{ section.settings.badge_duo | escape }}</span>
+                {%- endif -%}
+                {%- unless variante.available -%}
+                  <span class="klaxo-tier__badge klaxo-tier__badge--off">Épuisé</span>
+                {%- endunless -%}
               </span>
-              {%- if desc != blank -%}
-                <span class="klaxo-tier__desc">{{ desc | escape }}</span>
-              {%- endif -%}
             </span>
             <span class="klaxo-tier__price">
-              <span class="klaxo-tier__amount">{{ price }}</span> DH
+              <span class="klaxo-tier__amount">{{ variante.price | money_without_trailing_zeros }}</span>
             </span>
           </span>
         </label>
-      {%- endif -%}
-    {%- endfor -%}
-  </fieldset>
+      {%- endfor -%}
+    </fieldset>
+
+  {%- else -%}
+
+    {%- comment -%}
+      Produit à variante unique : un seul prix, celui de Shopify. On n'invente
+      pas de paliers qui ne correspondraient à rien de facturable.
+    {%- endcomment -%}
+    <p class="klaxo-offer__single">
+      <span class="klaxo-tier__amount">{{ product.price | money_without_trailing_zeros }}</span>
+      <span class="klaxo-offer__single-note">{{ section.settings.single_note }}</span>
+    </p>
+
+  {%- endif -%}
 
   {%- render 'klaxo-trust' -%}
 
@@ -114,8 +129,12 @@
   <p class="klaxo-offer__legal">{{ section.settings.legal_line | escape }}</p>
 </div>
 
+{%- comment -%}
+  Liquid interdit les filtres dans les arguments de `render` : on formate avant.
+{%- endcomment -%}
+{%- assign prix_initial = product.selected_or_first_available_variant.price | money_without_trailing_zeros -%}
 {%- render 'klaxo-sticky-cta',
-  price: section.settings.price_duo,
+  price: prix_initial,
   label: section.settings.sticky_label
 -%}
 
@@ -147,22 +166,18 @@
       "default": "Livraison partout au Maroc — incluse dans le prix"
     },
 
-    { "type": "header", "content": "Palier Solo" },
-    { "type": "text", "id": "label_solo", "label": "Nom", "default": "Solo" },
-    { "type": "number", "id": "price_solo", "label": "Prix TTC (DH)", "default": 199 },
-    { "type": "text", "id": "desc_solo", "label": "Description" },
-
-    { "type": "header", "content": "Palier Duo (présélectionné)" },
-    { "type": "text", "id": "label_duo", "label": "Nom", "default": "Duo" },
-    { "type": "number", "id": "price_duo", "label": "Prix TTC (DH)", "default": 349 },
-    { "type": "text", "id": "desc_duo", "label": "Description" },
-    { "type": "text", "id": "badge_duo", "label": "Badge", "default": "Le plus pris" },
-
-    { "type": "header", "content": "Palier Full" },
-    { "type": "text", "id": "label_full", "label": "Nom", "default": "Full" },
-    { "type": "number", "id": "price_full", "label": "Prix TTC (DH)", "default": 549 },
-    { "type": "text", "id": "desc_full", "label": "Description" },
-    { "type": "text", "id": "badge_full", "label": "Badge" },
+    { "type": "header", "content": "Paliers" },
+    {
+      "type": "paragraph",
+      "content": "Les paliers et leurs prix sont les VARIANTES du produit, réglées dans Produits → ce produit → Variantes. Le thème ne fixe aucun prix : afficher ici un prix différent de celui que l'app encaisse ferait découvrir l'écart au client devant le livreur."
+    },
+    { "type": "text", "id": "badge_duo", "label": "Badge sur la 2e variante", "default": "Le plus pris" },
+    {
+      "type": "text",
+      "id": "single_note",
+      "label": "Mention si le produit n'a qu'un prix",
+      "default": "Livraison incluse"
+    },
 
     { "type": "header", "content": "Formulaire" },
     {

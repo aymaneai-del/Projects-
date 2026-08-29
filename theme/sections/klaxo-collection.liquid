@@ -15,14 +15,29 @@
         {%- if section.settings.eyebrow != blank -%}
           <span class="klaxo-eyebrow">{{ section.settings.eyebrow }}</span>
         {%- endif -%}
-        <h1 class="klaxo-title">{{ section.settings.title }}</h1>
+        {%- if section.settings.heading_level == 'h1' -%}
+          <h1 class="klaxo-title">{{ section.settings.title }}</h1>
+        {%- else -%}
+          <h2 class="klaxo-title">{{ section.settings.title }}</h2>
+        {%- endif -%}
         {%- if section.settings.text != blank -%}
           <p class="klaxo-lede">{{ section.settings.text }}</p>
         {%- endif -%}
       </div>
     {%- endif -%}
 
-    {%- assign produits = collection.products -%}
+    {%- comment -%}
+      Sur une page collection, l'objet `collection` existe déjà. Sur l'accueil,
+      il faut le choisir dans les réglages. Une seule section pour les deux cas :
+      dupliquer la grille aurait fait diverger les deux rendus à la première
+      retouche.
+    {%- endcomment -%}
+    {%- assign source = collection -%}
+    {%- if section.settings.collection != blank -%}
+      {%- assign source = section.settings.collection -%}
+    {%- endif -%}
+    {%- assign limite = section.settings.limit | default: 12 -%}
+    {%- assign produits = source.products | slice: 0, limite -%}
     {%- if produits.size > 0 -%}
       <ul class="klaxo-grid" role="list">
         {%- for product in produits -%}
@@ -68,12 +83,27 @@
   "name": "KLAXO — Grille produits",
   "tag": "section",
   "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection",
+      "info": "À renseigner sur la page d'accueil. Sur une page collection, laisse vide : la collection affichée est utilisée."
+    },
+    { "type": "range", "id": "limit", "label": "Nombre de produits", "min": 3, "max": 12, "step": 1, "default": 12 },
     { "type": "text", "id": "eyebrow", "label": "Sur-titre", "default": "La sélection" },
     { "type": "text", "id": "title", "label": "Titre", "default": "Nos produits" },
     { "type": "textarea", "id": "text", "label": "Introduction" },
     { "type": "checkbox", "id": "show_excerpt", "label": "Afficher un extrait", "default": true },
     { "type": "text", "id": "cta_label", "label": "Texte du bouton", "default": "Commander" },
-    { "type": "text", "id": "empty_text", "label": "Texte si aucun produit", "default": "Aucun produit pour le moment." }
+    { "type": "text", "id": "empty_text", "label": "Texte si aucun produit", "default": "Aucun produit pour le moment." },
+    {
+      "type": "select",
+      "id": "heading_level",
+      "label": "Niveau de titre",
+      "info": "h1 sur la page collection, h2 sur l'accueil (où le hero porte déjà le h1).",
+      "options": [{ "value": "h1", "label": "h1" }, { "value": "h2", "label": "h2" }],
+      "default": "h1"
+    }
   ],
   "presets": [{ "name": "KLAXO — Grille produits" }]
 }
