@@ -1,0 +1,121 @@
+{%- comment -%}
+  KLAXO — hero de la page d'accueil.
+
+  Sa seule mission : envoyer vers la page produit. Le trafic est payant et
+  atterrit surtout sur le produit ; l'accueil sert au visiteur qui cherche à
+  vérifier que la boutique est réelle avant de commander.
+{%- endcomment -%}
+
+<section class="klaxo klaxo-hero">
+  <div class="klaxo-container klaxo-hero__inner">
+    <div class="klaxo-hero__text">
+      {%- if section.settings.eyebrow != blank -%}
+        <span class="klaxo-eyebrow">{{ section.settings.eyebrow }}</span>
+      {%- endif -%}
+      <h1 class="klaxo-title klaxo-hero__title">{{ section.settings.title }}</h1>
+      {%- if section.settings.text != blank -%}
+        <p class="klaxo-lede">{{ section.settings.text }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.cta_url != blank -%}
+        <a href="{{ section.settings.cta_url }}" class="klaxo-btn klaxo-btn--primary klaxo-hero__cta">
+          {{ section.settings.cta_label | default: 'Voir le produit' }}
+        </a>
+      {%- endif -%}
+
+      {%- if section.settings.note != blank -%}
+        <p class="klaxo-hero__note">{{ section.settings.note }}</p>
+      {%- endif -%}
+    </div>
+
+    {%- if section.settings.image != blank -%}
+      <div class="klaxo-hero__media">
+        {{
+          section.settings.image
+          | image_url: width: 900
+          | image_tag:
+            loading: 'eager',
+            fetchpriority: 'high',
+            sizes: '(min-width: 900px) 460px, 92vw',
+            widths: '440, 660, 900',
+            alt: section.settings.image.alt | default: section.settings.title
+        }}
+      </div>
+    {%- endif -%}
+  </div>
+
+  <div class="klaxo-container">
+    <ul class="klaxo-reassure">
+      {%- for block in section.blocks -%}
+        <li class="klaxo-reassure__item" {{ block.shopify_attributes }}>
+          <span class="klaxo-reassure__icon">
+            {%- render 'klaxo-icon', name: block.settings.icon, size: 22 -%}
+          </span>
+          <span>
+            <strong class="klaxo-reassure__title">{{ block.settings.title }}</strong>
+            <span class="klaxo-reassure__text">{{ block.settings.text }}</span>
+          </span>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "KLAXO — Hero",
+  "tag": "section",
+  "max_blocks": 4,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Sur-titre", "default": "Accessoires auto · Maroc" },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Titre",
+      "default": "L'accessoire qui change ta route"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Texte",
+      "default": "Sélection testée pour les conducteurs marocains. Tu payes à la livraison, partout au Maroc."
+    },
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "text", "id": "cta_label", "label": "Bouton", "default": "Voir le produit" },
+    { "type": "url", "id": "cta_url", "label": "Lien du bouton" },
+    { "type": "text", "id": "note", "label": "Mention sous le bouton", "default": "Aucun paiement en ligne. Tu payes le livreur." }
+  ],
+  "blocks": [
+    {
+      "type": "reassurance",
+      "name": "Réassurance",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icône",
+          "options": [
+            { "value": "cash", "label": "Paiement" },
+            { "value": "truck", "label": "Livraison" },
+            { "value": "return", "label": "Retour" },
+            { "value": "shield", "label": "Garantie" }
+          ],
+          "default": "cash"
+        },
+        { "type": "text", "id": "title", "label": "Titre", "default": "Paiement à la livraison" },
+        { "type": "text", "id": "text", "label": "Texte", "default": "Tu payes le livreur, en espèces." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "KLAXO — Hero",
+      "blocks": [
+        { "type": "reassurance", "settings": { "icon": "cash", "title": "Paiement à la livraison", "text": "Tu payes le livreur, en espèces." } },
+        { "type": "reassurance", "settings": { "icon": "truck", "title": "Livraison 24-72h", "text": "Partout au Maroc, incluse." } },
+        { "type": "reassurance", "settings": { "icon": "return", "title": "Échange 7 jours", "text": "Si ça ne va pas, on reprend." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

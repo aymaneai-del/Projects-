@@ -6,15 +6,19 @@
  * Tout ce qui n'aide pas à commander est du poids en trop.
  */
 
+/* Les couleurs viennent du système de marque (klaxo-brand.css). Les valeurs
+   après la virgule ne servent que si la section est utilisée seule, sans le
+   thème KLAXO : la page reste alors lisible au lieu de perdre ses couleurs. */
 .klaxo-offer {
-  --klaxo-ink: #16191c;
-  --klaxo-muted: #5d666e;
-  --klaxo-line: #d9dee2;
-  --klaxo-surface: #fff;
-  --klaxo-ground: #f4f6f7;
-  --klaxo-accent: #b3210f;      /* rouge klaxon : réservé à l'action */
-  --klaxo-go: #1c7a4a;
-  --klaxo-radius: 10px;
+  --klaxo-ink: var(--k-black, #0B0B0F);
+  --klaxo-muted: var(--k-muted, #6B7280);
+  --klaxo-line: var(--k-line, #E5E7EB);
+  --klaxo-surface: var(--k-white, #FFFFFF);
+  --klaxo-ground: var(--k-sand, #F5F5F3);
+  --klaxo-accent: var(--k-orange, #FF6B1A);
+  --klaxo-go: var(--k-green, #1C7A4A);
+  --klaxo-radius: var(--k-radius, 12px);
+  font-family: var(--k-font-body, system-ui, sans-serif);
 
   max-width: 560px;
   margin-inline: auto;
@@ -28,8 +32,11 @@
 
 .klaxo-offer__title {
   margin: 0 0 4px;
-  font-size: 22px;
-  line-height: 1.2;
+  font-family: var(--k-font-display, system-ui, sans-serif);
+  font-weight: 800;
+  font-size: 24px;
+  line-height: 1.15;
+  letter-spacing: -.01em;
   text-wrap: balance;
 }
 
@@ -193,7 +200,7 @@
   /* Retrait de la barre système iOS pour que le bouton reste atteignable. */
   padding: 10px 14px calc(10px + env(safe-area-inset-bottom, 0px));
   background: rgba(255, 255, 255, .97);
-  border-top: 1px solid var(--klaxo-line, #d9dee2);
+  border-top: 1px solid var(--k-line, #E5E7EB);
   transition: transform .2s ease;
 }
 
@@ -210,10 +217,11 @@
   flex: 1;
   max-width: 260px;
   padding: 13px 18px;
-  background: var(--klaxo-accent, #b3210f);
-  color: #fff;
+  background: var(--k-yellow, #FFD60A);
+  color: var(--k-black, #0B0B0F);
   border: 0;
-  border-radius: var(--klaxo-radius, 10px);
+  border-radius: var(--k-radius, 12px);
+  font-family: var(--k-font-body, system-ui, sans-serif);
   font-size: 16px;
   font-weight: 700;
   cursor: pointer;
@@ -221,7 +229,7 @@
   min-height: 46px;
 }
 
-.klaxo-sticky__btn:focus-visible { outline: 3px solid #16191c; outline-offset: 2px; }
+.klaxo-sticky__btn:focus-visible { outline: 3px solid var(--k-orange, #FF6B1A); outline-offset: 2px; }
 
 @media (min-width: 750px) {
   .klaxo-sticky { display: none; }

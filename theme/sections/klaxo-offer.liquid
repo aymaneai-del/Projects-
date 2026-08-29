@@ -10,10 +10,16 @@
   Prix et contenus se règlent dans l'éditeur de thème, jamais en dur ici.
 {%- endcomment -%}
 
+{%- comment -%}
+  Le CSS de marque porte les tokens (couleurs, polices) que klaxo-cod.css
+  consomme. Shopify dédoublonne un même asset chargé deux fois, donc le
+  déclarer ici ne coûte rien et garde la section autonome.
+{%- endcomment -%}
+{{ 'klaxo-brand.css' | asset_url | stylesheet_tag }}
 {{ 'klaxo-cod.css' | asset_url | stylesheet_tag }}
 
 <div
-  class="klaxo-offer"
+  class="klaxo klaxo-offer"
   data-klaxo-offer
   data-product-id="{{ product.id }}"
   data-selected-price="{{ section.settings.price_duo }}"

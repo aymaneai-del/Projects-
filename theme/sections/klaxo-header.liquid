@@ -1,0 +1,53 @@
+{%- comment -%}
+  KLAXO — en-tête.
+
+  Pas d'icône panier, volontairement : le parcours est COD une-étape, il n'y a
+  pas de panier. Afficher une icône vide inviterait à un chemin qui n'existe pas.
+{%- endcomment -%}
+
+<header class="klaxo klaxo-header" data-klaxo-header>
+  <div class="klaxo-container klaxo-header__inner">
+    <a href="{{ routes.root_url }}" class="klaxo-logo">
+      {{ section.settings.logo_start | default: 'Klaxo' }}<span class="klaxo-logo__dot" aria-hidden="true"></span>{{ section.settings.logo_end | default: 'ma' }}
+    </a>
+
+    <nav class="klaxo-nav" id="klaxo-nav" aria-label="Navigation principale">
+      {%- for link in section.settings.menu.links -%}
+        <a href="{{ link.url }}">{{ link.title }}</a>
+      {%- endfor -%}
+    </nav>
+
+    <div class="klaxo-header__cta">
+      {%- if section.settings.cta_url != blank -%}
+        <a href="{{ section.settings.cta_url }}" class="klaxo-btn klaxo-btn--primary">
+          {{ section.settings.cta_label | default: 'Commander' }}
+        </a>
+      {%- endif -%}
+      <button
+        class="klaxo-burger"
+        type="button"
+        aria-controls="klaxo-nav"
+        aria-expanded="false"
+        data-klaxo-burger
+      >
+        {%- render 'klaxo-icon', name: 'menu', size: 22 -%}
+        <span class="klaxo-visually-hidden">Ouvrir le menu</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "KLAXO — En-tête",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "logo_start", "label": "Logo — avant le point", "default": "Klaxo" },
+    { "type": "text", "id": "logo_end", "label": "Logo — après le point", "default": "ma" },
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" },
+    { "type": "text", "id": "cta_label", "label": "Bouton", "default": "Commander" },
+    { "type": "url", "id": "cta_url", "label": "Lien du bouton", "info": "Pointe vers la page produit." }
+  ],
+  "presets": [{ "name": "KLAXO — En-tête" }]
+}
+{% endschema %}

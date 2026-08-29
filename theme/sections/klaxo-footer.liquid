@@ -1,0 +1,93 @@
+{%- comment -%}
+  KLAXO — pied de page.
+
+  Les liens viennent de menus Shopify, pas de chemins écrits en dur. L'inspiration
+  pointait vers /pages/faq, /pages/livraison et /pages/retour sans qu'aucune de
+  ces pages n'existe : cinq liens morts dès l'installation. Un menu géré dans
+  l'admin ne peut pas pointer vers une page absente.
+{%- endcomment -%}
+
+<footer class="klaxo klaxo-footer">
+  <div class="klaxo-container">
+    <div class="klaxo-footer__grid">
+      <div class="klaxo-footer__brand">
+        <a href="{{ routes.root_url }}" class="klaxo-logo klaxo-logo--light">
+          {{ section.settings.logo_start | default: 'Klaxo' }}<span class="klaxo-logo__dot" aria-hidden="true"></span>{{ section.settings.logo_end | default: 'ma' }}
+        </a>
+        {%- if section.settings.pitch != blank -%}
+          <p>{{ section.settings.pitch }}</p>
+        {%- endif -%}
+
+        <div class="klaxo-social">
+          {%- assign reseaux = 'instagram,tiktok,facebook' | split: ',' -%}
+          {%- for reseau in reseaux -%}
+            {%- assign cle = 'social_' | append: reseau -%}
+            {%- assign lien = settings[cle] -%}
+            {%- if lien != blank -%}
+              <a href="{{ lien }}" target="_blank" rel="noopener">
+                {%- render 'klaxo-icon', name: reseau, size: 18 -%}
+                <span class="klaxo-visually-hidden">{{ reseau | capitalize }}</span>
+              </a>
+            {%- endif -%}
+          {%- endfor -%}
+
+          {%- assign wa = settings.klaxo_whatsapp | remove: '+' | remove: ' ' | remove: '-' -%}
+          {%- if wa != blank -%}
+            <a href="https://wa.me/{{ wa }}" target="_blank" rel="noopener">
+              {%- render 'klaxo-icon', name: 'whatsapp', size: 18 -%}
+              <span class="klaxo-visually-hidden">WhatsApp</span>
+            </a>
+          {%- endif -%}
+        </div>
+      </div>
+
+      {%- for block in section.blocks -%}
+        <div {{ block.shopify_attributes }}>
+          <h4>{{ block.settings.title }}</h4>
+          <ul>
+            {%- for link in block.settings.menu.links -%}
+              <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endfor -%}
+    </div>
+
+    <div class="klaxo-footer__bottom">
+      <span>© {{ 'now' | date: '%Y' }} {{ shop.name }} — Tous droits réservés</span>
+      {%- if section.settings.signature != blank -%}
+        <span>{{ section.settings.signature }}</span>
+      {%- endif -%}
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "KLAXO — Pied de page",
+  "tag": "section",
+  "max_blocks": 3,
+  "settings": [
+    { "type": "text", "id": "logo_start", "label": "Logo — avant le point", "default": "Klaxo" },
+    { "type": "text", "id": "logo_end", "label": "Logo — après le point", "default": "ma" },
+    {
+      "type": "textarea",
+      "id": "pitch",
+      "label": "Phrase de marque",
+      "default": "L'accessoire auto qui change ta route. Paiement à la livraison, partout au Maroc."
+    },
+    { "type": "text", "id": "signature", "label": "Signature", "default": "Fait au Maroc" }
+  ],
+  "blocks": [
+    {
+      "type": "menu",
+      "name": "Colonne de liens",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Titre", "default": "Aide" },
+        { "type": "link_list", "id": "menu", "label": "Menu" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "KLAXO — Pied de page" }]
+}
+{% endschema %}

@@ -1,0 +1,49 @@
+{%- comment -%}
+  KLAXO — barre d'annonce.
+  Les trois réassurances qui lèvent les objections COD, avant même le produit.
+  Défilement horizontal sur mobile plutôt que troncature : aucune ne doit sauter.
+{%- endcomment -%}
+
+<div class="klaxo klaxo-announcement">
+  <div class="klaxo-announcement__inner">
+    {%- for block in section.blocks -%}
+      {%- if block.settings.text != blank -%}
+        {%- if forloop.index0 > 0 -%}<span class="klaxo-announcement__sep" aria-hidden="true"></span>{%- endif -%}
+        <span {{ block.shopify_attributes }}>{{ block.settings.text }}</span>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "KLAXO — Barre d'annonce",
+  "tag": "section",
+  "max_blocks": 4,
+  "blocks": [
+    {
+      "type": "message",
+      "name": "Message",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Texte",
+          "info": "Mets en gras ce qui doit ressortir en jaune.",
+          "default": "<p><strong>Livraison gratuite</strong> partout au Maroc</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "KLAXO — Barre d'annonce",
+      "blocks": [
+        { "type": "message", "settings": { "text": "<p>🚚 <strong>Livraison gratuite</strong> partout au Maroc</p>" } },
+        { "type": "message", "settings": { "text": "<p>💵 Paiement à la livraison</p>" } },
+        { "type": "message", "settings": { "text": "<p>↩️ Échange gratuit 7 jours</p>" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

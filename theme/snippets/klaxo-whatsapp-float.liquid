@@ -1,0 +1,18 @@
+{%- comment -%}
+  KLAXO — bouton WhatsApp flottant.
+  Le numéro vient des réglages du thème, jamais du code : le changer ne doit pas
+  demander une modification de fichier.
+{%- endcomment -%}
+
+{%- assign wa = settings.klaxo_whatsapp | remove: '+' | remove: ' ' | remove: '-' -%}
+{%- if wa != blank -%}
+  <a
+    class="klaxo-wa"
+    href="https://wa.me/{{ wa }}{% if settings.klaxo_whatsapp_message != blank %}?text={{ settings.klaxo_whatsapp_message | url_encode }}{% endif %}"
+    target="_blank"
+    rel="noopener"
+  >
+    {%- render 'klaxo-icon', name: 'whatsapp', size: 26 -%}
+    <span class="klaxo-visually-hidden">Nous écrire sur WhatsApp</span>
+  </a>
+{%- endif -%}
