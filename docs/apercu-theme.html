@@ -1,0 +1,246 @@
+<title>Devanture KLAXO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap">
+
+<style>
+  /* Palette KLAXO — thème unique assumé : le noir et le jaune SONT l'identité
+     de la marque, pas une préférence d'affichage. La page se peint donc
+     explicitement et tient sur n'importe quel fond hôte. */
+  :root{
+    --k-black:#0B0B0F; --k-yellow:#FFD60A; --k-orange:#FF6B1A;
+    --k-white:#FFFFFF; --k-sand:#F5F5F3; --k-muted:#6B7280; --k-line:#E5E7EB;
+    --k-green:#1C7A4A; --k-red:#A32E22;
+    --page:#15151A; --page-2:#1D1D24; --page-ink:#EDEDF0; --page-muted:#9AA0A8;
+    --k-disp:'Bricolage Grotesque','Arial Black',system-ui,sans-serif;
+    --k-body:'Inter',system-ui,-apple-system,sans-serif;
+    color-scheme:dark;
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  body{margin:0;background:var(--page);color:var(--page-ink);font-family:var(--k-body);line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 22px 90px}
+  a{color:inherit}
+
+  /* ---------- entête de la page d'aperçu ---------- */
+  .top{padding:52px 0 30px;border-bottom:1px solid rgba(255,255,255,.1)}
+  .top .eyebrow{font-family:var(--k-body);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--k-yellow);margin:0 0 12px}
+  .top h1{font-family:var(--k-disp);font-weight:800;font-size:clamp(34px,6vw,56px);line-height:1;letter-spacing:-.02em;margin:0 0 14px;text-wrap:balance}
+  .top p{max-width:62ch;color:var(--page-muted);font-size:16.5px;margin:0}
+
+  h2{font-family:var(--k-disp);font-weight:700;font-size:24px;letter-spacing:-.01em;margin:52px 0 6px}
+  .sub{color:var(--page-muted);font-size:14.5px;margin:0 0 22px;max-width:66ch}
+
+  /* ---------- maquettes téléphone ---------- */
+  .screens{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:26px}
+  .screen{background:var(--page-2);border:1px solid rgba(255,255,255,.1);border-radius:22px;padding:14px;box-shadow:0 20px 50px -28px rgba(0,0,0,.9)}
+  .screen__cap{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding:2px 6px 12px;font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--page-muted);font-weight:600}
+  .screen__cap b{color:var(--k-yellow);font-weight:700}
+  .phone{background:var(--k-white);color:var(--k-black);border-radius:14px;overflow:hidden;font-size:14px}
+
+  /* ---------- composants réels du thème ---------- */
+  .ann{background:var(--k-black);color:#fff;font-size:11px;padding:7px 10px;display:flex;gap:9px;align-items:center;justify-content:center;white-space:nowrap;overflow:hidden}
+  .ann strong{color:var(--k-yellow)}
+  .ann i{width:3px;height:3px;border-radius:50%;background:rgba(255,255,255,.4);flex:none}
+
+  .hd{display:flex;align-items:center;justify-content:space-between;padding:11px 13px;border-bottom:1px solid var(--k-line);background:#fff}
+  .logo{display:inline-flex;align-items:baseline;font-family:var(--k-disp);font-weight:800;font-size:19px;letter-spacing:-.02em}
+  .logo i{width:6px;height:6px;border-radius:50%;background:var(--k-yellow);margin:0 2px;align-self:center;flex:none}
+  .logo--light{color:#fff}
+  .burger{display:flex;flex-direction:column;gap:3.5px}
+  .burger span{width:19px;height:2.2px;background:var(--k-black);border-radius:2px}
+
+  .hero{padding:20px 14px 6px}
+  .hero .eyebrow{font-size:9.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--k-muted);display:block;margin-bottom:7px}
+  .hero h3{font-family:var(--k-disp);font-weight:800;font-size:27px;line-height:1.08;letter-spacing:-.015em;margin:0 0 9px}
+  .hero p{font-size:13px;color:var(--k-muted);margin:0 0 14px;line-height:1.55}
+  .mark{background:linear-gradient(transparent 58%,var(--k-yellow) 58%);padding:0 2px}
+
+  .btn{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:11px 20px;border-radius:12px;font-weight:700;font-size:14px;border:0;font-family:var(--k-body)}
+  .btn--y{background:var(--k-yellow);color:var(--k-black)}
+  .btn--block{width:100%}
+  .note{font-size:11px;color:var(--k-muted);margin:9px 0 0}
+
+  .reassure{display:flex;flex-direction:column;gap:7px;padding:16px 14px 20px}
+  .reassure div{display:flex;gap:9px;align-items:flex-start;background:var(--k-sand);border-radius:11px;padding:10px 11px}
+  .reassure b{display:block;font-size:12.5px}
+  .reassure span{font-size:11.5px;color:var(--k-muted)}
+  .ic{flex:none;color:var(--k-black);margin-top:1px}
+
+  .ft{background:var(--k-black);color:rgba(255,255,255,.7);padding:18px 14px;font-size:11px}
+  .ft .soc{display:flex;gap:7px;margin:11px 0 12px}
+  .ft .soc a{width:29px;height:29px;border-radius:50%;background:rgba(255,255,255,.1);display:grid;place-items:center;color:#fff}
+  .ft .bot{border-top:1px solid rgba(255,255,255,.14);padding-top:10px;font-size:10px}
+
+  /* page produit */
+  .prod{padding:14px}
+  .prod__img{background:var(--k-sand);border-radius:12px;height:132px;display:grid;place-items:center;color:#B8BEC4;font-size:11px;margin-bottom:13px}
+  .prod h3{font-family:var(--k-disp);font-weight:800;font-size:20px;margin:0 0 4px;letter-spacing:-.01em}
+  .ship{display:flex;gap:7px;align-items:center;background:var(--k-sand);border-radius:11px;padding:9px 11px;font-size:12px;font-weight:600;margin:11px 0 13px}
+
+  .tier{display:flex;align-items:center;justify-content:space-between;gap:9px;padding:11px 12px 11px 36px;position:relative;background:#fff;border:2px solid var(--k-line);border-radius:12px;margin-bottom:8px}
+  .tier::before{content:"";position:absolute;left:12px;top:50%;transform:translateY(-50%);width:16px;height:16px;border:2px solid var(--k-line);border-radius:50%}
+  .tier.on{border-color:var(--k-black);background:var(--k-sand)}
+  .tier.on::before{border-color:var(--k-black);border-width:5px}
+  .tier__l{font-weight:600;font-size:13px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+  .tier__d{font-size:11px;color:var(--k-muted);display:block;margin-top:1px}
+  .badge{background:var(--k-green);color:#fff;border-radius:99px;padding:1.5px 6px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.03em}
+  .tier__p{font-weight:700;font-size:15px;white-space:nowrap;font-variant-numeric:tabular-nums}
+
+  .trust{background:var(--k-sand);border-radius:11px;padding:11px 12px;margin:12px 0;display:flex;flex-direction:column;gap:7px;font-size:11.5px}
+  .trust div{display:flex;gap:8px;align-items:flex-start}
+  .formzone{border:2px dashed var(--k-line);border-radius:12px;padding:16px 12px;text-align:center;color:var(--k-muted);font-size:11.5px;margin-bottom:10px}
+  .legal{font-size:10.5px;color:var(--k-muted);text-align:center;margin:0}
+  .sticky{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 12px;background:rgba(255,255,255,.97);border-top:1px solid var(--k-line)}
+  .sticky b{font-size:15px;font-variant-numeric:tabular-nums}
+
+  .wa{position:absolute;right:12px;bottom:64px;width:38px;height:38px;border-radius:50%;background:#25D366;display:grid;place-items:center;color:#fff;box-shadow:0 6px 18px rgba(0,0,0,.3)}
+  .phone{position:relative}
+
+  /* ---------- tableau des arbitrages ---------- */
+  .scroll{overflow-x:auto;border:1px solid rgba(255,255,255,.12);border-radius:12px;margin-bottom:16px}
+  table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:560px}
+  th,td{text-align:left;padding:11px 14px;border-bottom:1px solid rgba(255,255,255,.09);vertical-align:top}
+  thead th{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--page-muted);background:rgba(255,255,255,.04);white-space:nowrap}
+  tbody tr:last-child td{border-bottom:none}
+  .keep{color:var(--k-yellow);font-weight:700}
+  .drop{color:#E2796B;font-weight:700}
+
+  footer{margin-top:56px;padding-top:20px;border-top:1px solid rgba(255,255,255,.1);font-size:12.5px;color:var(--page-muted)}
+
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div class="wrap">
+
+<header class="top">
+  <p class="eyebrow">Aperçu avant installation · KLAXO.ma</p>
+  <h1>Devanture KLAXO</h1>
+  <p>Ce que le thème affiche une fois installé et un produit créé. Ta direction visuelle —
+  noir, jaune klaxon, Bricolage Grotesque — portée par une base Dawn complète, avec le
+  parcours COD et le tracking intacts.</p>
+</header>
+
+<h2>Les deux écrans</h2>
+<p class="sub">Rendus au vrai format mobile, avec les composants réels du thème.</p>
+
+<div class="screens">
+
+  <!-- ACCUEIL -->
+  <div class="screen">
+    <div class="screen__cap"><span>Page d'accueil</span><b>templates/index.json</b></div>
+    <div class="phone">
+      <div class="ann"><span>🚚 <strong>Livraison gratuite</strong></span><i></i><span>💵 Paiement à la livraison</span></div>
+      <div class="hd">
+        <span class="logo">Klaxo<i></i>ma</span>
+        <span class="burger"><span></span><span></span><span></span></span>
+      </div>
+      <div class="hero">
+        <span class="eyebrow">Accessoires auto · Maroc</span>
+        <h3>L'accessoire qui change <span class="mark">ta route</span></h3>
+        <p>Sélection testée pour les conducteurs marocains. Tu payes à la livraison, partout au Maroc.</p>
+        <a class="btn btn--y btn--block" href="#produit">Voir le produit</a>
+        <p class="note">Aucun paiement en ligne. Tu payes le livreur.</p>
+      </div>
+      <div class="reassure">
+        <div><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="1" y="5" width="22" height="14" rx="2"/><circle cx="12" cy="12" r="3"/></svg></span><span><b>Paiement à la livraison</b><span>Tu payes le livreur, en espèces.</span></span></div>
+        <div><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M1 3h15v13H1zM16 8h4l3 3v5h-7z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></span><span><b>Livraison 24-72h</b><span>Partout au Maroc, incluse.</span></span></div>
+        <div><span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 10h12a5 5 0 0 1 0 10h-6"/><path d="M7 6l-4 4 4 4"/></svg></span><span><b>Échange 7 jours</b><span>Si ça ne va pas, on reprend.</span></span></div>
+      </div>
+      <div class="ft">
+        <span class="logo logo--light">Klaxo<i></i>ma</span>
+        <div class="soc">
+          <a href="#accueil" aria-label="Instagram"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="3.8"/></svg></a>
+          <a href="#accueil" aria-label="TikTok"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 2h-3v13.2a2.7 2.7 0 1 1-2.2-2.7v-3a5.7 5.7 0 1 0 5.2 5.7V8.9a6.9 6.9 0 0 0 4 1.3V7.2a4 4 0 0 1-4-4z"/></svg></a>
+          <a href="#accueil" aria-label="Facebook"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M14 8.5V7c0-.8.2-1.2 1.4-1.2H17V3h-2.5C11.6 3 10.6 4.4 10.6 6.8v1.7H9V11h1.6v10H14V11h2.3l.3-2.5z"/></svg></a>
+        </div>
+        <div class="bot">© 2026 KLAXO — Fait au Maroc</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRODUIT -->
+  <div class="screen" id="produit">
+    <div class="screen__cap"><span>Page produit</span><b>templates/product.json</b></div>
+    <div class="phone">
+      <div class="ann"><span>💵 <strong>Paiement à la livraison</strong></span></div>
+      <div class="hd">
+        <span class="logo">Klaxo<i></i>ma</span>
+        <span class="burger"><span></span><span></span><span></span></span>
+      </div>
+      <div class="prod">
+        <div class="prod__img">Photo produit</div>
+        <h3>Organisateur entre-sièges</h3>
+        <div class="ship">🚚 Livraison partout au Maroc — incluse</div>
+
+        <div class="tier">
+          <span><span class="tier__l">Solo</span><span class="tier__d">L'organisateur seul</span></span>
+          <span class="tier__p">199 DH</span>
+        </div>
+        <div class="tier on">
+          <span><span class="tier__l">Duo <span class="badge">Le plus pris</span></span><span class="tier__d">+ support magnétique</span></span>
+          <span class="tier__p">349 DH</span>
+        </div>
+        <div class="tier">
+          <span><span class="tier__l">Full</span><span class="tier__d">+ aspirateur sans fil</span></span>
+          <span class="tier__p">549 DH</span>
+        </div>
+
+        <div class="trust">
+          <div><span>💵</span><span><b>Paiement à la livraison.</b> Tu payes le livreur.</span></div>
+          <div><span>↩️</span><span><b>Retour sous 7 jours.</b> Si ça ne va pas, on reprend.</span></div>
+          <div><span>💬</span><span><b>Une question ?</b> Écris-nous sur WhatsApp</span></div>
+        </div>
+
+        <div class="formzone">Formulaire COD de l'app<br>(nom · téléphone · ville · adresse)</div>
+        <p class="legal">Tu payes en espèces à la livraison. Aucun paiement en ligne.</p>
+      </div>
+      <div class="sticky"><b>349 DH</b><span class="btn btn--y" style="flex:1;max-width:170px">Commander</span></div>
+      <a class="wa" href="#produit" aria-label="WhatsApp"><svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.1-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg></a>
+    </div>
+  </div>
+
+</div>
+
+<h2>Ce que j'ai gardé de ton inspiration, et ce que j'ai dû refaire</h2>
+<p class="sub">La direction visuelle était bonne. L'architecture ne pouvait pas partir en production.</p>
+
+<div class="scroll">
+  <table>
+    <thead><tr><th>Élément</th><th>Décision</th><th>Pourquoi</th></tr></thead>
+    <tbody>
+      <tr><td>Noir + jaune klaxon</td><td class="keep">Gardé</td><td>Le jaune du klaxon comme couleur de marque : c'est juste, et ça se retient.</td></tr>
+      <tr><td>Bricolage Grotesque + Inter</td><td class="keep">Gardé</td><td>Bon contraste display/texte, les deux sur Google Fonts.</td></tr>
+      <tr><td>Barre d'annonce, WhatsApp flottant</td><td class="keep">Gardé</td><td>Les trois réassurances COD avant même le produit.</td></tr>
+      <tr><td>Logo Klaxo•ma</td><td class="keep">Gardé</td><td>Le point jaune évoque le bouton de klaxon au centre du volant.</td></tr>
+      <tr><td>« Ajouter au panier »</td><td class="drop">Retiré</td><td>Renvoyait au checkout Shopify — que tout le dispositif COD contourne. Deux chemins de sortie font fuir des commandes hors du tracking.</td></tr>
+      <tr><td>9 templates absents</td><td class="drop">Refait</td><td>Ni <code>page</code>, ni <code>404</code>, ni <code>search</code>. Le pied de page pointait vers /pages/faq, /pages/livraison, /pages/retour : cinq liens morts dès l'installation.</td></tr>
+      <tr><td>Structure sans sections</td><td class="drop">Refait</td><td>Tout était en dur : changer un prix demandait d'éditer du Liquid. Maintenant tout se règle dans l'éditeur de thème.</td></tr>
+      <tr><td>Numéro WhatsApp en dur</td><td class="drop">Refait</td><td>Écrit dans 4 fichiers. Passé en réglage du thème.</td></tr>
+      <tr><td>Emoji comme icônes</td><td class="drop">Refait</td><td>Un emoji dépend de la police système, et il n'en existe pas pour Facebook — l'inspiration affichait la lettre « f ». Remplacés par 9 SVG.</td></tr>
+      <tr><td>« Ajouté au panier ! » après 2 s</td><td class="drop">Retiré</td><td>Affichait un succès sans vérifier que l'ajout avait réussi. Un faux succès est pire qu'aucun retour.</td></tr>
+      <tr><td>Tracking</td><td class="keep">Conservé</td><td>Pixel, CAPI, attribution UTM : l'inspiration n'en avait aucun, la Phase 2 aurait été perdue.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2>Avant de publier</h2>
+<p class="sub">Trois réglages, dans l'éditeur de thème, sans toucher au code.</p>
+<div class="scroll">
+  <table>
+    <thead><tr><th>Quoi</th><th>Où</th></tr></thead>
+    <tbody>
+      <tr><td>Numéro WhatsApp et réseaux sociaux</td><td>Paramètres du thème → <b>KLAXO</b></td></tr>
+      <tr><td>Prix des trois paliers, textes</td><td>Page produit → section <b>KLAXO — Offre COD</b></td></tr>
+      <tr><td>Code de l'app COD</td><td>Même section → <b>Code d'intégration</b></td></tr>
+      <tr><td>URL du Worker de tracking</td><td><code>layout/theme.liquid</code> → remplacer <code>&lt;sous-domaine&gt;</code></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<footer>
+  Aperçu statique : les prix, textes et images sont ceux des valeurs par défaut du thème.
+  Le formulaire de commande est fourni par l'app COD, il n'est pas simulé ici.
+  Aucune projection de performance n'est faite : ce document montre le rendu, il ne prédit rien.
+</footer>
+
+</div>
