@@ -1,0 +1,80 @@
+{%- comment -%}
+  KLAXO — grille de produits.
+
+  Chaque carte mène à la page produit, où se trouve le formulaire COD.
+  Aucun bouton « ajouter au panier » sur la grille : il enverrait au checkout
+  Shopify, que le dispositif contourne.
+{%- endcomment -%}
+
+{{ 'klaxo-brand.css' | asset_url | stylesheet_tag }}
+
+<section class="klaxo klaxo-grid-wrap">
+  <div class="klaxo-container">
+    {%- if section.settings.title != blank -%}
+      <div class="klaxo-grid__head">
+        {%- if section.settings.eyebrow != blank -%}
+          <span class="klaxo-eyebrow">{{ section.settings.eyebrow }}</span>
+        {%- endif -%}
+        <h1 class="klaxo-title">{{ section.settings.title }}</h1>
+        {%- if section.settings.text != blank -%}
+          <p class="klaxo-lede">{{ section.settings.text }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- assign produits = collection.products -%}
+    {%- if produits.size > 0 -%}
+      <ul class="klaxo-grid" role="list">
+        {%- for product in produits -%}
+          <li class="klaxo-card">
+            <a href="{{ product.url }}" class="klaxo-card__link">
+              <span class="klaxo-card__media">
+                {%- if product.featured_image -%}
+                  {{
+                    product.featured_image
+                    | image_url: width: 600
+                    | image_tag:
+                      loading: 'lazy',
+                      sizes: '(min-width: 900px) 320px, 46vw',
+                      widths: '300, 460, 600',
+                      alt: product.featured_image.alt | default: product.title
+                  }}
+                {%- else -%}
+                  <span class="klaxo-card__placeholder">{{ product.title | slice: 0, 1 }}</span>
+                {%- endif -%}
+              </span>
+              <span class="klaxo-card__body">
+                <span class="klaxo-card__title">{{ product.title }}</span>
+                {%- if section.settings.show_excerpt and product.description != blank -%}
+                  <span class="klaxo-card__desc">{{ product.description | strip_html | truncate: 78 }}</span>
+                {%- endif -%}
+                <span class="klaxo-card__foot">
+                  <span class="klaxo-card__price">{{ product.price | money_without_trailing_zeros }}</span>
+                  <span class="klaxo-card__cta">{{ section.settings.cta_label | default: 'Commander' }}</span>
+                </span>
+              </span>
+            </a>
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- else -%}
+      <p class="klaxo-lede">{{ section.settings.empty_text | default: "Aucun produit pour le moment." }}</p>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "KLAXO — Grille produits",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Sur-titre", "default": "La sélection" },
+    { "type": "text", "id": "title", "label": "Titre", "default": "Nos produits" },
+    { "type": "textarea", "id": "text", "label": "Introduction" },
+    { "type": "checkbox", "id": "show_excerpt", "label": "Afficher un extrait", "default": true },
+    { "type": "text", "id": "cta_label", "label": "Texte du bouton", "default": "Commander" },
+    { "type": "text", "id": "empty_text", "label": "Texte si aucun produit", "default": "Aucun produit pour le moment." }
+  ],
+  "presets": [{ "name": "KLAXO — Grille produits" }]
+}
+{% endschema %}

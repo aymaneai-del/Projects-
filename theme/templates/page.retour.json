@@ -1,0 +1,107 @@
+{
+  "sections": {
+    "hero": {
+      "type": "klaxo-page-hero",
+      "settings": {
+        "eyebrow": "7 jours pour changer d'avis",
+        "title": "Retour & échange",
+        "text": "Tu reçois, tu essaies. Si ça ne va pas, on récupère le produit."
+      }
+    },
+    "etapes": {
+      "type": "klaxo-steps",
+      "blocks": {
+        "r1": {
+          "type": "step",
+          "settings": {
+            "title": "Écris-nous sous 7 jours",
+            "text": "Sur WhatsApp, avec ton numéro de commande et la raison du retour."
+          }
+        },
+        "r2": {
+          "type": "step",
+          "settings": {
+            "title": "On valide avec toi",
+            "text": "On te confirme la marche à suivre et la date de récupération."
+          }
+        },
+        "r3": {
+          "type": "step",
+          "settings": {
+            "title": "On récupère le produit",
+            "text": "À l'adresse de livraison. Le produit doit être complet, dans son emballage."
+          }
+        },
+        "r4": {
+          "type": "step",
+          "settings": {
+            "title": "Échange ou remboursement",
+            "text": "Tu choisis. Le remboursement se fait par virement ou transfert."
+          }
+        }
+      },
+      "block_order": [
+        "r1",
+        "r2",
+        "r3",
+        "r4"
+      ],
+      "settings": {
+        "eyebrow": "La marche à suivre",
+        "title": "Comment retourner un produit"
+      }
+    },
+    "conditions": {
+      "type": "klaxo-richtext",
+      "blocks": {
+        "c1": {
+          "type": "point",
+          "settings": {
+            "text": "Le délai court à partir du jour de réception du colis"
+          }
+        },
+        "c2": {
+          "type": "point",
+          "settings": {
+            "text": "Le produit doit être complet, avec ses accessoires et son emballage"
+          }
+        },
+        "c3": {
+          "type": "point",
+          "settings": {
+            "text": "Un produit visiblement endommagé par l'usage ne peut pas être repris"
+          }
+        },
+        "c4": {
+          "type": "point",
+          "settings": {
+            "text": "Produit défectueux ou abîmé à l'arrivée : on prend tout en charge"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3",
+        "c4"
+      ],
+      "settings": {
+        "title": "Les conditions, en clair",
+        "text": "<p>Le plus simple reste de <strong>vérifier le colis devant le livreur</strong>. Tant que tu n'as pas payé, tu peux refuser sans aucune démarche.</p>"
+      }
+    },
+    "defaut": {
+      "type": "klaxo-richtext",
+      "settings": {
+        "title": "Produit défectueux ou cassé à l'arrivée",
+        "text": "<p>Envoie-nous une photo ou une courte vidéo sur WhatsApp <strong>le jour de la réception</strong>. On te remplace le produit ou on te rembourse, à ton choix, et les frais de récupération sont pour nous.</p>"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "etapes",
+    "conditions",
+    "defaut"
+  ]
+}

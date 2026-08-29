@@ -1,0 +1,46 @@
+{%- comment -%}
+  KLAXO — bloc de contenu libre, avec liste de points optionnelle.
+  Sert aux pages Retour, À propos, Mentions légales.
+{%- endcomment -%}
+
+<section class="klaxo klaxo-rich">
+  <div class="klaxo-container klaxo-rich__inner">
+    {%- if section.settings.title != blank -%}
+      <h2 class="klaxo-title">{{ section.settings.title }}</h2>
+    {%- endif -%}
+    {%- if section.settings.text != blank -%}
+      <div class="klaxo-rich__body">{{ section.settings.text }}</div>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <ul class="klaxo-rich__points">
+        {%- for block in section.blocks -%}
+          <li {{ block.shopify_attributes }}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg>
+            <span>{{ block.settings.text }}</span>
+          </li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "KLAXO — Contenu",
+  "tag": "section",
+  "max_blocks": 8,
+  "settings": [
+    { "type": "text", "id": "title", "label": "Titre" },
+    { "type": "richtext", "id": "text", "label": "Texte" }
+  ],
+  "blocks": [
+    {
+      "type": "point",
+      "name": "Point",
+      "settings": [{ "type": "text", "id": "text", "label": "Texte" }]
+    }
+  ],
+  "presets": [{ "name": "KLAXO — Contenu" }]
+}
+{% endschema %}

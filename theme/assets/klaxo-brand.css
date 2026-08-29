@@ -393,3 +393,310 @@
   border-radius: var(--k-radius-lg);
   box-shadow: var(--k-shadow-lg);
 }
+
+/* ---- En-tête de page ----------------------------------------------------- */
+
+.klaxo-pagehero { padding: 42px 0 26px; border-bottom: 1px solid var(--k-line); }
+
+.klaxo-pagehero__badge {
+  display: inline-block;
+  padding: 4px 11px;
+  background: var(--k-yellow);
+  color: var(--k-black);
+  border-radius: 99px;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  margin-bottom: 13px;
+}
+
+.klaxo-pagehero__title { font-size: clamp(30px, 5.5vw, 46px); }
+.klaxo-pagehero__lede { max-width: 62ch; }
+
+/* ---- FAQ ----------------------------------------------------------------- */
+
+.klaxo-faq { padding: 34px 0 56px; }
+.klaxo-faq__inner { max-width: 780px; }
+
+.klaxo-faq__cat {
+  font-family: var(--k-font-display);
+  font-weight: 700;
+  font-size: 19px;
+  margin: 34px 0 12px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--k-yellow);
+}
+.klaxo-faq__cat:first-child { margin-top: 0; }
+
+.klaxo-faq__item {
+  border: 1px solid var(--k-line);
+  border-radius: var(--k-radius);
+  margin-bottom: 9px;
+  background: var(--k-white);
+}
+
+.klaxo-faq__item[open] { border-color: var(--k-black); }
+
+.klaxo-faq__q {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 14px 16px;
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+  list-style: none;
+  /* 48px de haut minimum pour rester confortable au pouce. */
+  min-height: 48px;
+}
+
+/* Le marqueur natif est masqué au profit du chevron, sur les deux moteurs. */
+.klaxo-faq__q::-webkit-details-marker { display: none; }
+.klaxo-faq__q::marker { content: ''; }
+
+.klaxo-faq__chevron { flex: none; transition: transform var(--k-ease); }
+.klaxo-faq__item[open] .klaxo-faq__chevron { transform: rotate(180deg); }
+
+.klaxo-faq__a {
+  padding: 0 16px 16px;
+  color: var(--k-muted);
+  font-size: 14.5px;
+  line-height: 1.7;
+}
+.klaxo-faq__a p { margin: 0 0 10px; }
+.klaxo-faq__a p:last-child { margin-bottom: 0; }
+.klaxo-faq__a ul { list-style: disc; padding-left: 20px; margin: 0 0 10px; }
+.klaxo-faq__a li { margin-bottom: 5px; }
+.klaxo-faq__a strong { color: var(--k-black); }
+
+/* ---- Étapes -------------------------------------------------------------- */
+
+.klaxo-steps { padding: 48px 0; background: var(--k-sand); }
+.klaxo-steps__head { margin-bottom: 26px; }
+
+.klaxo-steps__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 16px;
+  counter-reset: none;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.klaxo-step {
+  display: flex;
+  gap: 13px;
+  align-items: flex-start;
+  background: var(--k-white);
+  border-radius: var(--k-radius);
+  padding: 16px 17px;
+}
+
+.klaxo-step__num {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--k-yellow);
+  color: var(--k-black);
+  font-family: var(--k-font-display);
+  font-weight: 800;
+  font-size: 15px;
+}
+
+.klaxo-step__title { font-size: 15px; font-weight: 700; margin: 3px 0 4px; }
+.klaxo-step__text { font-size: 13.5px; color: var(--k-muted); margin: 0; line-height: 1.6; }
+
+/* ---- Zones --------------------------------------------------------------- */
+
+.klaxo-zones { padding: 48px 0; }
+.klaxo-zones__head { margin-bottom: 24px; }
+
+.klaxo-zones__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(238px, 1fr));
+  gap: 14px;
+}
+
+.klaxo-zone {
+  border: 2px solid var(--k-line);
+  border-radius: var(--k-radius);
+  padding: 17px 18px;
+}
+
+.klaxo-zone--hl { border-color: var(--k-black); background: var(--k-sand); }
+
+.klaxo-zone__top { display: flex; align-items: center; gap: 9px; flex-wrap: wrap; margin-bottom: 6px; }
+.klaxo-zone__name { font-weight: 700; font-size: 15px; }
+
+.klaxo-zone__tag {
+  background: var(--k-yellow);
+  color: var(--k-black);
+  border-radius: 99px;
+  padding: 2px 9px;
+  font-size: 10.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+
+.klaxo-zone__delay {
+  font-family: var(--k-font-display);
+  font-weight: 800;
+  font-size: 26px;
+  margin: 0 0 7px;
+  font-variant-numeric: tabular-nums;
+}
+
+.klaxo-zone__cities { font-size: 13.5px; color: var(--k-muted); margin: 0; line-height: 1.6; }
+.klaxo-zones__note { margin: 18px 0 0; font-size: 13.5px; color: var(--k-muted); }
+
+/* ---- Contenu libre ------------------------------------------------------- */
+
+.klaxo-rich { padding: 46px 0; }
+.klaxo-rich__inner { max-width: 720px; }
+.klaxo-rich__body { font-size: 16px; line-height: 1.75; color: var(--k-muted); }
+.klaxo-rich__body p { margin: 0 0 14px; }
+.klaxo-rich__body strong { color: var(--k-black); }
+
+.klaxo-rich__points { display: flex; flex-direction: column; gap: 10px; margin: 22px 0 0; }
+.klaxo-rich__points li { display: flex; gap: 11px; align-items: flex-start; font-size: 15px; }
+.klaxo-rich__points svg { flex: none; color: var(--k-green); margin-top: 3px; }
+
+/* ---- Contact ------------------------------------------------------------- */
+
+.klaxo-contact { padding: 40px 0 56px; }
+
+.klaxo-channels {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 13px;
+  margin-bottom: 40px;
+}
+
+.klaxo-channel {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 18px 18px 16px;
+  border: 1px solid var(--k-line);
+  border-radius: var(--k-radius);
+  transition: border-color var(--k-ease), transform var(--k-ease);
+}
+
+a.klaxo-channel:hover { border-color: var(--k-black); transform: translateY(-2px); }
+
+.klaxo-channel__icon {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: var(--k-yellow);
+  color: var(--k-black);
+  margin-bottom: 9px;
+}
+
+.klaxo-channel__name { font-weight: 700; font-size: 15.5px; }
+.klaxo-channel__text { font-size: 13px; color: var(--k-muted); line-height: 1.55; }
+.klaxo-channel__value { font-weight: 600; font-size: 14px; margin-top: 6px; }
+
+.klaxo-formwrap { max-width: 620px; }
+.klaxo-cform { margin-top: 20px; display: flex; flex-direction: column; gap: 14px; }
+.klaxo-cform__row { display: flex; flex-direction: column; gap: 6px; }
+.klaxo-cform label { font-size: 13.5px; font-weight: 600; }
+
+.klaxo-cform input,
+.klaxo-cform select,
+.klaxo-cform textarea {
+  width: 100%;
+  padding: 12px 13px;
+  border: 1px solid var(--k-line);
+  border-radius: var(--k-radius);
+  background: var(--k-white);
+  color: var(--k-black);
+  font-family: var(--k-font-body);
+  /* 16px : en dessous, iOS zoome au focus et casse la mise en page. */
+  font-size: 16px;
+}
+
+.klaxo-cform textarea { resize: vertical; min-height: 120px; }
+
+.klaxo-cform__ok,
+.klaxo-cform__err {
+  padding: 12px 14px;
+  border-radius: var(--k-radius);
+  font-size: 14.5px;
+  font-weight: 600;
+  margin: 0;
+}
+.klaxo-cform__ok { background: #E4F3EB; color: var(--k-green); }
+.klaxo-cform__err { background: #FBE6E3; color: #A32E22; }
+
+/* ---- Grille produits ----------------------------------------------------- */
+
+.klaxo-grid-wrap { padding: 38px 0 56px; }
+.klaxo-grid__head { margin-bottom: 26px; max-width: 62ch; }
+
+.klaxo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.klaxo-card {
+  border: 1px solid var(--k-line);
+  border-radius: var(--k-radius-lg);
+  overflow: hidden;
+  background: var(--k-white);
+  transition: transform var(--k-ease), box-shadow var(--k-ease);
+}
+
+.klaxo-card:hover { transform: translateY(-3px); box-shadow: var(--k-shadow); }
+.klaxo-card__link { display: flex; flex-direction: column; height: 100%; }
+
+.klaxo-card__media {
+  display: block;
+  aspect-ratio: 1 / 1;
+  background: var(--k-sand);
+  overflow: hidden;
+}
+.klaxo-card__media img { width: 100%; height: 100%; object-fit: cover; }
+
+.klaxo-card__placeholder {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  font-family: var(--k-font-display);
+  font-size: 44px;
+  font-weight: 800;
+  color: #C3C9CF;
+}
+
+.klaxo-card__body { display: flex; flex-direction: column; gap: 5px; padding: 14px 15px 15px; flex: 1; }
+.klaxo-card__title { font-weight: 700; font-size: 15.5px; line-height: 1.3; }
+.klaxo-card__desc { font-size: 13px; color: var(--k-muted); line-height: 1.5; }
+
+.klaxo-card__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 11px;
+}
+
+.klaxo-card__price { font-weight: 800; font-size: 17px; font-variant-numeric: tabular-nums; }
+
+.klaxo-card__cta {
+  background: var(--k-yellow);
+  color: var(--k-black);
+  border-radius: 99px;
+  padding: 6px 13px;
+  font-size: 12.5px;
+  font-weight: 700;
+}

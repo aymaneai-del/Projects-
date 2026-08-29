@@ -1,0 +1,28 @@
+{%- comment -%}
+  KLAXO — en-tête de page de contenu. Réutilisé par FAQ, Livraison, Retour, Contact.
+{%- endcomment -%}
+
+<section class="klaxo klaxo-pagehero">
+  <div class="klaxo-container">
+    {%- if section.settings.eyebrow != blank -%}
+      <span class="klaxo-pagehero__badge">{{ section.settings.eyebrow }}</span>
+    {%- endif -%}
+    <h1 class="klaxo-title klaxo-pagehero__title">{{ section.settings.title }}</h1>
+    {%- if section.settings.text != blank -%}
+      <p class="klaxo-lede klaxo-pagehero__lede">{{ section.settings.text }}</p>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "KLAXO — En-tête de page",
+  "tag": "section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Badge" },
+    { "type": "text", "id": "title", "label": "Titre", "default": "Titre de la page" },
+    { "type": "textarea", "id": "text", "label": "Introduction" }
+  ],
+  "presets": [{ "name": "KLAXO — En-tête de page" }]
+}
+{% endschema %}

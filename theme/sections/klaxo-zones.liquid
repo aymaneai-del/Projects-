@@ -1,0 +1,71 @@
+{%- comment -%}
+  KLAXO — zones de livraison.
+
+  Les délais dépendent du CONTRAT COURRIER, qui n'est pas encore signé. Chaque
+  zone est donc entièrement modifiable : les valeurs par défaut sont des ordres
+  de grandeur à remplacer par ceux du contrat, jamais des engagements.
+  Annoncer un délai qu'on ne tient pas se paie en refus à la livraison.
+{%- endcomment -%}
+
+<section class="klaxo klaxo-zones">
+  <div class="klaxo-container">
+    <div class="klaxo-zones__head">
+      {%- if section.settings.eyebrow != blank -%}
+        <span class="klaxo-eyebrow">{{ section.settings.eyebrow }}</span>
+      {%- endif -%}
+      <h2 class="klaxo-title">{{ section.settings.title }}</h2>
+    </div>
+
+    <div class="klaxo-zones__grid">
+      {%- for block in section.blocks -%}
+        <div class="klaxo-zone{% if block.settings.highlight %} klaxo-zone--hl{% endif %}" {{ block.shopify_attributes }}>
+          <div class="klaxo-zone__top">
+            <span class="klaxo-zone__name">{{ block.settings.name }}</span>
+            {%- if block.settings.highlight -%}
+              <span class="klaxo-zone__tag">{{ block.settings.tag | default: 'Le plus rapide' }}</span>
+            {%- endif -%}
+          </div>
+          <p class="klaxo-zone__delay">{{ block.settings.delay }}</p>
+          <p class="klaxo-zone__cities">{{ block.settings.cities }}</p>
+        </div>
+      {%- endfor -%}
+    </div>
+
+    {%- if section.settings.note != blank -%}
+      <p class="klaxo-zones__note">{{ section.settings.note }}</p>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "KLAXO — Zones de livraison",
+  "tag": "section",
+  "max_blocks": 4,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Sur-titre", "default": "Partout au Maroc" },
+    { "type": "text", "id": "title", "label": "Titre", "default": "Délais de livraison par zone" },
+    {
+      "type": "text",
+      "id": "note",
+      "label": "Mention",
+      "info": "N'annonce que des délais confirmés par ton contrat courrier.",
+      "default": "Livraison incluse dans le prix affiché, dans toutes les zones."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "zone",
+      "name": "Zone",
+      "settings": [
+        { "type": "text", "id": "name", "label": "Nom", "default": "Zone 1" },
+        { "type": "text", "id": "delay", "label": "Délai", "default": "24-48h" },
+        { "type": "textarea", "id": "cities", "label": "Villes" },
+        { "type": "checkbox", "id": "highlight", "label": "Mettre en avant", "default": false },
+        { "type": "text", "id": "tag", "label": "Étiquette", "default": "Le plus rapide" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "KLAXO — Zones de livraison" }]
+}
+{% endschema %}

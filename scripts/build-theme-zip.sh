@@ -39,6 +39,8 @@ echo "→ Copie des fichiers KLAXO"
 for dossier in assets sections snippets; do
   cp "$RACINE/theme/$dossier"/* "$TRAVAIL/dawn/$dossier/"
 done
+# Les templates de pages écrasent ceux de Dawn quand ils portent le même nom.
+cp "$RACINE/theme/templates"/* "$TRAVAIL/dawn/templates/"
 
 echo "→ Branchement dans le thème"
 python3 "$RACINE/scripts/wire_theme.py" "$TRAVAIL/dawn"
@@ -51,6 +53,8 @@ echo "→ Zip 2/2 : fichiers KLAXO seuls"
 mkdir -p "$TRAVAIL/seuls"
 cp -r "$RACINE/theme/." "$TRAVAIL/seuls/"
 cp "$RACINE/docs/runbook-phase-1-2.md" "$TRAVAIL/seuls/INSTALLATION.md"
+cp "$RACINE/docs/pages-et-produits.md" "$TRAVAIL/seuls/PAGES-ET-PRODUITS.md"
+mkdir -p "$TRAVAIL/seuls/data" && cp "$RACINE/data/klaxo-produits.csv" "$TRAVAIL/seuls/data/"
 ( cd "$TRAVAIL/seuls" && zip -qr "$DIST/klaxo-fichiers-seuls.zip" . -x '.*' '__MACOSX/*' '*/.DS_Store' )
 
 echo

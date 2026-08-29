@@ -1,0 +1,17 @@
+{
+  "sections": {
+    "grille": {
+      "type": "klaxo-collection",
+      "settings": {
+        "eyebrow": "La sélection",
+        "title": "Nos produits",
+        "text": "Trois accessoires testés, choisis pour servir tous les jours. Paiement à la livraison partout au Maroc.",
+        "show_excerpt": true,
+        "cta_label": "Commander"
+      }
+    }
+  },
+  "order": [
+    "grille"
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "sections": {
+    "hero": {
+      "type": "klaxo-page-hero",
+      "settings": {
+        "eyebrow": "On te répond",
+        "title": "Contacte KLAXO",
+        "text": "Une question sur une commande, un produit, une livraison ? Écris-nous, en darija ou en français."
+      }
+    },
+    "contact": {
+      "type": "klaxo-contact",
+      "blocks": {
+        "c1": {
+          "type": "channel",
+          "settings": {
+            "icon": "whatsapp",
+            "title": "WhatsApp",
+            "text": "Le canal le plus rapide. En darija ou en français.",
+            "value": "Écrire sur WhatsApp"
+          }
+        },
+        "c2": {
+          "type": "channel",
+          "settings": {
+            "icon": "instagram",
+            "title": "Instagram",
+            "text": "Nouveautés et coulisses. Les DM sont ouverts.",
+            "value": "@klaxo.ma"
+          }
+        },
+        "c3": {
+          "type": "channel",
+          "settings": {
+            "icon": "tiktok",
+            "title": "TikTok",
+            "text": "Les démonstrations produit en vidéo.",
+            "value": "@klaxo.ma"
+          }
+        }
+      },
+      "block_order": [
+        "c1",
+        "c2",
+        "c3"
+      ],
+      "settings": {
+        "form_title": "Envoie-nous un message",
+        "form_text": "Laisse ton numéro : on répond plus vite sur WhatsApp que par e-mail.",
+        "subjects": "Suivi de commande, Question produit, Problème de livraison, Retour ou échange, Autre",
+        "submit_label": "Envoyer",
+        "success_message": "Message reçu. On te répond au plus vite."
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "contact"
+  ]
+}

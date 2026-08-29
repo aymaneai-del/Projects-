@@ -42,14 +42,20 @@
       </div>
 
       {%- for block in section.blocks -%}
-        <div {{ block.shopify_attributes }}>
-          <h4>{{ block.settings.title }}</h4>
-          <ul>
-            {%- for link in block.settings.menu.links -%}
-              <li><a href="{{ link.url }}">{{ link.title }}</a></li>
-            {%- endfor -%}
-          </ul>
-        </div>
+        {%- comment -%}
+          Colonne rendue uniquement si un menu y est réellement rattaché.
+          Un titre seul, sans liens, donne l'impression d'une page cassée.
+        {%- endcomment -%}
+        {%- if block.settings.menu.links.size > 0 -%}
+          <div {{ block.shopify_attributes }}>
+            <h4>{{ block.settings.title }}</h4>
+            <ul>
+              {%- for link in block.settings.menu.links -%}
+                <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+              {%- endfor -%}
+            </ul>
+          </div>
+        {%- endif -%}
       {%- endfor -%}
     </div>
 

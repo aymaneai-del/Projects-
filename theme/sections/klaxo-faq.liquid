@@ -1,0 +1,51 @@
+{%- comment -%}
+  KLAXO — FAQ en accordéon.
+
+  <details>/<summary> natifs : accessibles au clavier et aux lecteurs d'écran
+  sans une ligne de JavaScript, et le contenu reste lisible si le JS échoue.
+  Chaque bloc = une question, éditable dans l'éditeur de thème.
+{%- endcomment -%}
+
+<section class="klaxo klaxo-faq">
+  <div class="klaxo-container klaxo-faq__inner">
+    {%- assign categorie_courante = '' -%}
+    {%- for block in section.blocks -%}
+      {%- if block.settings.category != blank and block.settings.category != categorie_courante -%}
+        {%- assign categorie_courante = block.settings.category -%}
+        <h2 class="klaxo-faq__cat">{{ block.settings.category }}</h2>
+      {%- endif -%}
+      <details class="klaxo-faq__item" {{ block.shopify_attributes }}>
+        <summary class="klaxo-faq__q">
+          <span>{{ block.settings.question }}</span>
+          <svg class="klaxo-faq__chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </summary>
+        <div class="klaxo-faq__a">{{ block.settings.answer }}</div>
+      </details>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "KLAXO — FAQ",
+  "tag": "section",
+  "max_blocks": 24,
+  "blocks": [
+    {
+      "type": "question",
+      "name": "Question",
+      "settings": [
+        {
+          "type": "text",
+          "id": "category",
+          "label": "Catégorie",
+          "info": "Un titre de catégorie s'affiche quand elle change. Laisse vide pour rattacher à la précédente."
+        },
+        { "type": "text", "id": "question", "label": "Question" },
+        { "type": "richtext", "id": "answer", "label": "Réponse" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "KLAXO — FAQ" }]
+}
+{% endschema %}

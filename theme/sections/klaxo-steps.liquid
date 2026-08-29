@@ -1,0 +1,56 @@
+{%- comment -%}
+  KLAXO — étapes numérotées.
+
+  La numérotation encode une vraie séquence : le client passe par ces étapes
+  dans cet ordre. Ailleurs sur le site, on n'utilise pas de numéros décoratifs.
+{%- endcomment -%}
+
+<section class="klaxo klaxo-steps">
+  <div class="klaxo-container">
+    {%- if section.settings.title != blank -%}
+      <div class="klaxo-steps__head">
+        {%- if section.settings.eyebrow != blank -%}
+          <span class="klaxo-eyebrow">{{ section.settings.eyebrow }}</span>
+        {%- endif -%}
+        <h2 class="klaxo-title">{{ section.settings.title }}</h2>
+      </div>
+    {%- endif -%}
+
+    <ol class="klaxo-steps__list">
+      {%- for block in section.blocks -%}
+        <li class="klaxo-step" {{ block.shopify_attributes }}>
+          <span class="klaxo-step__num" aria-hidden="true">{{ forloop.index }}</span>
+          <div>
+            <h3 class="klaxo-step__title">{{ block.settings.title }}</h3>
+            {%- if block.settings.text != blank -%}
+              <p class="klaxo-step__text">{{ block.settings.text }}</p>
+            {%- endif -%}
+          </div>
+        </li>
+      {%- endfor -%}
+    </ol>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "KLAXO — Étapes",
+  "tag": "section",
+  "max_blocks": 6,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Sur-titre" },
+    { "type": "text", "id": "title", "label": "Titre", "default": "Commander en 4 étapes" }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Étape",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Titre" },
+        { "type": "textarea", "id": "text", "label": "Texte" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "KLAXO — Étapes" }]
+}
+{% endschema %}

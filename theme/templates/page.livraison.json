@@ -1,0 +1,145 @@
+{
+  "sections": {
+    "hero": {
+      "type": "klaxo-page-hero",
+      "settings": {
+        "eyebrow": "0 avance · 0 risque",
+        "title": "Livraison & paiement",
+        "text": "Livraison partout au Maroc, incluse dans le prix. Tu payes seulement quand le livreur est devant toi, en espèces."
+      }
+    },
+    "steps": {
+      "type": "klaxo-steps",
+      "blocks": {
+        "s1": {
+          "type": "step",
+          "settings": {
+            "title": "Tu choisis ton produit",
+            "text": "Sélectionne le pack qui te convient sur la page produit."
+          }
+        },
+        "s2": {
+          "type": "step",
+          "settings": {
+            "title": "Tu remplis le formulaire",
+            "text": "Nom, téléphone, ville, adresse. Pas de carte bancaire, pas de compte à créer."
+          }
+        },
+        "s3": {
+          "type": "step",
+          "settings": {
+            "title": "On te confirme par téléphone",
+            "text": "On t'appelle pour valider ta commande et l'adresse de livraison."
+          }
+        },
+        "s4": {
+          "type": "step",
+          "settings": {
+            "title": "Tu payes au livreur",
+            "text": "Tu vérifies ton colis, puis tu payes en espèces. Ou tu refuses, sans frais."
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "settings": {
+        "eyebrow": "Comment ça marche",
+        "title": "Commander en 4 étapes"
+      }
+    },
+    "zones": {
+      "type": "klaxo-zones",
+      "blocks": {
+        "z1": {
+          "type": "zone",
+          "settings": {
+            "name": "Zone 1",
+            "delay": "24-48h",
+            "cities": "Casablanca · Rabat · Marrakech · Tanger · Fès · Agadir · Salé · Kénitra · Meknès · Mohammedia",
+            "highlight": true,
+            "tag": "Le plus rapide"
+          }
+        },
+        "z2": {
+          "type": "zone",
+          "settings": {
+            "name": "Zone 2",
+            "delay": "48-72h",
+            "cities": "Oujda · Tétouan · Safi · El Jadida · Béni Mellal · Nador · Taza · Settat · Berrechid · Larache",
+            "highlight": false,
+            "tag": "Le plus rapide"
+          }
+        },
+        "z3": {
+          "type": "zone",
+          "settings": {
+            "name": "Zone 3",
+            "delay": "3-5 jours",
+            "cities": "Autres villes et zones rurales du Maroc",
+            "highlight": false,
+            "tag": "Le plus rapide"
+          }
+        }
+      },
+      "block_order": [
+        "z1",
+        "z2",
+        "z3"
+      ],
+      "settings": {
+        "eyebrow": "Partout au Maroc",
+        "title": "Délais de livraison par zone",
+        "note": "Délais indicatifs, à confirmer par le transporteur. Livraison incluse dans le prix affiché."
+      }
+    },
+    "promesse": {
+      "type": "klaxo-richtext",
+      "blocks": {
+        "p1": {
+          "type": "point",
+          "settings": {
+            "text": "0 DH d'avance demandée"
+          }
+        },
+        "p2": {
+          "type": "point",
+          "settings": {
+            "text": "Paiement en espèces, au livreur"
+          }
+        },
+        "p3": {
+          "type": "point",
+          "settings": {
+            "text": "Tu peux refuser le colis à la livraison, sans frais"
+          }
+        },
+        "p4": {
+          "type": "point",
+          "settings": {
+            "text": "Retour possible sous 7 jours"
+          }
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2",
+        "p3",
+        "p4"
+      ],
+      "settings": {
+        "title": "Zéro risque de ton côté",
+        "text": "<p>Au Maroc, on n'aime pas payer avant de voir. Chez KLAXO, tu ne payes jamais avant d'avoir le produit entre les mains. C'est le seul mode de paiement qu'on propose.</p><p>Si le produit ne correspond pas à ce que tu attendais, tu le rends au livreur sur place. Aucun frais, aucune démarche.</p>"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "steps",
+    "zones",
+    "promesse"
+  ]
+}

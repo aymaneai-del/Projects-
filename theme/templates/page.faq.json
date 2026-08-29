@@ -1,0 +1,132 @@
+{
+  "sections": {
+    "hero": {
+      "type": "klaxo-page-hero",
+      "settings": {
+        "eyebrow": "Centre d'aide",
+        "title": "Questions fréquentes",
+        "text": "Tout ce qu'il faut savoir avant, pendant et après ta commande. Pas de réponse ici ? Écris-nous sur WhatsApp."
+      }
+    },
+    "faq": {
+      "type": "klaxo-faq",
+      "blocks": {
+        "q1": {
+          "type": "question",
+          "settings": {
+            "category": "💵 Commande & paiement",
+            "question": "Comment je commande sur klaxo.ma ?",
+            "answer": "<p>Quatre étapes :</p><ul><li>Choisis ton produit et ton pack sur la page produit.</li><li>Remplis le formulaire : nom, téléphone, ville, adresse.</li><li>On t'appelle pour confirmer ta commande et l'adresse.</li><li>Le livreur passe et tu payes en espèces à la réception.</li></ul>"
+          }
+        },
+        "q2": {
+          "type": "question",
+          "settings": {
+            "category": "",
+            "question": "C'est vraiment un paiement à la livraison ?",
+            "answer": "<p><strong>Oui, 100 %.</strong> Tu payes le livreur en espèces quand tu reçois le colis. Aucune avance, aucune carte bancaire. Si le produit ne te convient pas à l'ouverture, tu peux refuser le colis devant le livreur, sans frais.</p>"
+          }
+        },
+        "q3": {
+          "type": "question",
+          "settings": {
+            "category": "",
+            "question": "Je peux payer par carte bancaire ?",
+            "answer": "<p>Pas pour le moment. On ne propose que le paiement à la livraison. C'est le mode que les Marocains préfèrent, et celui qui ne te fait prendre aucun risque.</p>"
+          }
+        },
+        "q4": {
+          "type": "question",
+          "settings": {
+            "category": "",
+            "question": "Je peux commander par WhatsApp ?",
+            "answer": "<p>Oui. Envoie-nous le nom du produit, ta ville, ton adresse et ton numéro. On s'occupe du reste.</p>"
+          }
+        },
+        "q5": {
+          "type": "question",
+          "settings": {
+            "category": "",
+            "question": "Je peux annuler ma commande ?",
+            "answer": "<p>Oui, tant que le colis n'est pas parti : écris-nous sur WhatsApp dès que possible. S'il est déjà en route, tu peux simplement le refuser à la livraison — sans frais.</p>"
+          }
+        },
+        "q6": {
+          "type": "question",
+          "settings": {
+            "category": "🚚 Livraison",
+            "question": "Vous livrez dans quelles villes ?",
+            "answer": "<p>Partout au Maroc. Les délais varient selon la zone : voir la <a href=\"/pages/livraison\">page Livraison</a>.</p>"
+          }
+        },
+        "q7": {
+          "type": "question",
+          "settings": {
+            "category": "",
+            "question": "Combien coûte la livraison ?",
+            "answer": "<p><strong>Elle est incluse dans le prix affiché.</strong> Le montant que tu vois sur la page produit est exactement celui que tu payes au livreur. Aucun frais ajouté à la fin.</p>"
+          }
+        },
+        "q8": {
+          "type": "question",
+          "settings": {
+            "category": "",
+            "question": "Comment je suis mon colis ?",
+            "answer": "<p>Une fois ta commande confirmée, on t'envoie le numéro de suivi par SMS. Le livreur t'appelle avant de passer. Tu peux aussi nous demander où en est ton colis sur WhatsApp.</p>"
+          }
+        },
+        "q9": {
+          "type": "question",
+          "settings": {
+            "category": "",
+            "question": "Je ne suis pas là au moment de la livraison, que se passe-t-il ?",
+            "answer": "<p>Le livreur repasse. Tu peux aussi nous prévenir à l'avance pour fixer une autre date, ou faire livrer chez un proche : écris-nous sur WhatsApp.</p>"
+          }
+        },
+        "q10": {
+          "type": "question",
+          "settings": {
+            "category": "↩️ Retour & garantie",
+            "question": "Je peux retourner un produit s'il ne me plaît pas ?",
+            "answer": "<p><strong>Oui, tu as 7 jours.</strong> Contacte-nous dans les 7 jours suivant la réception et on organise la récupération. Le produit doit être complet et dans son emballage. Voir la <a href=\"/pages/retour\">page Retour</a>.</p>"
+          }
+        },
+        "q11": {
+          "type": "question",
+          "settings": {
+            "category": "",
+            "question": "Le produit est arrivé abîmé ou ne fonctionne pas.",
+            "answer": "<p>Envoie-nous une photo ou une vidéo sur WhatsApp le jour de la réception. On te remplace le produit ou on te rembourse, à ton choix. Les frais sont pour nous.</p>"
+          }
+        },
+        "q12": {
+          "type": "question",
+          "settings": {
+            "category": "",
+            "question": "Comment je me fais rembourser ?",
+            "answer": "<p>Puisque tu as payé en espèces à la livraison, le remboursement se fait par virement ou par transfert, selon ce qui t'arrange. On te le confirme dès qu'on récupère le produit.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5",
+        "q6",
+        "q7",
+        "q8",
+        "q9",
+        "q10",
+        "q11",
+        "q12"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "faq"
+  ]
+}

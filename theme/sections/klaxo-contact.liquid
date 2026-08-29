@@ -1,0 +1,147 @@
+{%- comment -%}
+  KLAXO — page contact.
+
+  Le formulaire utilise {% form 'contact' %}, le formulaire NATIF de Shopify :
+  les messages arrivent vraiment dans la boîte mail de la boutique. L'inspiration
+  affichait « Message envoyé ! » sans rien envoyer — un client persuadé d'avoir
+  écrit et jamais rappelé, c'est une commande perdue et un avis négatif.
+
+  Canaux et horaires viennent des réglages : un horaire écrit en dur devient
+  faux le jour où tu changes.
+{%- endcomment -%}
+
+<section class="klaxo klaxo-contact">
+  <div class="klaxo-container">
+
+    <div class="klaxo-channels">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'channel' -%}
+          {%- assign href = block.settings.url -%}
+          {%- if block.settings.icon == 'whatsapp' and href == blank -%}
+            {%- assign wa = settings.klaxo_whatsapp | remove: '+' | remove: ' ' | remove: '-' -%}
+            {%- if wa != blank -%}{%- assign href = 'https://wa.me/' | append: wa -%}{%- endif -%}
+          {%- endif -%}
+
+          {%- if href != blank -%}<a class="klaxo-channel" href="{{ href }}" rel="noopener" {{ block.shopify_attributes }}>{%- else -%}<div class="klaxo-channel" {{ block.shopify_attributes }}>{%- endif -%}
+            <span class="klaxo-channel__icon">{%- render 'klaxo-icon', name: block.settings.icon, size: 22 -%}</span>
+            <span class="klaxo-channel__name">{{ block.settings.title }}</span>
+            <span class="klaxo-channel__text">{{ block.settings.text }}</span>
+            {%- if block.settings.value != blank -%}
+              <span class="klaxo-channel__value">{{ block.settings.value }}</span>
+            {%- endif -%}
+          {%- if href != blank -%}</a>{%- else -%}</div>{%- endif -%}
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    <div class="klaxo-formwrap">
+      <h2 class="klaxo-title">{{ section.settings.form_title | default: 'Envoie-nous un message' }}</h2>
+      {%- if section.settings.form_text != blank -%}
+        <p class="klaxo-lede">{{ section.settings.form_text }}</p>
+      {%- endif -%}
+
+      {%- form 'contact', class: 'klaxo-cform' -%}
+        {%- if form.posted_successfully? -%}
+          <p class="klaxo-cform__ok" role="status">
+            {{ section.settings.success_message | default: "Message reçu. On te répond au plus vite." }}
+          </p>
+        {%- endif -%}
+
+        {%- if form.errors -%}
+          <p class="klaxo-cform__err" role="alert">
+            {{ form.errors | default_errors }}
+          </p>
+        {%- endif -%}
+
+        <div class="klaxo-cform__row">
+          <label for="k-name">Nom et prénom</label>
+          <input id="k-name" type="text" name="contact[name]" autocomplete="name" required value="{{ form.name }}">
+        </div>
+
+        <div class="klaxo-cform__row">
+          <label for="k-phone">Téléphone</label>
+          {%- comment -%}
+            type="tel" + inputmode : clavier numérique sur mobile. La normalisation
+            marocaine (klaxo-phone.js) s'y accroche automatiquement.
+          {%- endcomment -%}
+          <input id="k-phone" type="tel" inputmode="tel" name="contact[phone]" autocomplete="tel" placeholder="06 12 34 56 78">
+        </div>
+
+        <div class="klaxo-cform__row">
+          <label for="k-email">E-mail</label>
+          <input id="k-email" type="email" name="contact[email]" autocomplete="email" required value="{{ form.email }}">
+        </div>
+
+        <div class="klaxo-cform__row">
+          <label for="k-subject">Sujet</label>
+          <select id="k-subject" name="contact[sujet]">
+            {%- assign sujets = section.settings.subjects | split: ',' -%}
+            {%- for sujet in sujets -%}
+              <option value="{{ sujet | strip | escape }}">{{ sujet | strip }}</option>
+            {%- endfor -%}
+          </select>
+        </div>
+
+        <div class="klaxo-cform__row">
+          <label for="k-body">Message</label>
+          <textarea id="k-body" name="contact[body]" rows="5" required>{{ form.body }}</textarea>
+        </div>
+
+        <button type="submit" class="klaxo-btn klaxo-btn--primary klaxo-btn--block">
+          {{ section.settings.submit_label | default: 'Envoyer' }}
+        </button>
+      {%- endform -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "KLAXO — Contact",
+  "tag": "section",
+  "max_blocks": 4,
+  "settings": [
+    { "type": "text", "id": "form_title", "label": "Titre du formulaire", "default": "Envoie-nous un message" },
+    { "type": "textarea", "id": "form_text", "label": "Texte sous le titre" },
+    {
+      "type": "text",
+      "id": "subjects",
+      "label": "Sujets (séparés par des virgules)",
+      "default": "Suivi de commande, Question produit, Problème de livraison, Retour ou échange, Autre"
+    },
+    { "type": "text", "id": "submit_label", "label": "Bouton", "default": "Envoyer" },
+    {
+      "type": "text",
+      "id": "success_message",
+      "label": "Message de confirmation",
+      "info": "N'annonce pas un délai que tu ne tiens pas.",
+      "default": "Message reçu. On te répond au plus vite."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "channel",
+      "name": "Canal de contact",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icône",
+          "options": [
+            { "value": "whatsapp", "label": "WhatsApp" },
+            { "value": "instagram", "label": "Instagram" },
+            { "value": "tiktok", "label": "TikTok" },
+            { "value": "facebook", "label": "Facebook" }
+          ],
+          "default": "whatsapp"
+        },
+        { "type": "text", "id": "title", "label": "Titre", "default": "WhatsApp" },
+        { "type": "text", "id": "text", "label": "Description" },
+        { "type": "text", "id": "value", "label": "Valeur affichée" },
+        { "type": "url", "id": "url", "label": "Lien", "info": "Vide pour WhatsApp = le numéro des réglages du thème." }
+      ]
+    }
+  ],
+  "presets": [{ "name": "KLAXO — Contact" }]
+}
+{% endschema %}
