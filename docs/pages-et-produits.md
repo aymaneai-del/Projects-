@@ -10,7 +10,7 @@ Compter 20 minutes pour tout brancher, dans cet ordre.
 
 ## 1. Les produits — un seul import
 
-`data/klaxo-produits.csv` crée les trois fiches d'un coup, descriptions et SEO
+`data/klaxo-produits.csv` crée les deux fiches d'un coup, descriptions et SEO
 compris.
 
 ```
@@ -21,9 +21,7 @@ Produits → Importer → choisir data/klaxo-produits.csv → Importer
 |---|---|---|---|---|
 | Organisateur entre-sièges | Organisateur seul | 199 DH | 320 g | KLX-ORG-01 |
 | ↳ | + Support magnétique | 349 DH | 460 g | KLX-ORG-02 |
-| ↳ | Pack complet + Caméra | 649 DH | 940 g | KLX-ORG-03 |
 | Support téléphone magnétique | — | 149 DH | 140 g | KLX-SUP-01 |
-| Caméra de recul sans fil | — | 399 DH | 480 g | KLX-CAM-01 |
 
 **Les paliers sont de vraies variantes Shopify, pas un affichage du thème.**
 C'est structurant : l'app COD encaisse le prix de la variante sélectionnée.
@@ -47,12 +45,12 @@ que de faire patienter un client.
 
 ### Après l'import
 
-Crée une collection qui contient les trois produits — c'est elle que la page
+Crée une collection qui contient les deux produits — c'est elle que la page
 « Nos produits » affiche :
 
 ```
 Produits → Collections → Créer → nom « Nos produits »
-→ Type : manuelle → ajouter les 3 produits
+→ Type : manuelle → ajouter les 2 produits
 ```
 
 ---
@@ -158,40 +156,33 @@ dis-le-moi et je l'ajoute.
 
 ## Deux réserves sur la gamme
 
-### La caméra de recul reprend le risque de l'aspirateur
+### La caméra de recul est retirée du lancement
 
-Sortir l'aspirateur était la bonne décision. La caméra de recul rouvre
-malheureusement le même dossier, en pire sur un point :
+La caméra et le palier « Pack complet + Caméra » à 649 DH sont sortis du CSV.
+La marge de ce pack n'a jamais été recalculée avec le vrai prix d'achat de la
+caméra, et elle cumule les risques de l'aspirateur : coût d'achat élevé,
+produit électronique, et une installation (fixer, alimenter, appairer) qui
+multiplie les « ça ne marche pas » — donc les refus, sur la commande la plus
+chère.
 
-- **coût d'achat élevé** — elle pèse sur la marge comme l'aspirateur ;
-- **produit électronique** — taux de refus supérieur au reste de la gamme ;
-- **elle demande une installation.** L'aspirateur, on l'allume. Une caméra, il
-  faut la fixer, l'alimenter et l'appairer. Chaque étape est une occasion de
-  « ça ne marche pas » — donc un retour, sur le produit le plus cher de la gamme.
-
-Ce n'est pas un veto : c'est le produit à la plus forte valeur perçue, donc le
-meilleur pour monter le panier. Mais **teste-le sur quelques unités avant
-d'engager du stock**, et surveille son taux de refus séparément. S'il dépasse
-celui de l'organisateur de plus de 10 points, sors-le.
-
-Une notice d'installation claire dans le colis, en darija et en français, est
-le meilleur investissement anti-retour sur ce produit.
+Elle ne revient qu'après les 20 premières commandes livrées, testée sur
+quelques unités, avec son prix d'achat réel passé dans le calculateur.
 
 ### Les prix ne sont pas validés
 
-199 / 149 / 399 DH sont des points de départ cohérents entre eux, pas des prix
+199 / 149 DH sont des points de départ cohérents entre eux, pas des prix
 calculés. Rappel du modèle : le héros vendu seul est en marge négative sous
 ~320 DH de panier une fois le coût pub par livrée pris en compte.
 
-Passe les trois produits dans le calculateur du kit de lancement dès que tu as
+Passe les deux produits dans le calculateur du kit de lancement dès que tu as
 les prix d'achat réels.
 
 ---
 
 ## Contrôle final avant publication
 
-- [ ] 3 produits importés, images ajoutées
-- [ ] Collection « Nos produits » créée avec les 3 produits
+- [ ] 2 produits importés, images ajoutées
+- [ ] Collection « Nos produits » créée avec les 2 produits
 - [ ] Collection choisie dans la section « Grille produits » de l'accueil
 - [ ] Un pack sélectionné sur la page produit change bien le prix DANS le formulaire de l'app
 - [ ] 4 pages créées, handles exacts, modèles assignés
