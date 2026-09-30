@@ -25,7 +25,7 @@ import urllib.error
 import urllib.request
 from pathlib import Path
 
-API_VERSION = os.environ.get("SHOPIFY_API_VERSION", "2025-01")
+API_VERSION = os.environ.get("SHOPIFY_API_VERSION", "2026-07")
 RACINE = Path(__file__).resolve().parent.parent
 
 DRY_RUN = "--dry-run" in sys.argv
