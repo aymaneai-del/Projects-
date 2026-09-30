@@ -19,4 +19,6 @@ compatibility_date = "2025-01-01"
 [vars]
 # Valeurs non sensibles uniquement.
 STORE_URL = "https://klaxo.ma"
-ALLOWED_ORIGINS = "https://klaxo.ma,https://www.klaxo.ma"
+# 6m1kid-eg.myshopify.com reste le domaine principal tant que klaxo.ma n'est
+# pas rattaché : sans lui, /collect refuserait tous les événements navigateur.
+ALLOWED_ORIGINS = "https://klaxo.ma,https://www.klaxo.ma,https://6m1kid-eg.myshopify.com"

@@ -145,8 +145,9 @@ async function handleCollect(request, env) {
 
 /**
  * Récupère une note_attribute par son nom.
- * C'est par ce canal que l'event_id du navigateur et les UTM voyagent jusqu'ici :
- * le formulaire les dépose dans la commande, le webhook les relit.
+ * C'est par ce canal que l'attribution (UTM, fbp/fbc, ttp/ttclid) voyage
+ * jusqu'ici : le thème la pose en attributs de panier, Shopify la recopie dans
+ * la commande, le webhook la relit.
  */
 function noteAttribute(order, name) {
   const attributes = order.note_attributes || [];
@@ -175,17 +176,12 @@ async function handleShopifyWebhook(request, env) {
 
   const reference = `order:${order.id ?? 'inconnu'}`;
 
-  // L'event_id vient du navigateur via le formulaire. S'il manque, on retombe
-  // sur un identifiant dérivé de la commande : l'événement part quand même
-  // (perdre un Purchase coûte plus cher qu'un doublon), mais on le signale.
-  let eventId = noteAttribute(order, 'klaxo_event_id');
-  if (!eventId) {
-    eventId = `order_${order.id}`;
-    console.warn(
-      `[klaxo] event_id absent des note_attributes ${reference} — ` +
-      `déduplication navigateur impossible pour cette commande`
-    );
-  }
+  // Purchase ne part jamais du navigateur (la caisse Shopify ne charge pas le
+  // thème) : il n'y a donc rien à dédupliquer côté pixel. order_<id> est unique
+  // par commande et identique si Shopify renvoie le webhook, ce qui absorbe
+  // les doublons de livraison. Un identifiant par navigateur, lui, ferait
+  // fusionner par Meta la deuxième commande d'un même client avec la première.
+  const eventId = `order_${order.id}`;
 
   const shipping = order.shipping_address || {};
   const customer = order.customer || {};

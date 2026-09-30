@@ -125,7 +125,7 @@ l'aveugle.
 - [ ] `/health` renvoie `true` partout
 - [ ] Une commande réelle produit **un seul** Purchase côté Meta
 - [ ] Le même Purchase apparaît côté TikTok
-- [ ] Les `note_attributes` de la commande contiennent `klaxo_event_id` et les UTM
+- [ ] Les `note_attributes` de la commande contiennent les UTM et `klaxo_fbc` / `klaxo_fbp`
 - [ ] Un POST non signé sur le webhook renvoie **401**
 - [ ] Un POST `Purchase` sur `/collect` renvoie **400**
 - [ ] Les codes de test sont vidés

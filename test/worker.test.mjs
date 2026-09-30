@@ -143,6 +143,41 @@ test('le webhook refuse une commande non signée', async () => {
   assert.equal((await res.json()).error, 'invalid_signature');
 });
 
+test('webhook signé : un Purchase par commande, attribution relue du panier', async () => {
+  const envoyes = [];
+  const fetchOriginal = globalThis.fetch;
+  globalThis.fetch = async (url, init) => {
+    envoyes.push({ url: String(url), body: JSON.parse(init.body) });
+    return new Response('{}', { status: 200 });
+  };
+
+  try {
+    // Deux commandes du même navigateur : mêmes attributs de panier.
+    const attributs = [
+      { name: 'klaxo_fbc', value: 'fb.1.1700000000000.ABC' },
+      { name: 'klaxo_utm_source', value: 'facebook' }
+    ];
+    for (const id of [101, 102]) {
+      const body = JSON.stringify({ id, total_price: '349.00', currency: 'MAD', note_attributes: attributs });
+      const res = await worker.fetch(
+        post('/webhooks/shopify/orders-create', body, {
+          'X-Shopify-Hmac-Sha256': await signShopify(body, ENV.SHOPIFY_WEBHOOK_SECRET)
+        }),
+        ENV
+      );
+      assert.equal(res.status, 200);
+    }
+
+    const meta = envoyes.filter((e) => e.url.includes('facebook.com')).map((e) => e.body.data[0]);
+    assert.equal(meta.length, 2);
+    // Un identifiant commun ferait fusionner par Meta la 2e commande avec la 1re.
+    assert.deepEqual(meta.map((e) => e.event_id), ['order_101', 'order_102']);
+    assert.equal(meta[0].user_data.fbc, 'fb.1.1700000000000.ABC');
+  } finally {
+    globalThis.fetch = fetchOriginal;
+  }
+});
+
 test('/lifecycle exige le jeton interne et un événement connu', async () => {
   const sansJeton = await worker.fetch(
     post('/lifecycle', { event_name: 'order_confirmed', order_id: 1 }),
