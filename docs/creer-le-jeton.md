@@ -42,7 +42,7 @@ Dans la configuration Admin API de l'app :
 | Droit | Sert à |
 |---|---|
 | `write_themes` | pousser le thème |
-| `write_products` | créer les 3 produits et leurs variantes |
+| `write_products` | créer les 2 produits et leurs variantes |
 | `read_products` | vérifier avant de créer, pour ne rien dupliquer |
 | `write_content` | créer les 4 pages |
 | `read_content` | idem, contrôle anti-doublon |

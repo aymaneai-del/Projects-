@@ -285,14 +285,14 @@ def importer_menus(api, ids_pages_par_handle):
         items = []
         for libelle, genre, cible in entrees:
             item = {"title": libelle, "type": genre}
-            if genre == "PAGE":
+            if genre in ("PAGE", "COLLECTION"):
+                # menuCreate exige un gid://, jamais un handle : gids() les
+                # résout pour les pages comme pour la collection.
                 gid = ids_pages_par_handle.get(cible)
                 if not gid:
-                    echec(f"{titre} : page « {cible} » introuvable, entrée ignorée")
+                    echec(f"{titre} : « {cible} » introuvable, entrée ignorée")
                     continue
                 item["resourceId"] = gid
-            elif genre == "COLLECTION":
-                item["resourceId"] = cible  # gid résolu par l'appelant
             elif genre == "HTTP":
                 item["url"] = cible
             items.append(item)
