@@ -19,14 +19,14 @@ Produits → Importer → choisir data/klaxo-produits.csv → Importer
 
 | Produit | Variante | Prix | Poids | SKU |
 |---|---|---|---|---|
-| Organisateur entre-sièges | Organisateur seul | 199 DH | 320 g | KLX-ORG-01 |
+| Organisateur entre-sièges | Organisateur seul | 219 DH | 320 g | KLX-ORG-01 |
 | ↳ | + Support magnétique | 349 DH | 460 g | KLX-ORG-02 |
 | Support téléphone magnétique | — | 149 DH | 140 g | KLX-SUP-01 |
 
 **Les paliers sont de vraies variantes Shopify, pas un affichage du thème.**
 C'est structurant : l'app COD encaisse le prix de la variante sélectionnée.
 Si les paliers n'étaient que décoratifs, la page afficherait 349 DH pendant que
-l'app en facturerait 199 — un écart que le client découvre devant le livreur,
+l'app en facturerait 219 — un écart que le client découvre devant le livreur,
 donc un refus quasi certain. Pour changer un prix de pack, passe par
 `Produits → Organisateur → Variantes`, jamais par l'éditeur de thème.
 
@@ -170,12 +170,70 @@ quelques unités, avec son prix d'achat réel passé dans le calculateur.
 
 ### Les prix ne sont pas validés
 
-199 / 149 DH sont des points de départ cohérents entre eux, pas des prix
-calculés. Rappel du modèle : le héros vendu seul est en marge négative sous
-~320 DH de panier une fois le coût pub par livrée pris en compte.
+219 / 149 / 349 DH sont des points de départ cohérents entre eux et calés sur
+un concurrent (voir ci-dessous), pas des prix calculés. Rappel du modèle : le
+héros vendu seul est en marge négative sous ~320 DH de panier une fois le coût
+pub par livrée pris en compte.
 
 Passe les deux produits dans le calculateur du kit de lancement dès que tu as
 les prix d'achat réels.
+
+### Repère concurrent : autogear.ma
+
+Relevé du 15/10/2026, fait à partir des pages du site indexées par les moteurs
+de recherche : le site n'était pas joignable en direct depuis l'outil. Certaines
+de ces pages datent de plusieurs mois, voire de plusieurs années. **Revérifie ces
+prix sur le site avant de les citer** dans une créa ou face à un client.
+
+| Produit autogear | Prix affiché | Livraison (< 450 DH) | Total payé par le client |
+|---|---|---|---|
+| Support magnétique universel | 45 DH | 45 DH | 90 DH |
+| Support magnétique pliable rotatif (adhésif 3M, 1 kg) | 89 DH | 45 DH | 134 DH |
+| Support 360° « one touch » (ventouse) | 99 DH, en rupture | 45 DH | 144 DH |
+| Accoudoir central universel | 170-190 DH | 45 DH | 215-235 DH |
+| Organisateur entre-sièges | aucun équivalent trouvé | — | — |
+
+Livraison gratuite dès 450 DH, 45 DH en standard en dessous (express
+« à partir de 19 DH », selon les pages).
+
+**Ne pas copier leurs prix.** autogear vend un catalogue d'environ 1 200
+références, avec une boutique physique à Salé, et facture la livraison à part.
+KLAXO vend un seul produit avec du trafic 100 % payant : ~123 DH de pub par
+commande livrée. Le support à 89 DH chez nous, c'est environ −111 DH par commande
+livrée (avec les hypothèses du calculateur).
+
+**Comparer le total payé, pas le prix affiché.** Notre prix inclut la
+livraison, le leur non. Support à 149 DH livré contre 134 DH livré chez autogear :
++15 DH, que justifient le paiement à la livraison et la vérification devant le
+livreur. Le support reste à 149 DH.
+
+**L'organisateur n'a pas de repère.** Son prix vient du modèle de marge, pas du
+concurrent.
+
+### Pourquoi l'organisateur seul passe de 199 à 219 DH
+
+À 199 DH, les deux produits achetés séparément coûtaient 348 DH (199 + 149),
+contre 349 DH pour le pack. Le pack, seul palier rentable, coûtait donc 1 DH de
+plus que les deux produits pris séparément.
+
+Les autres corrections possibles sont moins bonnes :
+
+- Monter le support : il est déjà 15 DH au-dessus d'autogear.
+- Baisser le pack à 329 DH : sa marge nette tombe de 104 à 84 DH, sous le seuil
+  de 100 DH.
+
+Reste l'organisateur seul, qui n'a aucun repère concurrent et n'est jamais mis
+en avant. À 219 DH :
+
+- le pack fait économiser 19 DH (368 → 349) ;
+- l'organisateur seul passe de −21 à −1 DH de marge nette.
+
+Il dépasse la barre des 200 DH, et c'est voulu : il sert à pousser vers le Duo.
+Si l'organisateur seul se vend plus que le pack, revois ce choix.
+
+**Si les produits sont déjà dans Shopify**, le script d'import ne modifie pas un
+produit existant. Change le prix à la main :
+`Produits → Organisateur → Variantes → Organisateur seul → 219`.
 
 ---
 
