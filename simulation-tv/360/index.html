@@ -1,0 +1,141 @@
+<title>Chambre avec TV 55"</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600&display=swap">
+<style>
+/* Layout : visionneuse plein écran, une barre d'infos posée en bas */
+:root {
+  --bg: #e9e7e3; --fg: #1d1c1a; --muted: #5d5a55; --panel: rgba(250,249,246,.9);
+  --accent: #d8762a; --line: rgba(0,0,0,.12);
+  --font: "Outfit", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #121212; --fg: #f1efeb; --muted: #b3aea6; --panel: rgba(24,23,22,.88); --line: rgba(255,255,255,.14); color-scheme: dark } }
+:root[data-theme="dark"] { --bg: #121212; --fg: #f1efeb; --muted: #b3aea6; --panel: rgba(24,23,22,.88); --line: rgba(255,255,255,.14); color-scheme: dark }
+html, body { height: 100%; }
+body { background: var(--bg); color: var(--fg); font-family: var(--font); overflow: hidden; }
+#view { position: fixed; inset: 0; cursor: grab; touch-action: none; }
+#view:active { cursor: grabbing; }
+#view canvas { display: block; width: 100%; height: 100%; }
+.bar {
+  position: fixed; left: 0; right: 0; bottom: 0;
+  padding-block: 12px calc(12px + env(safe-area-inset-bottom, 0px));
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: flex; flex-wrap: wrap; gap: 10px 16px; align-items: center; justify-content: space-between;
+  background: var(--panel); backdrop-filter: blur(10px); border-top: 1px solid var(--line);
+}
+.bar h1 { margin: 0; font-size: 17px; font-weight: 600; }
+.bar p { margin: 2px 0 0; font-size: 13px; color: var(--muted); }
+.btns { display: flex; gap: 8px; flex-wrap: wrap; }
+button {
+  font: 600 13px var(--font); color: var(--fg); background: transparent;
+  border: 1px solid var(--line); border-radius: 999px; padding: 8px 14px; cursor: pointer;
+}
+button:hover { border-color: var(--accent); }
+button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+button.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+#msg { position: fixed; top: 40%; left: 0; right: 0; text-align: center; color: var(--muted); }
+</style>
+
+<div id="view"></div>
+<div id="msg">Chargement de la chambre…</div>
+<div class="bar">
+  <div>
+    <h1>Votre chambre avec la Neo QLED 55"</h1>
+    <p>Glissez pour regarder autour · molette ou pincement pour zoomer · rendu IA (Krea), indicatif</p>
+  </div>
+  <div class="btns">
+    <button id="bTv" type="button">Voir la TV</button>
+    <button id="bBed" type="button">Voir le lit</button>
+    <button id="bAuto" type="button" class="on">Rotation auto</button>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(() => {
+  // Le panorama généré couvre environ 200° × 112° (ce n'est pas une sphère complète).
+  const HAOV = 200, VAOV = 112;
+  const el = document.getElementById('view');
+  const renderer = new THREE.WebGLRenderer({ antialias: true });
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  el.appendChild(renderer.domElement);
+  const scene = new THREE.Scene();
+  const cam = new THREE.PerspectiveCamera(75, 1, 0.1, 100);
+
+  const geo = new THREE.SphereGeometry(10, 96, 64,
+    THREE.MathUtils.degToRad(90 - HAOV / 2) + Math.PI, THREE.MathUtils.degToRad(HAOV),
+    THREE.MathUtils.degToRad(90 - VAOV / 2), THREE.MathUtils.degToRad(VAOV));
+  geo.scale(-1, 1, 1);
+  new THREE.TextureLoader().load('chambre_pano.jpg', tex => {
+    tex.encoding = THREE.sRGBEncoding;
+    renderer.outputEncoding = THREE.sRGBEncoding;
+    tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
+    scene.add(new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ map: tex })));
+    document.getElementById('msg').hidden = true;
+  }, undefined, () => { document.getElementById('msg').textContent = "Impossible de charger l'image. Rechargez la page."; });
+
+  let yaw = 0, pitch = 0, fov = 75, target = null;
+  let auto = !matchMedia('(prefers-reduced-motion: reduce)').matches, dir = 1;
+  const bAuto = document.getElementById('bAuto');
+  const setAuto = v => { auto = v; bAuto.classList.toggle('on', v); };
+  setAuto(auto);
+
+  function clamp() {
+    const hf = fov * cam.aspect;                       // champ horizontal approx.
+    const yMax = Math.max(0, HAOV / 2 - Math.min(hf, HAOV) / 2);
+    const pMax = Math.max(0, VAOV / 2 - fov / 2);
+    yaw = Math.max(-yMax, Math.min(yMax, yaw));
+    pitch = Math.max(-pMax, Math.min(pMax, pitch));
+    return yMax;
+  }
+  function resize() {
+    const w = innerWidth, h = innerHeight;
+    renderer.setSize(w, h); cam.aspect = w / h;
+    fov = Math.min(fov, w < h ? 90 : 80); cam.fov = fov; cam.updateProjectionMatrix();
+  }
+  addEventListener('resize', resize); resize();
+
+  // Glisser
+  const pts = new Map(); let pinch0 = null;
+  el.addEventListener('pointerdown', e => { el.setPointerCapture(e.pointerId); pts.set(e.pointerId, e); setAuto(false); target = null; });
+  el.addEventListener('pointermove', e => {
+    const p = pts.get(e.pointerId); if (!p) return;
+    if (pts.size === 1) {
+      const k = fov / innerHeight;
+      yaw -= (e.clientX - p.clientX) * k; pitch += (e.clientY - p.clientY) * k;
+    }
+    pts.set(e.pointerId, e);
+    if (pts.size === 2) {
+      const [a, b] = [...pts.values()];
+      const d = Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY);
+      if (pinch0) fov = Math.max(30, Math.min(90, fov * pinch0 / d));
+      pinch0 = d;
+    }
+  });
+  const up = e => { pts.delete(e.pointerId); pinch0 = null; };
+  el.addEventListener('pointerup', up); el.addEventListener('pointercancel', up);
+  el.addEventListener('wheel', e => { e.preventDefault(); fov = Math.max(30, Math.min(90, fov + e.deltaY * 0.04)); }, { passive: false });
+
+  // Positions repérées dans le panorama (en degrés depuis le centre de l'image)
+  document.getElementById('bTv').onclick = () => { setAuto(false); target = { yaw: 42, pitch: 5, fov: 55 }; };
+  document.getElementById('bBed').onclick = () => { setAuto(false); target = { yaw: -2, pitch: -18, fov: 75 }; };
+  bAuto.onclick = () => { setAuto(!auto); target = null; };
+
+  (function loop() {
+    if (target) {
+      yaw += (target.yaw - yaw) * 0.08; pitch += (target.pitch - pitch) * 0.08; fov += (target.fov - fov) * 0.08;
+      if (Math.abs(target.yaw - yaw) < 0.05 && Math.abs(target.fov - fov) < 0.05) target = null;
+    } else if (auto) {
+      yaw += 0.06 * dir;
+    }
+    cam.fov = fov; cam.updateProjectionMatrix();
+    const yMax = clamp();
+    if (auto && Math.abs(yaw) >= yMax - 0.01) dir = -Math.sign(yaw) || 1;
+    const y = THREE.MathUtils.degToRad(yaw), p = THREE.MathUtils.degToRad(pitch);
+    cam.lookAt(Math.sin(y) * Math.cos(p), Math.sin(p), -Math.cos(y) * Math.cos(p));
+    renderer.render(scene, cam);
+    requestAnimationFrame(loop);
+  })();
+})();
+</script>
