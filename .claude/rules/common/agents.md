@@ -2,7 +2,7 @@
 
 ## Available Agents
 
-Located in `~/.claude/agents/`:
+Located in `.claude/agents/`:
 
 | Agent | Purpose | When to Use |
 |-------|---------|-------------|
@@ -17,9 +17,9 @@ Located in `~/.claude/agents/`:
 | doc-updater | Documentation | Updating docs |
 | rust-reviewer | Rust code review | Rust projects |
 
-## Immediate Agent Usage
+## When to Use Agents
 
-No user prompt needed:
+Use an agent only when the task justifies it (multi-file feature, real architecture decision, review of a substantial diff). Never spawn agents for small edits, content work or questions:
 1. Complex feature requests - Use **planner** agent
 2. Code just written/modified - Use **code-reviewer** agent
 3. Bug fix or new feature - Use **tdd-guide** agent
@@ -27,7 +27,7 @@ No user prompt needed:
 
 ## Parallel Task Execution
 
-ALWAYS use parallel Task execution for independent operations:
+When agents are justified, run independent ones in parallel:
 
 ```markdown
 # GOOD: Parallel execution

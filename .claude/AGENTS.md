@@ -1,13 +1,13 @@
 # Everything Claude Code (ECC) — Agent Instructions
 
-This is a **production-ready AI coding plugin** providing 47 specialized agents, 181 skills, 79 commands, and automated hook workflows for software development.
+This is a **production-ready AI coding plugin** providing 47 specialized agents, 122 skills, 79 commands, and automated hook workflows for software development.
 
 **Version:** 1.10.0
 
 ## Core Principles
 
-1. **Agent-First** — Delegate to specialized agents for domain tasks
-2. **Test-Driven** — Write tests before implementation, 80%+ coverage required
+1. **Agents When Justified** — Delegate to specialized agents only for tasks large enough to need them
+2. **Tested** — Test business logic; TDD recommended for core logic
 3. **Security-First** — Never compromise on security; validate all inputs
 4. **Immutability** — Always create new objects, never mutate existing ones
 5. **Plan Before Execute** — Plan complex features before writing code
@@ -45,7 +45,7 @@ This is a **production-ready AI coding plugin** providing 47 specialized agents,
 
 ## Agent Orchestration
 
-Use agents proactively without user prompt:
+Use agents when the task justifies it:
 - Complex feature requests → **planner**
 - Code just written/modified → **code-reviewer**
 - Bug fix or new feature → **tdd-guide**
@@ -90,17 +90,15 @@ Use parallel execution for independent operations — launch multiple agents sim
 
 ## Testing Requirements
 
-**Minimum coverage: 80%**
-
-Test types (all required):
+Test types:
 1. **Unit tests** — Individual functions, utilities, components
 2. **Integration tests** — API endpoints, database operations
 3. **E2E tests** — Critical user flows
 
-**TDD workflow (mandatory):**
+**TDD workflow (recommended for core logic):**
 1. Write test first (RED) — test should FAIL
 2. Write minimal implementation (GREEN) — test should PASS
-3. Refactor (IMPROVE) — verify coverage 80%+
+3. Refactor (IMPROVE)
 
 Troubleshoot failures: check test isolation → verify mocks → fix implementation (not tests, unless tests are wrong).
 
@@ -146,7 +144,7 @@ Troubleshoot failures: check test isolation → verify mocks → fix implementat
 
 ```
 agents/          — 47 specialized subagents
-skills/          — 181 workflow skills and domain knowledge
+skills/          — 122 workflow skills and domain knowledge
 commands/        — 79 slash commands
 hooks/           — Trigger-based automations
 rules/           — Always-follow guidelines (common + per-language)
@@ -159,7 +157,7 @@ tests/           — Test suite
 
 ## Success Metrics
 
-- All tests pass with 80%+ coverage
+- All tests pass
 - No security vulnerabilities
 - Code is readable and maintainable
 - Performance is acceptable
