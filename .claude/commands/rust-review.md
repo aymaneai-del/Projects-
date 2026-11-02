@@ -134,7 +134,7 @@ Recommendation: Block merge until CRITICAL issue is fixed
 - Use `/rust-test` first to ensure tests pass
 - Use `/rust-build` if build errors occur
 - Use `/rust-review` before committing
-- Use `/code-review` for non-Rust-specific concerns
+- Use `/ecc-code-review` for non-Rust-specific concerns
 
 ## Related
 

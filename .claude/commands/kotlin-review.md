@@ -132,7 +132,7 @@ Recommendation: FAIL: Block merge until CRITICAL issue is fixed
 - Use `/kotlin-test` first to ensure tests pass
 - Use `/kotlin-build` if build errors occur
 - Use `/kotlin-review` before committing
-- Use `/code-review` for non-Kotlin-specific concerns
+- Use `/ecc-code-review` for non-Kotlin-specific concerns
 
 ## Related
 

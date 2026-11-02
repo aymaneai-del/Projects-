@@ -236,7 +236,7 @@ For PMX, prioritize these E2E tests:
 - Use `/plan` to identify critical journeys to test
 - Use `/tdd` for unit tests (faster, more granular)
 - Use `/e2e` for integration and user journey tests
-- Use `/code-review` to verify test quality
+- Use `/ecc-code-review` to verify test quality
 
 ## Related Agents
 

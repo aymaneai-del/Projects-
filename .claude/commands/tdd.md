@@ -217,7 +217,7 @@ Never skip the RED phase. Never write code before tests.
 - Use `/plan` first to understand what to build
 - Use `/tdd` to implement with tests
 - Use `/build-fix` if build errors occur
-- Use `/code-review` to review implementation
+- Use `/ecc-code-review` to review implementation
 - Use `/test-coverage` to verify coverage
 
 ## Related Agents

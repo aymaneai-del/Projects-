@@ -105,7 +105,7 @@ If you want changes, respond with:
 After planning:
 - Use `/tdd` to implement with test-driven development
 - Use `/build-fix` if build errors occur
-- Use `/code-review` to review completed implementation
+- Use `/ecc-code-review` to review completed implementation
 
 > **Need deeper planning?** Use `/prp-plan` for artifact-producing planning with PRD integration, codebase analysis, and pattern extraction. Use `/prp-implement` to execute those plans with rigorous validation loops.
 

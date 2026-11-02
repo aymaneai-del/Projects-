@@ -140,7 +140,7 @@ Recommendation: FAIL: Block merge until CRITICAL issue is fixed
 - Use `/go-test` first to ensure tests pass
 - Use `/go-build` if build errors occur
 - Use `/go-review` before committing
-- Use `/code-review` for non-Go specific concerns
+- Use `/ecc-code-review` for non-Go specific concerns
 
 ## Related
 

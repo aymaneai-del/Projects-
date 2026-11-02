@@ -95,7 +95,7 @@ Files:     {count} file(s) changed
 Next steps:
   - git push           → push to remote
   - /prp-pr            → create a pull request
-  - /code-review       → review before pushing
+  - /ecc-code-review       → review before pushing
 ```
 
 ---

@@ -124,7 +124,7 @@ Recommendation: FAIL: Block merge until CRITICAL issue is fixed
 - Use `/cpp-test` first to ensure tests pass
 - Use `/cpp-build` if build errors occur
 - Use `/cpp-review` before committing
-- Use `/code-review` for non-C++ specific concerns
+- Use `/ecc-code-review` for non-C++ specific concerns
 
 ## Related
 

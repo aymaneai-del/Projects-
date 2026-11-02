@@ -18,7 +18,7 @@ Pull these ECC-native skills into the workflow when relevant:
 - `agentic-engineering` for tracing the request path into discrete, provable units
 - `customer-billing-ops` when repo behavior and customer-impact math must be separated cleanly
 - `search-first` before inventing helpers or re-implementing repo-local utilities
-- `security-review` when auth, usage gates, entitlements, or secrets are touched
+- `ecc-security-review` when auth, usage gates, entitlements, or secrets are touched
 - `verification-loop` for proving rerun safety and exact post-fix state
 - `tdd-workflow` when the fix needs regression coverage in the worker, router, or billing paths
 

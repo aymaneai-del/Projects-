@@ -267,7 +267,7 @@ Write report to `.claude/PRPs/reports/{plan-name}-report.md`:
 | `path/to/test` | N tests | [area covered] |
 
 ## Next Steps
-- [ ] Code review via `/code-review`
+- [ ] Code review via `/ecc-code-review`
 - [ ] Create PR via `/prp-pr`
 ```
 
@@ -326,7 +326,7 @@ Report to user:
 | Phase 2 | [next] |
 | ... | ... |
 
-> Next step: Run `/prp-pr` to create a pull request, or `/code-review` to review changes first.
+> Next step: Run `/prp-pr` to create a pull request, or `/ecc-code-review` to review changes first.
 ```
 
 ---
@@ -379,7 +379,7 @@ Report to user:
 
 ## Next Steps
 
-- Run `/code-review` to review changes before committing
+- Run `/ecc-code-review` to review changes before committing
 - Run `/prp-commit` to commit with a descriptive message
 - Run `/prp-pr` to create a pull request
 - Run `/prp-plan <next-phase>` if the PRD has more phases

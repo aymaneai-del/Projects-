@@ -107,7 +107,7 @@ Verdict: BLOCK — HIGH issues must be fixed before merge.
 
 - `/flutter-build` — Fix build errors first
 - `/flutter-test` — Run tests before reviewing
-- `/code-review` — General code review (language-agnostic)
+- `/ecc-code-review` — General code review (language-agnostic)
 
 ## Related
 

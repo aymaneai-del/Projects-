@@ -96,7 +96,7 @@ If credentials are missing, stop and direct the user to set them up.
 After analyzing a ticket:
 - Use `/plan` to create an implementation plan from the requirements
 - Use `/tdd` to implement with test-driven development
-- Use `/code-review` after implementation
+- Use `/ecc-code-review` after implementation
 - Use `/jira comment` to post progress back to the ticket
 - Use `/jira transition` to move the ticket when work is complete
 

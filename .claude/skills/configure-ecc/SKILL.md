@@ -143,7 +143,7 @@ For each selected category, print the full list of skills below and ask the user
 | `continuous-learning-v2` | Instinct-based learning with confidence scoring, evolves into skills, agents, and optional legacy command shims |
 | `eval-harness` | Formal evaluation framework for eval-driven development (EDD) |
 | `iterative-retrieval` | Progressive context refinement for subagent context problem |
-| `security-review` | Security checklist: auth, input, secrets, API, payment features |
+| `ecc-security-review` | Security checklist: auth, input, secrets, API, payment features |
 | `strategic-compact` | Suggests manual context compaction at logical intervals |
 | `tdd-workflow` | Enforces TDD with 80%+ coverage: unit, integration, E2E |
 | `verification-loop` | Verification and quality loop patterns |

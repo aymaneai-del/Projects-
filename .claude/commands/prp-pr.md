@@ -169,7 +169,7 @@ Artifacts referenced:
 
 Next steps:
   - gh pr view <number> --web   → open in browser
-  - /code-review <number>       → review the PR
+  - /ecc-code-review <number>       → review the PR
   - gh pr merge <number>        → merge when ready
 ```
 
