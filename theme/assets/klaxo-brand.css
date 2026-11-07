@@ -356,43 +356,248 @@
 
 @media (prefers-reduced-motion: reduce) {
   .klaxo *,
+  .klaxo *::before,
+  .klaxo *::after,
   .klaxo-header,
   .klaxo-btn { transition: none !important; animation: none !important; }
   html { scroll-behavior: auto; }
 }
 
-/* ---- Hero ---------------------------------------------------------------- */
+/* ---- Hero ----------------------------------------------------------------
+   Scène noire : le produit et le bouton jaune ressortent, et c'est la seule
+   section sombre de l'accueil — elle marque le « magasin » dès l'arrivée.
+   Ordre mobile : titre → visuel → prix + bouton, tout dans le premier écran.
+   ------------------------------------------------------------------------- */
 
-.klaxo-hero { padding: 44px 0 8px; }
+.klaxo-hero {
+  --k-hero-ink: rgba(255, 255, 255, .72);
+  background:
+    radial-gradient(120% 70% at 85% 0%, rgba(255, 214, 10, .16), transparent 60%),
+    var(--k-black);
+  color: var(--k-white);
+  padding: 22px 0 28px;
+}
 
 .klaxo-hero__inner {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 30px;
-  align-items: center;
+  gap: 16px;
 }
 
 @media (min-width: 900px) {
-  .klaxo-hero { padding: 64px 0 12px; }
-  .klaxo-hero__inner { grid-template-columns: 1fr 460px; gap: 48px; }
+  .klaxo-hero { padding: 64px 0; }
+  .klaxo-hero__inner {
+    grid-template-columns: 1fr 480px;
+    grid-template-areas: "text media" "buy media";
+    column-gap: 56px;
+    row-gap: 28px;
+    align-items: start;
+  }
+  .klaxo-hero__text  { grid-area: text; align-self: end; }
+  .klaxo-hero__media { grid-area: media; }
+  .klaxo-hero__buy   { grid-area: buy; }
 }
 
-.klaxo-hero__title { font-size: clamp(32px, 6vw, 52px); }
+.klaxo-hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--k-yellow);
+}
 
-.klaxo-hero__cta { margin-top: 22px; }
+/* Pastille clignotante : signale un produit « actif », sans texte de plus. */
+.klaxo-hero__eyebrow::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--k-yellow);
+  animation: klaxo-blink 2.4s ease-in-out infinite;
+}
 
-.klaxo-hero__note {
+.klaxo-hero__title {
+  font-size: clamp(32px, 8.4vw, 60px);
+  line-height: 1.02;
+  letter-spacing: -.025em;
+  margin: 0;
+}
+
+.klaxo-hero__accent { display: block; color: var(--k-yellow); }
+
+.klaxo-hero__lede {
   margin: 10px 0 0;
-  font-size: 13.5px;
-  color: var(--k-muted);
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--k-hero-ink);
+  max-width: 44ch;
 }
 
-.klaxo-hero__media img {
+/* Visuel : carré sur mobile pour tenir dans le premier écran. */
+.klaxo-hero__media {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  max-height: 46vh;
   width: 100%;
-  height: auto;
   border-radius: var(--k-radius-lg);
-  box-shadow: var(--k-shadow-lg);
+  overflow: hidden;
+  background: #17171D;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, .45);
 }
+
+@media (min-width: 900px) {
+  .klaxo-hero__media { aspect-ratio: 4 / 5; max-height: none; }
+}
+
+.klaxo-hero__media img,
+.klaxo-hero__media video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.klaxo-hero__placeholder {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  color: rgba(255, 255, 255, .25);
+}
+
+.klaxo-hero__badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 6px 12px;
+  border-radius: 99px;
+  background: var(--k-yellow);
+  color: var(--k-black);
+  font-size: 12.5px;
+  font-weight: 800;
+  letter-spacing: .02em;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, .3);
+}
+
+.klaxo-hero__product {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--k-hero-ink);
+}
+
+.klaxo-hero__price {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  margin: 2px 0 0;
+}
+
+.klaxo-hero__from { font-size: 15px; color: var(--k-hero-ink); }
+
+.klaxo-hero__amount {
+  font-family: var(--k-font-display);
+  font-weight: 800;
+  font-size: clamp(30px, 7vw, 40px);
+  line-height: 1;
+  color: var(--k-white);
+}
+
+.klaxo-hero__was { white-space: nowrap; font-size: 17px; color: rgba(255, 255, 255, .5); }
+
+.klaxo-hero__save {
+  padding: 3px 9px;
+  border-radius: 6px;
+  background: var(--k-orange);
+  color: var(--k-white);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.klaxo-hero__pricenote { margin: 6px 0 0; font-size: 14px; color: var(--k-hero-ink); }
+
+.klaxo-hero__cta {
+  width: 100%;
+  min-height: 56px;
+  margin-top: 14px;
+  font-size: 17px;
+  font-weight: 800;
+}
+
+@media (min-width: 900px) {
+  .klaxo-hero__cta { width: auto; padding-inline: 34px; }
+}
+
+.klaxo .klaxo-hero__trust {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  margin-top: 14px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--k-hero-ink);
+}
+
+.klaxo-hero__trust li { display: inline-flex; align-items: center; gap: 6px; }
+.klaxo-hero__trust svg { color: var(--k-yellow); flex: none; }
+
+.klaxo-hero__more {
+  display: inline-block;
+  margin-top: 14px;
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--k-white);
+  border-bottom: 1px solid rgba(255, 255, 255, .35);
+}
+
+.klaxo-hero__more:hover { border-bottom-color: var(--k-yellow); }
+
+/* ---- Mouvement ------------------------------------------------------------
+   Peu, et seulement ce qui guide vers l'achat. Uniquement transform et
+   opacity (composités, aucun recalcul de mise en page). Tout est coupé par
+   prefers-reduced-motion plus haut.
+   ------------------------------------------------------------------------- */
+
+@keyframes klaxo-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .25; }
+}
+
+/* Reflet qui traverse le bouton toutes les 4 s : attire l'œil sans bouger
+   le bouton lui-même (un bouton qui bouge se rate au doigt). */
+.klaxo-btn--shine { position: relative; overflow: hidden; isolation: isolate; }
+
+.klaxo-btn--shine::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(105deg, transparent 35%, rgba(255, 255, 255, .55) 50%, transparent 65%);
+  transform: translateX(-120%);
+  animation: klaxo-shine 4s ease-in-out 1.2s infinite;
+}
+
+@keyframes klaxo-shine {
+  0%   { transform: translateX(-120%); }
+  30%, 100% { transform: translateX(120%); }
+}
+
+/* Apparition au défilement. Le masquage initial n'existe que si le JS a posé
+   .klaxo-motion sur <html> : sans JS, tout reste visible. Jamais appliqué au
+   hero, pour ne pas retarder l'élément LCP. */
+.klaxo-motion [data-klaxo-reveal] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity .6s ease var(--k-delay, 0s),
+    transform .6s cubic-bezier(.16, 1, .3, 1) var(--k-delay, 0s),
+    box-shadow .2s ease;
+}
+
+.klaxo-motion [data-klaxo-reveal].is-in { opacity: 1; transform: none; }
 
 /* ---- En-tête de page ----------------------------------------------------- */
 
@@ -639,13 +844,27 @@ a.klaxo-channel:hover { border-color: var(--k-black); transform: translateY(-2px
 
 /* ---- Grille produits ----------------------------------------------------- */
 
-.klaxo-grid-wrap { padding: 38px 0 56px; }
+.klaxo-grid-wrap { padding: 38px 0 56px; scroll-margin-top: 70px; }
 .klaxo-grid__head { margin-bottom: 26px; max-width: 62ch; }
 
 .klaxo-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 16px;
+  /* 2 colonnes dès 320px : sur mobile, voir deux produits par écran au lieu
+     d'un seul divise par deux le défilement avant de trouver le sien. */
+  grid-template-columns: repeat(auto-fill, minmax(min(150px, 44vw), 1fr));
+  gap: 12px;
+}
+
+@media (min-width: 750px) {
+  .klaxo-grid { grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 18px; }
+}
+
+@media (max-width: 749px) {
+  .klaxo-card__desc { display: none; }
+  .klaxo-card__body { padding: 11px 12px 12px; }
+  .klaxo-card__title { font-size: 14.5px; }
+  .klaxo-card__foot { flex-direction: column; align-items: stretch; gap: 8px; }
+  .klaxo-card__cta { text-align: center; padding: 8px 10px; }
 }
 
 .klaxo-card {
@@ -656,16 +875,43 @@ a.klaxo-channel:hover { border-color: var(--k-black); transform: translateY(-2px
   transition: transform var(--k-ease), box-shadow var(--k-ease);
 }
 
-.klaxo-card:hover { transform: translateY(-3px); box-shadow: var(--k-shadow); }
+/* Survol : la photo s'approche plutôt que la carte ne monte — la carte porte
+   déjà la translation d'apparition, deux transform se marcheraient dessus. */
+.klaxo-card:hover { box-shadow: var(--k-shadow); }
+.klaxo-card:hover .klaxo-card__media img { transform: scale(1.045); }
+.klaxo-card__cta { transition: background-color var(--k-ease); }
+.klaxo-card:hover .klaxo-card__cta { background: var(--k-black); color: var(--k-yellow); }
 .klaxo-card__link { display: flex; flex-direction: column; height: 100%; }
 
 .klaxo-card__media {
+  position: relative;
   display: block;
   aspect-ratio: 1 / 1;
   background: var(--k-sand);
   overflow: hidden;
 }
-.klaxo-card__media img { width: 100%; height: 100%; object-fit: cover; }
+.klaxo-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .5s cubic-bezier(.16, 1, .3, 1);
+}
+
+.klaxo-card__badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 1;
+  padding: 4px 10px;
+  border-radius: 99px;
+  background: var(--k-black);
+  color: var(--k-yellow);
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: .03em;
+}
+
+.klaxo-card__badge--deal { background: var(--k-orange); color: var(--k-white); }
 
 .klaxo-card__placeholder {
   display: grid;
@@ -691,6 +937,8 @@ a.klaxo-channel:hover { border-color: var(--k-black); transform: translateY(-2px
 }
 
 .klaxo-card__price { font-weight: 800; font-size: 17px; font-variant-numeric: tabular-nums; }
+.klaxo-card__price small { font-size: 12.5px; font-weight: 600; color: var(--k-muted); }
+.klaxo-card__was { white-space: nowrap; margin-left: 4px; font-size: 13px; font-weight: 500; color: var(--k-muted); }
 
 .klaxo-card__cta {
   background: var(--k-yellow);

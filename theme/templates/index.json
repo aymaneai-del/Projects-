@@ -7,24 +7,21 @@
           "type": "reassurance",
           "settings": {
             "icon": "cash",
-            "title": "Paiement à la livraison",
-            "text": "Tu payes le livreur, en espèces."
+            "title": "Paiement à la livraison"
           }
         },
         "b2": {
           "type": "reassurance",
           "settings": {
             "icon": "truck",
-            "title": "Livraison 24-72h",
-            "text": "Partout au Maroc, incluse."
+            "title": "Livré en 24-72 h"
           }
         },
         "b3": {
           "type": "reassurance",
           "settings": {
             "icon": "return",
-            "title": "Échange 7 jours",
-            "text": "Si ça ne va pas, on reprend."
+            "title": "Échange 7 jours"
           }
         }
       },
@@ -33,56 +30,30 @@
         "b2",
         "b3"
       ],
-      "settings": {}
+      "settings": {
+        "product": "organisateur-entre-sieges",
+        "eyebrow": "Le plus commandé",
+        "title": "Fini le bazar",
+        "title_accent": "entre les sièges.",
+        "text": "Téléphone, papiers, bouteille : tout à portée de main, plus rien qui tombe sous le siège.",
+        "badge": "Livraison incluse",
+        "price_note": "Tu payes au livreur, à la réception.",
+        "cta_label": "Commander maintenant",
+        "secondary_label": "Voir tous les produits",
+        "secondary_url": "#produits"
+      }
     },
     "produits": {
       "type": "klaxo-collection",
       "settings": {
         "eyebrow": "La sélection",
         "title": "Les essentiels pour ta voiture",
-        "text": "Pas de catalogue infini. Les produits qu'on garde dans nos propres voitures — choisis, testés, livrés.",
+        "text": "Peu de produits, tous testés dans nos propres voitures.",
         "show_excerpt": true,
         "cta_label": "Commander",
         "heading_level": "h2",
-        "limit": 12
-      }
-    },
-    "pourquoi": {
-      "type": "klaxo-features",
-      "blocks": {
-        "f1": {
-          "type": "feature",
-          "settings": {
-            "icon": "truck",
-            "title": "Pensé pour le Maroc",
-            "text": "Livraison dans tout le pays, confirmation par téléphone, paiement en espèces. Le parcours que les Marocains connaissent."
-          }
-        },
-        "f2": {
-          "type": "feature",
-          "settings": {
-            "icon": "shield",
-            "title": "Peu de produits, bien choisis",
-            "text": "On ne référence que ce qu'on a testé nous-mêmes. Moins de choix, zéro mauvaise surprise."
-          }
-        },
-        "f3": {
-          "type": "feature",
-          "settings": {
-            "icon": "cash",
-            "title": "Risque zéro de ton côté",
-            "text": "Tu ne payes qu'à la réception, après avoir vu le produit. Et tu peux refuser sur place, sans frais."
-          }
-        }
-      },
-      "block_order": [
-        "f1",
-        "f2",
-        "f3"
-      ],
-      "settings": {
-        "eyebrow": "Pourquoi KLAXO",
-        "title": "Ce qu'on fait différemment"
+        "limit": 12,
+        "anchor": "produits"
       }
     },
     "avis": {
@@ -97,17 +68,59 @@
     "cta": {
       "type": "klaxo-cta",
       "settings": {
-        "title": "Prêt à équiper ta voiture ?",
-        "text": "Tu choisis, tu reçois, tu payes au livreur.",
-        "cta_label": "Voir les produits"
+        "title": "Prêt à ranger ta voiture ?",
+        "text": "Un formulaire, un appel pour confirmer, tu payes au livreur.",
+        "cta_label": "Commander maintenant",
+        "cta_url": "/products/organisateur-entre-sieges"
       }
+    },
+    "faq": {
+      "type": "klaxo-faq",
+      "blocks": {
+        "q1": {
+          "type": "question",
+          "settings": {
+            "category": "Avant de commander",
+            "question": "Je paye quand ?",
+            "answer": "<p><strong>À la réception, en espèces.</strong> Aucune avance, aucune carte bancaire. Le prix affiché est exactement ce que tu donnes au livreur.</p>"
+          }
+        },
+        "q2": {
+          "type": "question",
+          "settings": {
+            "question": "Et si le produit ne me plaît pas ?",
+            "answer": "<p>Tu peux refuser le colis devant le livreur, sans frais. Après réception, tu as <strong>7 jours</strong> pour l'échanger.</p>"
+          }
+        },
+        "q3": {
+          "type": "question",
+          "settings": {
+            "question": "Je reçois en combien de temps ?",
+            "answer": "<p>24 à 72 h partout au Maroc. On t'appelle d'abord pour confirmer ta commande et ton adresse.</p>"
+          }
+        },
+        "q4": {
+          "type": "question",
+          "settings": {
+            "question": "La livraison coûte combien ?",
+            "answer": "<p><strong>Elle est incluse dans le prix.</strong> Aucun frais ajouté à la fin.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4"
+      ],
+      "settings": {}
     }
   },
   "order": [
     "hero",
     "produits",
-    "pourquoi",
     "avis",
+    "faq",
     "cta"
   ]
 }

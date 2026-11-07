@@ -65,4 +65,29 @@
       }
     });
   }
+
+  /* Apparition au défilement des éléments [data-klaxo-reveal].
+     Le CSS ne masque ces éléments que sous html.klaxo-motion, posé ici :
+     si le JS échoue, ou si le visiteur demande moins de mouvement, ou si le
+     navigateur n'a pas IntersectionObserver, tout reste simplement visible. */
+  var aReveler = document.querySelectorAll('[data-klaxo-reveal]');
+  var calme = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (aReveler.length && !calme && 'IntersectionObserver' in window) {
+    var observateur = new IntersectionObserver(
+      function (entrees) {
+        entrees.forEach(function (entree) {
+          if (entree.isIntersecting) {
+            entree.target.classList.add('is-in');
+            observateur.unobserve(entree.target);
+          }
+        });
+      },
+      { rootMargin: '0px 0px -8% 0px', threshold: 0.12 }
+    );
+    document.documentElement.classList.add('klaxo-motion');
+    aReveler.forEach(function (el) {
+      observateur.observe(el);
+    });
+  }
 })();

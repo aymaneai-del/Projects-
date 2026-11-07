@@ -8,7 +8,7 @@
 
 {{ 'klaxo-brand.css' | asset_url | stylesheet_tag }}
 
-<section class="klaxo klaxo-grid-wrap">
+<section class="klaxo klaxo-grid-wrap"{% if section.settings.anchor != blank %} id="{{ section.settings.anchor | handleize }}"{% endif %}>
   <div class="klaxo-container">
     {%- if section.settings.title != blank -%}
       <div class="klaxo-grid__head">
@@ -41,9 +41,21 @@
     {%- if produits.size > 0 -%}
       <ul class="klaxo-grid" role="list">
         {%- for product in produits -%}
-          <li class="klaxo-card">
+          {%- assign v = product.selected_or_first_available_variant -%}
+          <li class="klaxo-card" data-klaxo-reveal style="--k-delay: {{ forloop.index0 | modulo: 4 | times: 0.08 }}s">
             <a href="{{ product.url }}" class="klaxo-card__link">
               <span class="klaxo-card__media">
+                {%- comment -%}
+                  Badge piloté par un tag Shopify (« best-seller »), pas par
+                  le thème : il ne s'affiche que sur le produit que TU
+                  désignes, ce qui le garde vrai.
+                {%- endcomment -%}
+                {%- if product.tags contains 'best-seller' -%}
+                  <span class="klaxo-card__badge">Best-seller</span>
+                {%- elsif v.compare_at_price > v.price -%}
+                  {%- assign remise = v.compare_at_price | minus: v.price | times: 100 | divided_by: v.compare_at_price -%}
+                  <span class="klaxo-card__badge klaxo-card__badge--deal">−{{ remise }} %</span>
+                {%- endif -%}
                 {%- if product.featured_image -%}
                   {{
                     product.featured_image
@@ -64,7 +76,13 @@
                   <span class="klaxo-card__desc">{{ product.description | strip_html | truncate: 78 }}</span>
                 {%- endif -%}
                 <span class="klaxo-card__foot">
-                  <span class="klaxo-card__price">{{ product.price | money_without_trailing_zeros }}</span>
+                  <span class="klaxo-card__price">
+                    {%- if product.price_varies -%}<small>dès </small>{%- endif -%}
+                    {{ product.price | money_without_trailing_zeros }}
+                    {%- if v.compare_at_price > v.price %}
+                      <s class="klaxo-card__was"><span class="klaxo-visually-hidden">au lieu de </span>{{ v.compare_at_price | money_without_trailing_zeros }}</s>
+                    {%- endif -%}
+                  </span>
                   <span class="klaxo-card__cta">{{ section.settings.cta_label | default: 'Commander' }}</span>
                 </span>
               </span>
@@ -89,6 +107,7 @@
       "label": "Collection",
       "info": "À renseigner sur la page d'accueil. Sur une page collection, laisse vide : la collection affichée est utilisée."
     },
+    { "type": "text", "id": "anchor", "label": "Ancre (lien #)", "info": "Ex. produits : le lien #produits fait défiler jusqu'à la grille." },
     { "type": "range", "id": "limit", "label": "Nombre de produits", "min": 3, "max": 12, "step": 1, "default": 12 },
     { "type": "text", "id": "eyebrow", "label": "Sur-titre", "default": "La sélection" },
     { "type": "text", "id": "title", "label": "Titre", "default": "Nos produits" },

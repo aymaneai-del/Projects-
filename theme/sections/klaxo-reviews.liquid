@@ -24,7 +24,7 @@
 
       <div class="klaxo-reviews__grid">
         {%- for block in section.blocks -%}
-          <figure class="klaxo-review" {{ block.shopify_attributes }}>
+          <figure class="klaxo-review" data-klaxo-reveal style="--k-delay: {{ forloop.index0 | modulo: 3 | times: 0.08 }}s" {{ block.shopify_attributes }}>
             {%- if block.settings.stars > 0 -%}
               <div class="klaxo-review__stars" aria-label="{{ block.settings.stars }} sur 5">
                 {%- for i in (1..block.settings.stars) -%}
